@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="compatibility-v13-r4">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/compatibility-v13-r4.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
