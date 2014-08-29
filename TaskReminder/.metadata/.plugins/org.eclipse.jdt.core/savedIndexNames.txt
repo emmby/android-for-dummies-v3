@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+/Users/mike/Downloads/770184 Code-TaskReminder/.metadata/.plugins/org.eclipse.jdt.core
+712385364.index
+1569784610.index

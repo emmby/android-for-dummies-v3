@@ -1,0 +1,4 @@
+#Sun Apr 22 13:26:42 PDT 2012
+com.android.ide.eclipse.adt.sdk=/opt/local/android-sdk-mac
+eclipse.preferences.version=1
+com.android.ide.eclipse.adt.fixLegacyEditors=1
