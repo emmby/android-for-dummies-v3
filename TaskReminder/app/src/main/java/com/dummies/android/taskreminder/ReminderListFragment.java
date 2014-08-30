@@ -23,7 +23,7 @@ import com.dummies.android.taskreminder.R.string;
 public class ReminderListFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    private SimpleCursorAdapter mAdapter;
+    private SimpleCursorAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,9 @@ public class ReminderListFragment extends ListFragment implements
         int[] to = new int[] { R.id.text1 };
 
         // Now create a simple cursor adapter and set it to display
-        mAdapter = new SimpleCursorAdapter(getActivity(),
+        adapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.reminder_row, null, from, to, 0);
-        setListAdapter(mAdapter);
+        setListAdapter(adapter);
 
         getLoaderManager().initLoader(0, null, this);
     }
@@ -113,7 +113,7 @@ public class ReminderListFragment extends ListFragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        mAdapter.swapCursor(cursor);
+        adapter.swapCursor(cursor);
     }
 
     @Override
@@ -121,6 +121,6 @@ public class ReminderListFragment extends ListFragment implements
         // This is called when the last Cursor provided to onLoadFinished()
         // above is about to be closed. We need to make sure we are no
         // longer using it.
-        mAdapter.swapCursor(null);
+        adapter.swapCursor(null);
     }
 }

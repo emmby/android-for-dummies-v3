@@ -49,12 +49,12 @@ public class ReminderEditFragment extends Fragment implements
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
 
-    private EditText mTitleText;
-    private EditText mBodyText;
-    private Button mDateButton;
-    private Button mTimeButton;
-    private long mRowId;
-    private Calendar mCalendar;
+    private EditText titleText;
+    private EditText bodyText;
+    private Button dateButton;
+    private Button timeButton;
+    private long rowId;
+    private Calendar calendar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,14 +64,14 @@ public class ReminderEditFragment extends Fragment implements
         // previous date as well, otherwise use now
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(CALENDAR)) {
-            mCalendar = (Calendar) savedInstanceState.getSerializable(CALENDAR);
+            calendar = (Calendar) savedInstanceState.getSerializable(CALENDAR);
         } else {
-            mCalendar = Calendar.getInstance();
+            calendar = Calendar.getInstance();
         }
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            mRowId = arguments.getLong(ReminderProvider.COLUMN_ROWID,0L);
+            rowId = arguments.getLong(ReminderProvider.COLUMN_ROWID,0L);
         }
     }
 
@@ -81,19 +81,19 @@ public class ReminderEditFragment extends Fragment implements
 
         View v = inflater.inflate(R.layout.reminder_edit_fragment, container, false);
 
-        mTitleText = (EditText) v.findViewById(R.id.title);
-        mBodyText = (EditText) v.findViewById(R.id.body);
-        mDateButton = (Button) v.findViewById(R.id.reminder_date);
-        mTimeButton = (Button) v.findViewById(R.id.reminder_time);
+        titleText = (EditText) v.findViewById(R.id.title);
+        bodyText = (EditText) v.findViewById(R.id.body);
+        dateButton = (Button) v.findViewById(R.id.reminder_date);
+        timeButton = (Button) v.findViewById(R.id.reminder_time);
 
-        mDateButton.setOnClickListener(new View.OnClickListener() {
+        dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
             }
         });
 
-        mTimeButton.setOnClickListener(new View.OnClickListener() {
+        timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePicker();
@@ -105,39 +105,39 @@ public class ReminderEditFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 ContentValues values = new ContentValues();
-                values.put(ReminderProvider.COLUMN_ROWID, mRowId);
-                values.put(ReminderProvider.COLUMN_TITLE, mTitleText.getText()
+                values.put(ReminderProvider.COLUMN_ROWID, rowId);
+                values.put(ReminderProvider.COLUMN_TITLE, titleText.getText()
                         .toString());
-                values.put(ReminderProvider.COLUMN_BODY, mBodyText.getText()
+                values.put(ReminderProvider.COLUMN_BODY, bodyText.getText()
                         .toString());
                 values.put(ReminderProvider.COLUMN_DATE_TIME,
-                        mCalendar.getTimeInMillis());
+                        calendar.getTimeInMillis());
 
-                if (mRowId == 0) {
+                if (rowId == 0) {
                     Uri itemUri = getActivity().getContentResolver().insert(
                             ReminderProvider.CONTENT_URI, values);
-                    mRowId = ContentUris.parseId(itemUri);
+                    rowId = ContentUris.parseId(itemUri);
                 } else {
                     int count = getActivity().getContentResolver().update(
                             ContentUris.withAppendedId(
-                                    ReminderProvider.CONTENT_URI, mRowId),
+                                    ReminderProvider.CONTENT_URI, rowId),
                             values, null, null);
                     if (count != 1)
                         throw new IllegalStateException("Unable to update "
-                                + mRowId);
+                                + rowId);
                 }
 
                 Toast.makeText(getActivity(),
                         getString(R.string.task_saved_message),
                         Toast.LENGTH_SHORT).show();
                 ((OnFinishEditor) getActivity()).finishEditor();
-                new ReminderManager(getActivity()).setReminder(mRowId,
-                        mCalendar);
+                new ReminderManager(getActivity()).setReminder(rowId,
+                        calendar);
             }
 
         });
 
-        if (mRowId == 0) {
+        if (rowId == 0) {
             // This is a new task - add defaults from preferences if set.
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(getActivity());
@@ -148,10 +148,10 @@ public class ReminderEditFragment extends Fragment implements
             String defaultTime = prefs.getString(defaultTimeKey, null);
 
             if (defaultTitle != null)
-                mTitleText.setText(defaultTitle);
+                titleText.setText(defaultTitle);
 
             if (defaultTime != null && defaultTime.length()>0 )
-                mCalendar.add(Calendar.MINUTE, Integer.parseInt(defaultTime));
+                calendar.add(Calendar.MINUTE, Integer.parseInt(defaultTime));
 
             updateButtons();
 
@@ -171,16 +171,16 @@ public class ReminderEditFragment extends Fragment implements
         super.onSaveInstanceState(outState);
 
         // Save the calendar instance in case the user changed it
-        outState.putSerializable(CALENDAR, mCalendar);
+        outState.putSerializable(CALENDAR, calendar);
     }
 
     private void showDatePicker() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         DialogFragment newFragment = new DatePickerDialogFragment();
         Bundle args = new Bundle();
-        args.putInt(YEAR, mCalendar.get(Calendar.YEAR));
-        args.putInt(MONTH, mCalendar.get(Calendar.MONTH));
-        args.putInt(DAY, mCalendar.get(Calendar.DAY_OF_MONTH));
+        args.putInt(YEAR, calendar.get(Calendar.YEAR));
+        args.putInt(MONTH, calendar.get(Calendar.MONTH));
+        args.putInt(DAY, calendar.get(Calendar.DAY_OF_MONTH));
         newFragment.setArguments(args);
         newFragment.show(ft, "datePicker");
     }
@@ -189,8 +189,8 @@ public class ReminderEditFragment extends Fragment implements
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         DialogFragment newFragment = new TimePickerDialogFragment();
         Bundle args = new Bundle();
-        args.putInt(HOUR, mCalendar.get(Calendar.HOUR_OF_DAY));
-        args.putInt(MINS, mCalendar.get(Calendar.MINUTE));
+        args.putInt(HOUR, calendar.get(Calendar.HOUR_OF_DAY));
+        args.putInt(MINS, calendar.get(Calendar.MINUTE));
         newFragment.setArguments(args);
         newFragment.show(ft, "timePicker");
     }
@@ -198,35 +198,35 @@ public class ReminderEditFragment extends Fragment implements
     private void updateButtons() {
         // Set the time button text
         SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
-        String timeForButton = timeFormat.format(mCalendar.getTime());
-        mTimeButton.setText(timeForButton);
+        String timeForButton = timeFormat.format(calendar.getTime());
+        timeButton.setText(timeForButton);
 
         // Set the date button text
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        String dateForButton = dateFormat.format(mCalendar.getTime());
-        mDateButton.setText(dateForButton);
+        String dateForButton = dateFormat.format(calendar.getTime());
+        dateButton.setText(dateForButton);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear,
             int dayOfMonth) {
-        mCalendar.set(Calendar.YEAR, year);
-        mCalendar.set(Calendar.MONTH, monthOfYear);
-        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, monthOfYear);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         updateButtons();
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hour, int minute) {
-        mCalendar.set(Calendar.HOUR_OF_DAY, hour);
-        mCalendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
         updateButtons();
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), ContentUris.withAppendedId(
-                ReminderProvider.CONTENT_URI, mRowId), null, null, null, null);
+                ReminderProvider.CONTENT_URI, rowId), null, null, null, null);
     }
 
     @Override
@@ -242,16 +242,16 @@ public class ReminderEditFragment extends Fragment implements
             return;
         }
 
-        mTitleText.setText(reminder.getString(reminder
+        titleText.setText(reminder.getString(reminder
                 .getColumnIndexOrThrow(ReminderProvider.COLUMN_TITLE)));
-        mBodyText.setText(reminder.getString(reminder
+        bodyText.setText(reminder.getString(reminder
                 .getColumnIndexOrThrow(ReminderProvider.COLUMN_BODY)));
 
         // Get the date from the database
         Long dateInMillis = reminder.getLong(reminder
                 .getColumnIndexOrThrow(ReminderProvider.COLUMN_DATE_TIME));
         Date date = new Date(dateInMillis);
-        mCalendar.setTime(date);
+        calendar.setTime(date);
 
         updateButtons();
 

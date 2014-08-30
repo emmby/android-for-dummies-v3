@@ -37,9 +37,9 @@ public class ReminderProvider extends ContentProvider {
     // UriMatcher stuff
     private static final int LIST_REMINDER = 0;
     private static final int ITEM_REMINDER = 1;
-    private static final UriMatcher sURIMatcher = buildUriMatcher();
+    private static final UriMatcher URI_MATCHER = buildUriMatcher();
 
-    private SQLiteDatabase mDb;
+    private SQLiteDatabase db;
 
     /**
      * Builds up a UriMatcher for search suggestion and shortcut refresh
@@ -56,7 +56,7 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mDb = new DatabaseHelper(getContext()).getWritableDatabase();
+        db = new DatabaseHelper(getContext()).getWritableDatabase();
         return true;
     }
 
@@ -71,13 +71,13 @@ public class ReminderProvider extends ContentProvider {
         // Use the UriMatcher to see what kind of query we have and format the
         // db query accordingly
         Cursor c;
-        switch (sURIMatcher.match(uri)) {
+        switch (URI_MATCHER.match(uri)) {
         case LIST_REMINDER:
-            c = mDb.query(ReminderProvider.DATABASE_TABLE, projection, null,
+            c = db.query(ReminderProvider.DATABASE_TABLE, projection, null,
                     null, null, null, null);
             break;
         case ITEM_REMINDER:
-            c = mDb.query(ReminderProvider.DATABASE_TABLE, projection,
+            c = db.query(ReminderProvider.DATABASE_TABLE, projection,
                     ReminderProvider.COLUMN_ROWID + "=?",
                     new String[] { Long.toString(ContentUris.parseId(uri)) },
                     null, null, null, null);
@@ -98,7 +98,7 @@ public class ReminderProvider extends ContentProvider {
         values.remove(ReminderProvider.COLUMN_ROWID); // you can't insert and
                                                       // specify a row id, so
                                                       // remove it if present
-        long id = mDb.insertOrThrow(ReminderProvider.DATABASE_TABLE, null,
+        long id = db.insertOrThrow(ReminderProvider.DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
@@ -106,7 +106,7 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
-        int count = mDb.delete(ReminderProvider.DATABASE_TABLE,
+        int count = db.delete(ReminderProvider.DATABASE_TABLE,
                 ReminderProvider.COLUMN_ROWID + "=?",
                 new String[] { Long.toString(ContentUris.parseId(uri)) });
         if (count > 0)
@@ -117,7 +117,7 @@ public class ReminderProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
             String[] ignored2) {
-        int count = mDb.update(ReminderProvider.DATABASE_TABLE, values,
+        int count = db.update(ReminderProvider.DATABASE_TABLE, values,
                 COLUMN_ROWID + "=?",
                 new String[] { Long.toString(ContentUris.parseId(uri)) });
         if (count > 0)
@@ -131,7 +131,7 @@ public class ReminderProvider extends ContentProvider {
      */
     @Override
     public String getType(Uri uri) {
-        switch (sURIMatcher.match(uri)) {
+        switch (URI_MATCHER.match(uri)) {
         case LIST_REMINDER:
             return REMINDERS_MIME_TYPE;
         case ITEM_REMINDER:

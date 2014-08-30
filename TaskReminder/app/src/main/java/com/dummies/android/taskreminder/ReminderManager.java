@@ -9,23 +9,23 @@ import android.content.Intent;
 
 public class ReminderManager {
 
-    private Context mContext;
-    private AlarmManager mAlarmManager;
+    private Context context;
+    private AlarmManager alarmManager;
 
     public ReminderManager(Context context) {
-        mContext = context;
-        mAlarmManager = (AlarmManager) context
+        this.context = context;
+        alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
     }
 
     public void setReminder(Long taskId, Calendar when) {
 
-        Intent i = new Intent(mContext, OnAlarmReceiver.class);
+        Intent i = new Intent(context, OnAlarmReceiver.class);
         i.putExtra(ReminderProvider.COLUMN_ROWID, (long) taskId);
 
-        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i,
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP, when.getTimeInMillis(), pi);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, when.getTimeInMillis(), pi);
     }
 }
