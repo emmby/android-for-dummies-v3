@@ -39,8 +39,8 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // Create the PendingIntent that will wrap the
         // reminderEditIntent.  All intents that are used in
         // notifications must be wrapped in a PendingIntent to "give
-        // permission" to the AlarmManager to call back into our
-        // application.
+        // permission" to the OS to call back into our
+        // application when the notification is clicked.
         PendingIntent pi = PendingIntent.getActivity(context, 0,
                 reminderEditIntent, 0);
 

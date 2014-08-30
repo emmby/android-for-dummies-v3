@@ -7,6 +7,9 @@ import android.content.Intent;
 
 import java.util.Calendar;
 
+/**
+ * A helper class that knows how to set reminders using the AlarmManager
+ */
 public class ReminderManager {
 
     private Context context;
@@ -20,12 +23,19 @@ public class ReminderManager {
 
     public void setReminder(Long taskId, Calendar when) {
 
+        // Create an intent for our OnAlarmReceiver,
+        // which will show the notification when it is called
         Intent i = new Intent(context, OnAlarmReceiver.class);
         i.putExtra(ReminderProvider.COLUMN_TASKID, (long) taskId);
 
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
-                PendingIntent.FLAG_ONE_SHOT);
+        // Create the PendingIntent that will wrap the
+        // above intent.  All intents that are used in
+        // the AlarmManager must be wrapped in a PendingIntent to "give
+        // permission" to the AlarmManager to call back into our
+        // application.
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
 
+        // Set the alarm
         alarmManager.set(AlarmManager.RTC_WAKEUP, when.getTimeInMillis(),
                 pi);
     }
