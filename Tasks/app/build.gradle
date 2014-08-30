@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
-// BUG I should regenerate this file from scratch
+// TODO I should regenerate this file from scratch
 android {
-    compileSdkVersion 16 // BUG do I need to change this?
-    buildToolsVersion "20.0.0" // BUG do I need to change this?
+    compileSdkVersion 16 // TODO do I need to change this?
+    buildToolsVersion "20.0.0" // TODO do I need to change this?
 
     defaultConfig {
         applicationId "com.dummies.tasks"
@@ -13,7 +13,7 @@ android {
 
     buildTypes {
         release {
-            runProguard false // BUG is this in the default gradle file?
+            runProguard false // TODO is this in the default gradle file?
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
