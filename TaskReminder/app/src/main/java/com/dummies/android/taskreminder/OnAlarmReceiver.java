@@ -21,11 +21,10 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // call WakefulBroadcastReceiver.completeWakefulIntent from your service
         // when you are done.
 
-        long taskId = intent.getExtras().getLong(ReminderProvider.COLUMN_TASKID);
-
         NotificationManager mgr = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
         Intent notificationIntent = new Intent(context, ReminderEditActivity.class);
+        long taskId = intent.getExtras().getLong(ReminderProvider.COLUMN_TASKID);
         notificationIntent.putExtra(ReminderProvider.COLUMN_TASKID, taskId);
 
         PendingIntent pi = PendingIntent.getActivity(context, 0,
@@ -41,7 +40,5 @@ public class OnAlarmReceiver extends BroadcastReceiver {
 
         // An issue could occur if user ever enters over 2,147,483,647 (max int value) tasks.
         mgr.notify((int) taskId, note);
-
-
     }
 }
