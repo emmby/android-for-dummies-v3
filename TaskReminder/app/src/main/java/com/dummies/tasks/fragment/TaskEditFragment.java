@@ -104,8 +104,8 @@ public class TaskEditFragment extends Fragment implements
         // From the layout, get a few views that we're going to work with
         titleText = (EditText) v.findViewById(R.id.title);
         bodyText = (EditText) v.findViewById(R.id.body);
-        dateButton = (Button) v.findViewById(R.id.reminder_date);
-        timeButton = (Button) v.findViewById(R.id.reminder_time);
+        dateButton = (Button) v.findViewById(R.id.task_date);
+        timeButton = (Button) v.findViewById(R.id.task_time);
 
         // Tell the date and time buttons what to do when we click on
         // them.
@@ -168,7 +168,7 @@ public class TaskEditFragment extends Fragment implements
 
                 // Tell our enclosing activity that we are done so that
                 // it can cleanup whatever it needs to clean up.
-                ((OnEditFinished) getActivity()).finishEditingReminder();
+                ((OnEditFinished) getActivity()).finishEditingTask();
 
                 // Create a reminder for this task
                 new ReminderManager(getActivity()).setReminder(taskId,
@@ -274,26 +274,26 @@ public class TaskEditFragment extends Fragment implements
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor reminder) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor task) {
         // Close this fragmentClass down if the item we're editing was
         // deleted
-        if (reminder.getCount() == 0) {
+        if (task.getCount() == 0) {
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    ((OnEditFinished) getActivity()).finishEditingReminder();
+                    ((OnEditFinished) getActivity()).finishEditingTask();
                 }
             });
             return;
         }
 
-        titleText.setText(reminder.getString(reminder
+        titleText.setText(task.getString(task
                 .getColumnIndexOrThrow(COLUMN_TITLE)));
-        bodyText.setText(reminder.getString(reminder
+        bodyText.setText(task.getString(task
                 .getColumnIndexOrThrow(COLUMN_BODY)));
 
         // Get the date from the database
-        Long dateInMillis = reminder.getLong(reminder
+        Long dateInMillis = task.getLong(task
                 .getColumnIndexOrThrow(
                         COLUMN_DATE_TIME));
         Date date = new Date(dateInMillis);

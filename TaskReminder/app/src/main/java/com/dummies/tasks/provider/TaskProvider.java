@@ -20,31 +20,31 @@ public class TaskProvider extends ContentProvider {
     public static final String AUTHORITY = "com.dummies" +
             ".tasks.provider.TaskProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" +
-            AUTHORITY + "/reminder");
+            AUTHORITY + "/task");
 
     // Database Columns
     public static final String COLUMN_TASKID = "_id";
-    public static final String COLUMN_DATE_TIME = "reminder_date_time";
+    public static final String COLUMN_DATE_TIME = "task_date_time";
     public static final String COLUMN_BODY = "body";
     public static final String COLUMN_TITLE = "title";
 
     // MIME types used for searching words or looking up a single
     // definition
-    private static final String REMINDERS_MIME_TYPE = ContentResolver
+    private static final String TASKS_MIME_TYPE = ContentResolver
             .CURSOR_DIR_BASE_TYPE
-            + "/vnd.com.dummies.tasks.reminder";
-    private static final String REMINDER_MIME_TYPE = ContentResolver
+            + "/vnd.com.dummies.tasks.task";
+    private static final String TASK_MIME_TYPE = ContentResolver
             .CURSOR_ITEM_BASE_TYPE
-            + "/vnd.com.dummies.tasks.reminder";
+            + "/vnd.com.dummies.tasks.task";
 
     // Database Related Constants
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "data";
-    private static final String DATABASE_TABLE = "reminders";
+    private static final String DATABASE_TABLE = "tasks";
 
     // UriMatcher stuff
-    private static final int LIST_REMINDER = 0;
-    private static final int ITEM_REMINDER = 1;
+    private static final int LIST_TASK = 0;
+    private static final int ITEM_TASK = 1;
     private static final UriMatcher URI_MATCHER = buildUriMatcher();
 
 
@@ -57,8 +57,8 @@ public class TaskProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         // to get definitions...
-        matcher.addURI(AUTHORITY, "reminder", LIST_REMINDER);
-        matcher.addURI(AUTHORITY, "reminder/#", ITEM_REMINDER);
+        matcher.addURI(AUTHORITY, "task", LIST_TASK);
+        matcher.addURI(AUTHORITY, "task/#", ITEM_TASK);
 
         return matcher;
     }
@@ -84,12 +84,12 @@ public class TaskProvider extends ContentProvider {
         // db query accordingly
         Cursor c;
         switch (URI_MATCHER.match(uri)) {
-            case LIST_REMINDER:
+            case LIST_TASK:
                 c = db.query(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE,
                         projection, null,
                         null, null, null, null);
                 break;
-            case ITEM_REMINDER:
+            case ITEM_TASK:
                 c = db.query(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, projection,
                         com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID + "=?",
                         new String[]{Long.toString(ContentUris.parseId
@@ -148,10 +148,10 @@ public class TaskProvider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         switch (URI_MATCHER.match(uri)) {
-            case LIST_REMINDER:
-                return REMINDERS_MIME_TYPE;
-            case ITEM_REMINDER:
-                return REMINDER_MIME_TYPE;
+            case LIST_TASK:
+                return TASKS_MIME_TYPE;
+            case ITEM_TASK:
+                return TASK_MIME_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown Uri: " + uri);
         }

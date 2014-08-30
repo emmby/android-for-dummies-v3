@@ -4,5 +4,5 @@ public interface OnEditFinished {
     /**
      * Called when the user finishes editing a task.
      */
-    public void finishEditingReminder();
+    public void finishEditingTask();
 }

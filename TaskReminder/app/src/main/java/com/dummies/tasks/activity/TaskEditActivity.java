@@ -25,7 +25,7 @@ public class TaskEditActivity extends SingleFragmentActivity
      * Called when the user finishes editing a task.
      */
     @Override
-    public void finishEditingReminder() {
+    public void finishEditingTask() {
         // When the user dismisses the editor, call finish to destroy
         // this activity.
         finish();

@@ -4,5 +4,5 @@ public interface OnEditTask {
     /**
      * Called when the user asks to edit or insert a task.
      */
-    public void editReminder(long id);
+    public void editTask(long id);
 }

@@ -54,7 +54,7 @@ public class TaskListFragment extends ListFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setEmptyText(getResources().getString(string.no_reminders));
+        setEmptyText(getResources().getString(string.no_tasks));
         registerForContextMenu(getListView());
         setHasOptionsMenu(true);
     }
@@ -70,7 +70,7 @@ public class TaskListFragment extends ListFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_insert:
-                ((com.dummies.tasks.interfaces.OnEditTask) getActivity()).editReminder(0);
+                ((com.dummies.tasks.interfaces.OnEditTask) getActivity()).editTask(0);
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getActivity(),
@@ -85,7 +85,7 @@ public class TaskListFragment extends ListFragment implements
     public void onListItemClick(ListView l, View v, int position,
                                 long id) {
         super.onListItemClick(l, v, position, id);
-        ((com.dummies.tasks.interfaces.OnEditTask) getActivity()).editReminder(id);
+        ((com.dummies.tasks.interfaces.OnEditTask) getActivity()).editTask(id);
     }
 
     @Override

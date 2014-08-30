@@ -25,7 +25,7 @@ public class TaskListAndEditorActivity extends Activity implements
      * Called when the user asks to edit or insert a task.
      */
     @Override
-    public void editReminder(long id) {
+    public void editTask(long id) {
         // Create the fragment and set the task id
         com.dummies.tasks.fragment.TaskEditFragment fragment = new com.dummies.tasks.fragment.TaskEditFragment();
         Bundle arguments = new Bundle();
@@ -51,7 +51,7 @@ public class TaskListAndEditorActivity extends Activity implements
      * Called when the user finishes editing a task.
      */
     @Override
-    public void finishEditingReminder() {
+    public void finishEditingTask() {
         // Find the edit fragment, and remove it from the activity.
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager

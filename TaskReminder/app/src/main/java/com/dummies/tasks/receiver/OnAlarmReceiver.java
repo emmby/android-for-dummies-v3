@@ -33,18 +33,18 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // Create the intent that will open the TaskEditActivity
         // for the specified task id.  We get the id of the task
         // from the OnAlarmReceiver's broadcast intent.
-        Intent reminderEditIntent =
+        Intent taskEditIntent =
                 new Intent(context, com.dummies.tasks.activity.TaskEditActivity.class);
         long taskId = intent.getExtras().getLong( COLUMN_TASKID);
-        reminderEditIntent.putExtra(COLUMN_TASKID, taskId);
+        taskEditIntent.putExtra(COLUMN_TASKID, taskId);
 
         // Create the PendingIntent that will wrap the
-        // reminderEditIntent.  All intents that are used in
+        // taskEditIntent.  All intents that are used in
         // notifications must be wrapped in a PendingIntent to "give
         // permission" to the OS to call back into our
         // application when the notification is clicked.
         PendingIntent pi = PendingIntent.getActivity(context, 0,
-                reminderEditIntent, 0);
+                taskEditIntent, 0);
 
         // Build the Notification object using a Notification.Builder
         Notification note = new Notification.Builder(context)

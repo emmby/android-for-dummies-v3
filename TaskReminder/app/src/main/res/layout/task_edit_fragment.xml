@@ -29,7 +29,7 @@
             android:text="@string/date" />
 
         <Button
-            android:id="@+id/reminder_date"
+            android:id="@+id/task_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -39,7 +39,7 @@
             android:text="@string/time" />
 
         <Button
-            android:id="@+id/reminder_time"
+            android:id="@+id/task_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
