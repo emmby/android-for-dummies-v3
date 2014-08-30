@@ -164,7 +164,7 @@ public class ReminderEditFragment extends Fragment implements
 
                 // Tell our enclosing activity that we are done so that
                 // it can cleanup whatever it needs to clean up.
-                ((OnFragmentFinish) getActivity()).fragmentIsFinished();
+                ((OnEditFinished) getActivity()).finishEditingReminder();
 
                 // Create a reminder for this task
                 new ReminderManager(getActivity()).setReminder(taskId,
@@ -277,7 +277,7 @@ public class ReminderEditFragment extends Fragment implements
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    ((OnFragmentFinish) getActivity()).fragmentIsFinished();
+                    ((OnEditFinished) getActivity()).finishEditingReminder();
                 }
             });
             return;
