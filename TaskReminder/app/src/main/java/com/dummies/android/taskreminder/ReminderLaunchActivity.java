@@ -10,12 +10,13 @@ public class ReminderLaunchActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Launch the phone or tablet activity, as appropriate,
-        // then finish
+        // Launch the phone or tablet activity, as appropriate
         startActivity(new Intent(this,
                 getResources().getBoolean(R.bool.isTablet)
                         ? ReminderListAndEditorActivity.class
                         : ReminderListActivity.class));
+
+        // Finish this launcher, we don't need it anymore
         finish();
     }
 
