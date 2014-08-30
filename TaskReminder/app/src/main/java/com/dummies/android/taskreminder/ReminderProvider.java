@@ -13,7 +13,7 @@ import android.net.Uri;
 
 public class ReminderProvider extends ContentProvider {
     // Content Provider Uri and Authority
-    public static String AUTHORITY = "com.dummies.android.taskreminder.ReminderProvider";
+    public static final String AUTHORITY = "com.dummies.android.taskreminder.ReminderProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/reminder");
 
