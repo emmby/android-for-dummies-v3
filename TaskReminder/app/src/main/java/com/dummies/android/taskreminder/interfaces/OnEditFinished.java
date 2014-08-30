@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.interfaces;
 
 public interface OnEditFinished {
     /**

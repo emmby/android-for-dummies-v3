@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.fragment;
 
 import android.app.ListFragment;
 import android.app.LoaderManager;
@@ -18,7 +18,11 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import com.dummies.android.taskreminder.interfaces.OnEditReminder;
+import com.dummies.android.taskreminder.R;
 import com.dummies.android.taskreminder.R.string;
+import com.dummies.android.taskreminder.provider.ReminderProvider;
+import com.dummies.android.taskreminder.activity.TaskPreferencesActivity;
 
 public class ReminderListFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {

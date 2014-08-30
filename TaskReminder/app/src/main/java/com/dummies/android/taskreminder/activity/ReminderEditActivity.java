@@ -1,6 +1,10 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.activity;
 
 import android.app.Fragment;
+
+import com.dummies.android.taskreminder.interfaces.OnEditFinished;
+import com.dummies.android.taskreminder.fragment.ReminderEditFragment;
+import com.dummies.android.taskreminder.util.SingleFragmentActivity;
 
 /**
  * Our Reminder Edit Activity for Phones

@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -6,11 +6,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 
-import static com.dummies.android.taskreminder.ReminderEditFragment.DAY;
-import static com.dummies.android.taskreminder.ReminderEditFragment
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment.DAY;
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment
         .DEFAULT_EDIT_FRAGMENT_TAG;
-import static com.dummies.android.taskreminder.ReminderEditFragment.MONTH;
-import static com.dummies.android.taskreminder.ReminderEditFragment.YEAR;
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment.MONTH;
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment.YEAR;
 
 /**
  * A DialogFragment used to display a date picker

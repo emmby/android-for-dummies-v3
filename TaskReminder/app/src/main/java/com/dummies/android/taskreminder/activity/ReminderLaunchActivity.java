@@ -1,8 +1,10 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.dummies.android.taskreminder.R;
 
 /**
  * Our app's starting activity, which will detect whether we're on a

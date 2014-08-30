@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -18,7 +18,7 @@ import android.net.Uri;
 public class ReminderProvider extends ContentProvider {
     // Content Provider Uri and Authority
     public static final String AUTHORITY = "com.dummies.android" +
-            ".taskreminder.ReminderProvider";
+            ".taskreminder.provider.ReminderProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" +
             AUTHORITY + "/reminder");
 

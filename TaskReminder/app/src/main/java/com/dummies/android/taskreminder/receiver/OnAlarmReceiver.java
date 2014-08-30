@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.receiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,8 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.dummies.android.taskreminder.R;
+import com.dummies.android.taskreminder.activity.ReminderEditActivity;
+
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static com.dummies.android.taskreminder.ReminderProvider
+import static com.dummies.android.taskreminder.provider.ReminderProvider
         .COLUMN_TASKID;
 
 public class OnAlarmReceiver extends BroadcastReceiver {

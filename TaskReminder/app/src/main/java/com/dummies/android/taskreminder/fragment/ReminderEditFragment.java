@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.fragment;
 
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
@@ -25,9 +25,24 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.dummies.android.taskreminder.R;
+import com.dummies.android.taskreminder.interfaces.OnEditFinished;
+import com.dummies.android.taskreminder.util.ReminderManager;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.dummies.android.taskreminder.provider
+        .ReminderProvider.COLUMN_BODY;
+import static com.dummies.android.taskreminder.provider
+        .ReminderProvider.COLUMN_DATE_TIME;
+import static com.dummies.android.taskreminder.provider
+        .ReminderProvider.COLUMN_TASKID;
+import static com.dummies.android.taskreminder.provider
+        .ReminderProvider.COLUMN_TITLE;
+import static com.dummies.android.taskreminder.provider
+        .ReminderProvider.CONTENT_URI;
 
 public class ReminderEditFragment extends Fragment implements
         OnDateSetListener, OnTimeSetListener,
@@ -78,7 +93,7 @@ public class ReminderEditFragment extends Fragment implements
         // Set the task id from the intent arguments, if available.
         Bundle arguments = getArguments();
         if (arguments != null) {
-            taskId = arguments.getLong(ReminderProvider.COLUMN_TASKID,0L);
+            taskId = arguments.getLong(COLUMN_TASKID,0L);
         }
     }
 
@@ -121,15 +136,10 @@ public class ReminderEditFragment extends Fragment implements
                 // Put all the values the user entered into a
                 // ContentValues object
                 ContentValues values = new ContentValues();
-                values.put(ReminderProvider.COLUMN_TASKID, taskId);
-                values.put(ReminderProvider.COLUMN_TITLE,
-                        titleText.getText()
-                        .toString());
-                values.put(ReminderProvider.COLUMN_BODY,
-                        bodyText.getText()
-                        .toString());
-                values.put(ReminderProvider.COLUMN_DATE_TIME,
-                        calendar.getTimeInMillis());
+                values.put(COLUMN_TASKID, taskId);
+                values.put(COLUMN_TITLE, titleText.getText().toString());
+                values.put(COLUMN_BODY, bodyText.getText().toString());
+                values.put(COLUMN_DATE_TIME, calendar.getTimeInMillis());
 
                 // taskId==0 when we create a new task,
                 // otherwise it's the id of the task being edited.
@@ -138,16 +148,15 @@ public class ReminderEditFragment extends Fragment implements
                     // Create the new task and set taskId to the id of
                     // the new task.
                     Uri itemUri = getActivity().getContentResolver()
-                            .insert(
-                                    ReminderProvider.CONTENT_URI, values);
+                            .insert(CONTENT_URI, values);
                     taskId = ContentUris.parseId(itemUri);
 
                 } else {
 
                     // Edit the task
                     int count = getActivity().getContentResolver().update(
-                            ContentUris.withAppendedId(
-                                    ReminderProvider.CONTENT_URI, taskId),
+                            ContentUris.withAppendedId(CONTENT_URI,
+                                    taskId),
                             values, null, null);
 
                     // If somehow we didn't edit exactly one task,
@@ -265,7 +274,7 @@ public class ReminderEditFragment extends Fragment implements
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), ContentUris.withAppendedId(
-                ReminderProvider.CONTENT_URI, taskId), null, null,
+                CONTENT_URI, taskId), null, null,
                 null, null);
     }
 
@@ -284,14 +293,14 @@ public class ReminderEditFragment extends Fragment implements
         }
 
         titleText.setText(reminder.getString(reminder
-                .getColumnIndexOrThrow(ReminderProvider.COLUMN_TITLE)));
+                .getColumnIndexOrThrow(COLUMN_TITLE)));
         bodyText.setText(reminder.getString(reminder
-                .getColumnIndexOrThrow(ReminderProvider.COLUMN_BODY)));
+                .getColumnIndexOrThrow(COLUMN_BODY)));
 
         // Get the date from the database
         Long dateInMillis = reminder.getLong(reminder
-                .getColumnIndexOrThrow(ReminderProvider
-                        .COLUMN_DATE_TIME));
+                .getColumnIndexOrThrow(
+                        COLUMN_DATE_TIME));
         Date date = new Date(dateInMillis);
         calendar.setTime(date);
 

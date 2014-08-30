@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder;
+package com.dummies.android.taskreminder.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -6,10 +6,10 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 
-import static com.dummies.android.taskreminder.ReminderEditFragment
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment
         .DEFAULT_EDIT_FRAGMENT_TAG;
-import static com.dummies.android.taskreminder.ReminderEditFragment.HOUR;
-import static com.dummies.android.taskreminder.ReminderEditFragment.MINS;
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment.HOUR;
+import static com.dummies.android.taskreminder.fragment.ReminderEditFragment.MINS;
 
 /**
  * A DialogFragment used to display a time picker
