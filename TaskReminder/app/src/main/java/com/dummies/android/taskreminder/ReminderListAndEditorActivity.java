@@ -12,7 +12,7 @@ public class ReminderListAndEditorActivity extends Activity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reminder_list_and_editor);
+        setContentView(R.layout.reminder_list_and_editor_activity);
     }
 
     /**
