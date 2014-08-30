@@ -15,6 +15,9 @@ public class ReminderEditActivity extends SingleFragmentActivity
         return fragment;
     }
 
+    /**
+     * Called when the user finishes editing a task.
+     */
     @Override
     public void finishEditingReminder() {
         // When the user dismisses the editor, call finish to destroy

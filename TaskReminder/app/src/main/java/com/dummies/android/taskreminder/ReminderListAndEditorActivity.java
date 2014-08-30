@@ -16,26 +16,37 @@ public class ReminderListAndEditorActivity extends Activity implements
     }
 
     /**
-     * Set the edit fragment, replacing the existing fragment if
-     * there's one already there.
+     * Called when the user asks to edit or insert a task.
      */
     @Override
     public void editReminder(long id) {
+        // Create the fragment and set the task id
         ReminderEditFragment fragment = new ReminderEditFragment();
         Bundle arguments = new Bundle();
         arguments.putLong(ReminderProvider.COLUMN_TASKID, id);
         fragment.setArguments(arguments);
 
+        // Add the fragment to the activity. If there's one already
+        // there (eg. the user clicks on another task), replace it
         FragmentTransaction transaction = getFragmentManager()
                 .beginTransaction();
         transaction.replace(R.id.edit_container, fragment,
                 ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+        // Add this change to the backstack, so that when the user
+        // clicks the back button we'll pop this editor off the stack.
+        // If we don't do this, the whole activity will close when the
+        // user clicks the back button, which will be disruptive and
+        // unexpected.
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
+    /**
+     * Called when the user finishes editing a task.
+     */
     @Override
     public void finishEditingReminder() {
+        // Find the edit fragment, and remove it from the activity.
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager
                 .beginTransaction();

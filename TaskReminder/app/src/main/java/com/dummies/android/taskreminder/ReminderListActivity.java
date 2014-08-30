@@ -13,6 +13,9 @@ public class ReminderListActivity extends SingleFragmentActivity
         return new ReminderListFragment();
     }
 
+    /**
+     * Called when the user asks to edit or insert a task.
+     */
     @Override
     public void editReminder(long id) {
         // When we are asked to edit a reminder, start the
