@@ -1,12 +1,11 @@
-package com.dummies.android.taskreminder.util;
+package com.dummies.tasks.util;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dummies.android.taskreminder.provider.ReminderProvider;
-import com.dummies.android.taskreminder.receiver.OnAlarmReceiver;
+import com.dummies.tasks.receiver.OnAlarmReceiver;
 
 import java.util.Calendar;
 
@@ -29,7 +28,7 @@ public class ReminderManager {
         // Create an intent for our OnAlarmReceiver,
         // which will show the notification when it is called
         Intent i = new Intent(context, OnAlarmReceiver.class);
-        i.putExtra(ReminderProvider.COLUMN_TASKID, (long) taskId);
+        i.putExtra(com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID, (long) taskId);
 
         // Create the PendingIntent that will wrap the
         // above intent.  All intents that are used in

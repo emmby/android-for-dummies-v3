@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder.receiver;
+package com.dummies.tasks.receiver;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,11 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dummies.android.taskreminder.R;
-import com.dummies.android.taskreminder.activity.ReminderEditActivity;
+import com.dummies.tasks.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static com.dummies.android.taskreminder.provider.ReminderProvider
+import static com.dummies.tasks.provider.TaskProvider
         .COLUMN_TASKID;
 
 public class OnAlarmReceiver extends BroadcastReceiver {
@@ -31,11 +30,11 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         NotificationManager mgr = (NotificationManager) context
                 .getSystemService(NOTIFICATION_SERVICE);
 
-        // Create the intent that will open the ReminderEditActivity
+        // Create the intent that will open the TaskEditActivity
         // for the specified task id.  We get the id of the task
         // from the OnAlarmReceiver's broadcast intent.
         Intent reminderEditIntent =
-                new Intent(context, ReminderEditActivity.class);
+                new Intent(context, com.dummies.tasks.activity.TaskEditActivity.class);
         long taskId = intent.getExtras().getLong( COLUMN_TASKID);
         reminderEditIntent.putExtra(COLUMN_TASKID, taskId);
 

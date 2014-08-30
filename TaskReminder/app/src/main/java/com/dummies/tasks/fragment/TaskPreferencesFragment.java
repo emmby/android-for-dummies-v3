@@ -1,11 +1,11 @@
-package com.dummies.android.taskreminder.fragment;
+package com.dummies.tasks.fragment;
 
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceFragment;
 import android.text.method.DigitsKeyListener;
 
-import com.dummies.android.taskreminder.R;
+import com.dummies.tasks.R;
 
 /**
  * A fragment that reads a list of preferences from a file and shows

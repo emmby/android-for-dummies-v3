@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder.util;
+package com.dummies.tasks.util;
 
 import android.app.Activity;
 import android.app.Fragment;

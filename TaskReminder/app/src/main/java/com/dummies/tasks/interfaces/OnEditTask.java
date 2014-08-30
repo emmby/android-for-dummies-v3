@@ -1,6 +1,6 @@
-package com.dummies.android.taskreminder.interfaces;
+package com.dummies.tasks.interfaces;
 
-public interface OnEditReminder {
+public interface OnEditTask {
     /**
      * Called when the user asks to edit or insert a task.
      */

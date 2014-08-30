@@ -6,7 +6,7 @@ android {
     buildToolsVersion "20.0.0" // BUG do I need to change this?
 
     defaultConfig {
-        applicationId "com.dummies.android.taskreminder"
+        applicationId "com.dummies.tasks"
         minSdkVersion 20  // "L" Preview
         compileSdkVersion 20  // "L" Preview
     }

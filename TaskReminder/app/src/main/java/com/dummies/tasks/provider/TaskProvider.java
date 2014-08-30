@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder.provider;
+package com.dummies.tasks.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -15,10 +15,10 @@ import android.net.Uri;
  * A Content Provider that knows how to read and write tasks from our
  * tasks database.
  */
-public class ReminderProvider extends ContentProvider {
+public class TaskProvider extends ContentProvider {
     // Content Provider Uri and Authority
-    public static final String AUTHORITY = "com.dummies.android" +
-            ".taskreminder.provider.ReminderProvider";
+    public static final String AUTHORITY = "com.dummies" +
+            ".tasks.provider.TaskProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" +
             AUTHORITY + "/reminder");
 
@@ -32,10 +32,10 @@ public class ReminderProvider extends ContentProvider {
     // definition
     private static final String REMINDERS_MIME_TYPE = ContentResolver
             .CURSOR_DIR_BASE_TYPE
-            + "/vnd.com.dummies.android.taskreminder.reminder";
+            + "/vnd.com.dummies.tasks.reminder";
     private static final String REMINDER_MIME_TYPE = ContentResolver
             .CURSOR_ITEM_BASE_TYPE
-            + "/vnd.com.dummies.android.taskreminder.reminder";
+            + "/vnd.com.dummies.tasks.reminder";
 
     // Database Related Constants
     private static final int DATABASE_VERSION = 1;
@@ -73,10 +73,11 @@ public class ReminderProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] ignored1, String ignored2,
                         String[] ignored3, String ignored4) {
 
-        String[] projection = new String[]{ReminderProvider.COLUMN_TASKID,
-                ReminderProvider.COLUMN_TITLE,
-                ReminderProvider.COLUMN_BODY,
-                ReminderProvider.COLUMN_DATE_TIME};
+        String[] projection = new String[]{com.dummies.tasks.provider
+                .TaskProvider.COLUMN_TASKID,
+                com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE,
+                com.dummies.tasks.provider.TaskProvider.COLUMN_BODY,
+                com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME};
 
         // Use the UriMatcher to see what kind of query we have and
         // format the
@@ -84,13 +85,13 @@ public class ReminderProvider extends ContentProvider {
         Cursor c;
         switch (URI_MATCHER.match(uri)) {
             case LIST_REMINDER:
-                c = db.query(ReminderProvider.DATABASE_TABLE,
+                c = db.query(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE,
                         projection, null,
                         null, null, null, null);
                 break;
             case ITEM_REMINDER:
-                c = db.query(ReminderProvider.DATABASE_TABLE, projection,
-                        ReminderProvider.COLUMN_TASKID + "=?",
+                c = db.query(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, projection,
+                        com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID + "=?",
                         new String[]{Long.toString(ContentUris.parseId
                                 (uri))},
                         null, null, null, null);
@@ -109,8 +110,8 @@ public class ReminderProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         // you can't insert and specify a row id, so remove it if present
-        values.remove(ReminderProvider.COLUMN_TASKID);
-        long id = db.insertOrThrow(ReminderProvider.DATABASE_TABLE, null,
+        values.remove(com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID);
+        long id = db.insertOrThrow(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
@@ -118,8 +119,9 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
-        int count = db.delete(ReminderProvider.DATABASE_TABLE,
-                ReminderProvider.COLUMN_TASKID + "=?",
+        int count = db.delete(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE,
+
+                com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
@@ -129,7 +131,7 @@ public class ReminderProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
                       String[] ignored2) {
-        int count = db.update(ReminderProvider.DATABASE_TABLE, values,
+        int count = db.update(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)

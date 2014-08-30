@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder.fragment;
+package com.dummies.tasks.fragment;
 
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
@@ -25,26 +25,21 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.dummies.android.taskreminder.R;
-import com.dummies.android.taskreminder.interfaces.OnEditFinished;
-import com.dummies.android.taskreminder.util.ReminderManager;
+import com.dummies.tasks.R;
+import com.dummies.tasks.interfaces.OnEditFinished;
+import com.dummies.tasks.util.ReminderManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.dummies.android.taskreminder.provider
-        .ReminderProvider.COLUMN_BODY;
-import static com.dummies.android.taskreminder.provider
-        .ReminderProvider.COLUMN_DATE_TIME;
-import static com.dummies.android.taskreminder.provider
-        .ReminderProvider.COLUMN_TASKID;
-import static com.dummies.android.taskreminder.provider
-        .ReminderProvider.COLUMN_TITLE;
-import static com.dummies.android.taskreminder.provider
-        .ReminderProvider.CONTENT_URI;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_BODY;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
+import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
 
-public class ReminderEditFragment extends Fragment implements
+public class TaskEditFragment extends Fragment implements
         OnDateSetListener, OnTimeSetListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -103,7 +98,7 @@ public class ReminderEditFragment extends Fragment implements
 
         // Inflate the layout and set the container. The layout is the
         // view that we will return.
-        View v = inflater.inflate(R.layout.reminder_edit_fragment,
+        View v = inflater.inflate(R.layout.task_edit_fragment,
                 container, false);
 
         // From the layout, get a few views that we're going to work with

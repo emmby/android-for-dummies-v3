@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dummies.android.taskreminder"
+    package="com.dummies.tasks"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -18,16 +18,16 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name">
         <activity
-            android:name=".activity.ReminderLaunchActivity"
+            android:name=".activity.LaunchActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ReminderListActivity" />
-        <activity android:name=".activity.ReminderEditActivity" />
-        <activity android:name=".activity.ReminderListAndEditorActivity" />
+        <activity android:name=".activity.TaskListActivity" />
+        <activity android:name=".activity.TaskEditActivity" />
+        <activity android:name=".activity.TaskListAndEditorActivity" />
         <activity android:name=".activity.TaskPreferencesActivity" />
 
         <receiver
@@ -40,8 +40,8 @@
         <receiver android:name=".receiver.OnAlarmReceiver" />
 
         <provider
-            android:name=".provider.ReminderProvider"
-            android:authorities="com.dummies.android.taskreminder.provider.ReminderProvider"
+            android:name=".provider.TaskProvider"
+            android:authorities="com.dummies.tasks.provider.TaskProvider"
             android:exported="false" />
     </application>
 

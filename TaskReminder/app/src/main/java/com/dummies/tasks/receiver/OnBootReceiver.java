@@ -1,12 +1,11 @@
-package com.dummies.android.taskreminder.receiver;
+package com.dummies.tasks.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
-import com.dummies.android.taskreminder.util.ReminderManager;
-import com.dummies.android.taskreminder.provider.ReminderProvider;
+import com.dummies.tasks.util.ReminderManager;
 
 import java.util.Calendar;
 
@@ -22,7 +21,7 @@ public class OnBootReceiver extends BroadcastReceiver {
 
         // Get the cursor for our tasks
         Cursor cursor = context.getContentResolver().query(
-                ReminderProvider.CONTENT_URI, null, null, null, null);
+                com.dummies.tasks.provider.TaskProvider.CONTENT_URI, null, null, null, null);
 
         // If our db is empty, don't do anything
         if (cursor == null)
@@ -34,9 +33,10 @@ public class OnBootReceiver extends BroadcastReceiver {
 
             // get the indices of the taskId and date_time columns
             int taskIdColumnIndex = cursor
-                    .getColumnIndex(ReminderProvider.COLUMN_TASKID);
+                    .getColumnIndex(com.dummies.tasks.provider
+                            .TaskProvider.COLUMN_TASKID);
             int dateTimeColumnIndex = cursor
-                    .getColumnIndex(ReminderProvider.COLUMN_DATE_TIME);
+                    .getColumnIndex(com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME);
 
             // Loop over all of the tasks in the db
             while (!cursor.isAfterLast()) {

@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder.activity;
+package com.dummies.tasks.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -6,22 +6,19 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
-import com.dummies.android.taskreminder.interfaces.OnEditFinished;
-import com.dummies.android.taskreminder.interfaces.OnEditReminder;
-import com.dummies.android.taskreminder.R;
-import com.dummies.android.taskreminder.fragment.ReminderEditFragment;
-import com.dummies.android.taskreminder.provider.ReminderProvider;
+import com.dummies.tasks.interfaces.OnEditFinished;
+import com.dummies.tasks.R;
 
 /**
  * Our Reminder List and Edit activity for Tablets
  */
-public class ReminderListAndEditorActivity extends Activity implements
-        OnEditReminder, OnEditFinished {
+public class TaskListAndEditorActivity extends Activity implements
+        com.dummies.tasks.interfaces.OnEditTask, OnEditFinished {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reminder_list_and_editor_activity);
+        setContentView(R.layout.task_list_and_editor_activity);
     }
 
     /**
@@ -30,9 +27,9 @@ public class ReminderListAndEditorActivity extends Activity implements
     @Override
     public void editReminder(long id) {
         // Create the fragment and set the task id
-        ReminderEditFragment fragment = new ReminderEditFragment();
+        com.dummies.tasks.fragment.TaskEditFragment fragment = new com.dummies.tasks.fragment.TaskEditFragment();
         Bundle arguments = new Bundle();
-        arguments.putLong(ReminderProvider.COLUMN_TASKID, id);
+        arguments.putLong(com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID, id);
         fragment.setArguments(arguments);
 
         // Add the fragment to the activity. If there's one already
@@ -40,7 +37,7 @@ public class ReminderListAndEditorActivity extends Activity implements
         FragmentTransaction transaction = getFragmentManager()
                 .beginTransaction();
         transaction.replace(R.id.edit_container, fragment,
-                ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+                com.dummies.tasks.fragment.TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
         // Add this change to the backstack, so that when the user
         // clicks the back button we'll pop this editor off the stack.
         // If we don't do this, the whole activity will close when the
@@ -60,7 +57,8 @@ public class ReminderListAndEditorActivity extends Activity implements
         FragmentTransaction transaction = fragmentManager
                 .beginTransaction();
         Fragment previousFragment = fragmentManager
-                .findFragmentByTag(ReminderEditFragment
+                .findFragmentByTag(com.dummies.tasks.fragment
+                        .TaskEditFragment
                         .DEFAULT_EDIT_FRAGMENT_TAG);
         transaction.remove(previousFragment);
         transaction.commit();

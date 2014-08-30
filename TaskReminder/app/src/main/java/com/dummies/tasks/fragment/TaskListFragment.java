@@ -1,4 +1,4 @@
-package com.dummies.android.taskreminder.fragment;
+package com.dummies.tasks.fragment;
 
 import android.app.ListFragment;
 import android.app.LoaderManager;
@@ -18,13 +18,11 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.dummies.android.taskreminder.interfaces.OnEditReminder;
-import com.dummies.android.taskreminder.R;
-import com.dummies.android.taskreminder.R.string;
-import com.dummies.android.taskreminder.provider.ReminderProvider;
-import com.dummies.android.taskreminder.activity.TaskPreferencesActivity;
+import com.dummies.tasks.R;
+import com.dummies.tasks.R.string;
+import com.dummies.tasks.activity.TaskPreferencesActivity;
 
-public class ReminderListFragment extends ListFragment implements
+public class TaskListFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private SimpleCursorAdapter adapter;
@@ -36,7 +34,8 @@ public class ReminderListFragment extends ListFragment implements
         // Create an array to specify the fields we want to display in
         // the list
         // (only TITLE)
-        String[] from = new String[]{ReminderProvider.COLUMN_TITLE};
+        String[] from = new String[]{com.dummies.tasks.provider
+                .TaskProvider.COLUMN_TITLE};
 
         // and an array of the fields we want to bind those fields to
         // (in this
@@ -45,7 +44,7 @@ public class ReminderListFragment extends ListFragment implements
 
         // Now create a simple cursor adapter and set it to display
         adapter = new SimpleCursorAdapter(getActivity(),
-                R.layout.reminder_row, null, from, to, 0);
+                R.layout.task_row, null, from, to, 0);
         setListAdapter(adapter);
 
         getLoaderManager().initLoader(0, null, this);
@@ -71,7 +70,7 @@ public class ReminderListFragment extends ListFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_insert:
-                ((OnEditReminder) getActivity()).editReminder(0);
+                ((com.dummies.tasks.interfaces.OnEditTask) getActivity()).editReminder(0);
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getActivity(),
@@ -86,7 +85,7 @@ public class ReminderListFragment extends ListFragment implements
     public void onListItemClick(ListView l, View v, int position,
                                 long id) {
         super.onListItemClick(l, v, position, id);
-        ((OnEditReminder) getActivity()).editReminder(id);
+        ((com.dummies.tasks.interfaces.OnEditTask) getActivity()).editReminder(id);
     }
 
     @Override
@@ -97,7 +96,7 @@ public class ReminderListFragment extends ListFragment implements
                         item
                         .getMenuInfo();
                 getActivity().getContentResolver().delete(
-                        ContentUris.withAppendedId(ReminderProvider
+                        ContentUris.withAppendedId(com.dummies.tasks.provider.TaskProvider
                                         .CONTENT_URI,
                                 info.id), null, null);
                 return true;
@@ -116,7 +115,7 @@ public class ReminderListFragment extends ListFragment implements
     @Override
     public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
         return new CursorLoader(getActivity(),
-                ReminderProvider.CONTENT_URI,
+                com.dummies.tasks.provider.TaskProvider.CONTENT_URI,
                 null, null, null, null);
     }
 

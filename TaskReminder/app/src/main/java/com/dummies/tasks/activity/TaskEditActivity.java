@@ -1,15 +1,14 @@
-package com.dummies.android.taskreminder.activity;
+package com.dummies.tasks.activity;
 
 import android.app.Fragment;
 
-import com.dummies.android.taskreminder.interfaces.OnEditFinished;
-import com.dummies.android.taskreminder.fragment.ReminderEditFragment;
-import com.dummies.android.taskreminder.util.SingleFragmentActivity;
+import com.dummies.tasks.interfaces.OnEditFinished;
+import com.dummies.tasks.util.SingleFragmentActivity;
 
 /**
  * Our Reminder Edit Activity for Phones
  */
-public class ReminderEditActivity extends SingleFragmentActivity
+public class TaskEditActivity extends SingleFragmentActivity
         implements OnEditFinished {
 
     @Override
@@ -17,7 +16,7 @@ public class ReminderEditActivity extends SingleFragmentActivity
 
         // Create a new fragment and pass along arguments (like
         // COLUMN_TASKID) from the activity to the fragment
-        Fragment fragment = new ReminderEditFragment();
+        Fragment fragment = new com.dummies.tasks.fragment.TaskEditFragment();
         fragment.setArguments(getIntent().getExtras());
         return fragment;
     }
