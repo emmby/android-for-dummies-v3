@@ -6,18 +6,15 @@
 	<LinearLayout	
 		android:orientation="vertical" 
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:text="@string/title" />
-		<EditText android:id="@+id/title" 
-		  android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<EditText android:id="@+id/title"
+            android:hint="@string/title"
+		    android:layout_width="fill_parent"
 			android:layout_height="wrap_content" 
 			/>
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" 
-			android:text="@string/body" />
-		<EditText android:id="@+id/body" android:layout_width="fill_parent"
+		<EditText android:id="@+id/body"
+            android:hint="@string/body"
+            android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:minLines="5"
 			android:scrollbars="vertical" 
