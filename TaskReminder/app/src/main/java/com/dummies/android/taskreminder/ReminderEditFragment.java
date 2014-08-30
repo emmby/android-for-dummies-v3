@@ -71,7 +71,7 @@ public class ReminderEditFragment extends Fragment implements
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            mRowId = arguments.getLong(ReminderProvider.COLUMN_ROWID);
+            mRowId = arguments.getLong(ReminderProvider.COLUMN_ROWID,0L);
         }
     }
 
@@ -231,7 +231,7 @@ public class ReminderEditFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor reminder) {
-        // Close this fragment down if the item we're editing was deleted
+        // Close this fragmentClass down if the item we're editing was deleted
         if (reminder.getCount() == 0) {
             new Handler().post(new Runnable() {
                 @Override
@@ -259,6 +259,6 @@ public class ReminderEditFragment extends Fragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> arg0) {
-        // nothing to reset for this fragment
+        // nothing to reset for this fragmentClass
     }
 }

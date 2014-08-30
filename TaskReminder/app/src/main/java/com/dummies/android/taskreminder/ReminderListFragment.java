@@ -70,7 +70,7 @@ public class ReminderListFragment extends ListFragment implements
             ((OnEditReminder) getActivity()).editReminder(0);
             return true;
         case R.id.menu_settings:
-            startActivity(new Intent(getActivity(), TaskPreferences.class));
+            startActivity(new Intent(getActivity(), TaskPreferencesActivity.class));
             return true;
         }
 
