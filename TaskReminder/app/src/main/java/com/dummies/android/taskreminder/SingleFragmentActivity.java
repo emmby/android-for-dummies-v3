@@ -14,8 +14,8 @@ abstract public class SingleFragmentActivity extends Activity {
         // method is called (such as on orientation change)
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().add(
-                    android.R.id.content, getFragmentInstance()).commit();
+                    android.R.id.content, newFragmentInstance()).commit();
     }
 
-    protected abstract Fragment getFragmentInstance();
+    protected abstract Fragment newFragmentInstance();
 }

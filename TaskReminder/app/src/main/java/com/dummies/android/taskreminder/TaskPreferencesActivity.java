@@ -5,7 +5,7 @@ import android.app.Fragment;
 public class TaskPreferencesActivity extends SingleFragmentActivity {
 
     @Override
-    protected Fragment getFragmentInstance() {
+    protected Fragment newFragmentInstance() {
         return new TaskPreferencesFragment();
     }
 }

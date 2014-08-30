@@ -7,7 +7,7 @@ public class ReminderListActivity extends SingleFragmentActivity
         implements OnEditReminder {
 
     @Override
-    protected Fragment getFragmentInstance() {
+    protected Fragment newFragmentInstance() {
         return new ReminderListFragment();
     }
 

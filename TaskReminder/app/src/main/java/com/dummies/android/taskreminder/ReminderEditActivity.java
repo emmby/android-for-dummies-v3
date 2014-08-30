@@ -6,7 +6,7 @@ public class ReminderEditActivity extends SingleFragmentActivity
         implements OnFinishEditor {
 
     @Override
-    protected Fragment getFragmentInstance() {
+    protected Fragment newFragmentInstance() {
         Fragment fragment = new ReminderEditFragment();
 
         // pass along arguments (like COLUMN_TASKID) from the activity
