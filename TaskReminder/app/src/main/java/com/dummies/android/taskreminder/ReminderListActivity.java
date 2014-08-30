@@ -1,12 +1,14 @@
 package com.dummies.android.taskreminder;
 
+import android.app.Fragment;
 import android.content.Intent;
 
 public class ReminderListActivity extends SingleFragmentActivity implements
         OnEditReminder {
 
-    public ReminderListActivity() {
-        super(ReminderListFragment.class);
+    @Override
+    protected Fragment getFragmentInstance() {
+        return new ReminderListFragment();
     }
 
     @Override

@@ -1,8 +1,12 @@
 package com.dummies.android.taskreminder;
 
+import android.app.Fragment;
+
 public class TaskPreferencesActivity extends SingleFragmentActivity {
-    public TaskPreferencesActivity() {
-        super(TaskPreferencesFragment.class);
+
+    @Override
+    protected Fragment getFragmentInstance() {
+        return new TaskPreferencesFragment();
     }
 }
 
