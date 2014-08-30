@@ -10,7 +10,8 @@ public class TimePickerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        OnTimeSetListener listener = (OnTimeSetListener) getFragmentManager()
+        OnTimeSetListener listener = (OnTimeSetListener)
+                getFragmentManager()
                 .findFragmentByTag(
                         ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
         return new TimePickerDialog(getActivity(), listener,

@@ -1,9 +1,5 @@
 package com.dummies.android.taskreminder;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -29,9 +25,16 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ReminderEditFragment extends Fragment implements
-        OnDateSetListener, OnTimeSetListener, LoaderManager.LoaderCallbacks<Cursor> {
-    public static final String DEFAULT_EDIT_FRAGMENT_TAG = "editFragmentTag";
+        OnDateSetListener, OnTimeSetListener,
+        LoaderManager.LoaderCallbacks<Cursor> {
+
+    public static final String DEFAULT_EDIT_FRAGMENT_TAG =
+            "editFragmentTag";
 
     //
     // Dialog Constants
@@ -64,22 +67,25 @@ public class ReminderEditFragment extends Fragment implements
         // previous date as well, otherwise use now
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(CALENDAR)) {
-            calendar = (Calendar) savedInstanceState.getSerializable(CALENDAR);
+            calendar = (Calendar) savedInstanceState.getSerializable
+                    (CALENDAR);
         } else {
             calendar = Calendar.getInstance();
         }
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            taskId = arguments.getLong(ReminderProvider.COLUMN_TASKID,0L);
+            taskId = arguments.getLong(ReminderProvider.COLUMN_TASKID,
+                    0L);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.reminder_edit_fragment, container, false);
+        View v = inflater.inflate(R.layout.reminder_edit_fragment,
+                container, false);
 
         titleText = (EditText) v.findViewById(R.id.title);
         bodyText = (EditText) v.findViewById(R.id.body);
@@ -106,16 +112,19 @@ public class ReminderEditFragment extends Fragment implements
             public void onClick(View view) {
                 ContentValues values = new ContentValues();
                 values.put(ReminderProvider.COLUMN_TASKID, taskId);
-                values.put(ReminderProvider.COLUMN_TITLE, titleText.getText()
+                values.put(ReminderProvider.COLUMN_TITLE,
+                        titleText.getText()
                         .toString());
-                values.put(ReminderProvider.COLUMN_BODY, bodyText.getText()
+                values.put(ReminderProvider.COLUMN_BODY,
+                        bodyText.getText()
                         .toString());
                 values.put(ReminderProvider.COLUMN_DATE_TIME,
                         calendar.getTimeInMillis());
 
                 if (taskId == 0) {
-                    Uri itemUri = getActivity().getContentResolver().insert(
-                            ReminderProvider.CONTENT_URI, values);
+                    Uri itemUri = getActivity().getContentResolver()
+                            .insert(
+                                    ReminderProvider.CONTENT_URI, values);
                     taskId = ContentUris.parseId(itemUri);
                 } else {
                     int count = getActivity().getContentResolver().update(
@@ -123,7 +132,8 @@ public class ReminderEditFragment extends Fragment implements
                                     ReminderProvider.CONTENT_URI, taskId),
                             values, null, null);
                     if (count != 1)
-                        throw new IllegalStateException("Unable to update "
+                        throw new IllegalStateException("Unable to " +
+                                "update "
                                 + taskId);
                 }
 
@@ -141,8 +151,10 @@ public class ReminderEditFragment extends Fragment implements
             // This is a new task - add defaults from preferences if set.
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(getActivity());
-            String defaultTitleKey = getString(R.string.pref_task_title_key);
-            String defaultTimeKey = getString(R.string.pref_default_time_from_now_key);
+            String defaultTitleKey = getString(R.string
+                    .pref_task_title_key);
+            String defaultTimeKey = getString(R.string
+                    .pref_default_time_from_now_key);
 
             String defaultTitle = prefs.getString(defaultTitleKey, null);
             String defaultTime = prefs.getString(defaultTimeKey, null);
@@ -150,8 +162,9 @@ public class ReminderEditFragment extends Fragment implements
             if (defaultTitle != null)
                 titleText.setText(defaultTitle);
 
-            if (defaultTime != null && defaultTime.length()>0 )
-                calendar.add(Calendar.MINUTE, Integer.parseInt(defaultTime));
+            if (defaultTime != null && defaultTime.length() > 0)
+                calendar.add(Calendar.MINUTE,
+                        Integer.parseInt(defaultTime));
 
             updateButtons();
 
@@ -209,7 +222,7 @@ public class ReminderEditFragment extends Fragment implements
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear,
-            int dayOfMonth) {
+                          int dayOfMonth) {
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -226,12 +239,14 @@ public class ReminderEditFragment extends Fragment implements
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), ContentUris.withAppendedId(
-                ReminderProvider.CONTENT_URI, taskId), null, null, null, null);
+                ReminderProvider.CONTENT_URI, taskId), null, null,
+                null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor reminder) {
-        // Close this fragmentClass down if the item we're editing was deleted
+        // Close this fragmentClass down if the item we're editing was
+        // deleted
         if (reminder.getCount() == 0) {
             new Handler().post(new Runnable() {
                 @Override
@@ -249,7 +264,8 @@ public class ReminderEditFragment extends Fragment implements
 
         // Get the date from the database
         Long dateInMillis = reminder.getLong(reminder
-                .getColumnIndexOrThrow(ReminderProvider.COLUMN_DATE_TIME));
+                .getColumnIndexOrThrow(ReminderProvider
+                        .COLUMN_DATE_TIME));
         Date date = new Date(dateInMillis);
         calendar.setTime(date);
 

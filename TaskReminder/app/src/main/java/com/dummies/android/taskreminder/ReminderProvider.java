@@ -13,21 +13,25 @@ import android.net.Uri;
 
 public class ReminderProvider extends ContentProvider {
     // Content Provider Uri and Authority
-    public static final String AUTHORITY = "com.dummies.android.taskreminder.ReminderProvider";
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
-            + "/reminder");
-
-    // MIME types used for searching words or looking up a single definition
-    private static final String REMINDERS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/vnd.com.dummies.android.taskreminder.reminder";
-    private static final String REMINDER_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/vnd.com.dummies.android.taskreminder.reminder";
+    public static final String AUTHORITY = "com.dummies.android" +
+            ".taskreminder.ReminderProvider";
+    public static final Uri CONTENT_URI = Uri.parse("content://" +
+            AUTHORITY + "/reminder");
 
     // Database Columns
     public static final String COLUMN_TASKID = "_id";
     public static final String COLUMN_DATE_TIME = "reminder_date_time";
     public static final String COLUMN_BODY = "body";
     public static final String COLUMN_TITLE = "title";
+
+    // MIME types used for searching words or looking up a single
+    // definition
+    private static final String REMINDERS_MIME_TYPE = ContentResolver
+            .CURSOR_DIR_BASE_TYPE
+            + "/vnd.com.dummies.android.taskreminder.reminder";
+    private static final String REMINDER_MIME_TYPE = ContentResolver
+            .CURSOR_ITEM_BASE_TYPE
+            + "/vnd.com.dummies.android.taskreminder.reminder";
 
     // Database Related Constants
     private static final int DATABASE_VERSION = 1;
@@ -38,6 +42,7 @@ public class ReminderProvider extends ContentProvider {
     private static final int LIST_REMINDER = 0;
     private static final int ITEM_REMINDER = 1;
     private static final UriMatcher URI_MATCHER = buildUriMatcher();
+
 
     private SQLiteDatabase db;
 
@@ -62,31 +67,35 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] ignored1, String ignored2,
-            String[] ignored3, String ignored4) {
+                        String[] ignored3, String ignored4) {
 
-        String[] projection = new String[] { ReminderProvider.COLUMN_TASKID,
-                ReminderProvider.COLUMN_TITLE, ReminderProvider.COLUMN_BODY,
-                ReminderProvider.COLUMN_DATE_TIME };
+        String[] projection = new String[]{ReminderProvider.COLUMN_TASKID,
+                ReminderProvider.COLUMN_TITLE,
+                ReminderProvider.COLUMN_BODY,
+                ReminderProvider.COLUMN_DATE_TIME};
 
-        // Use the UriMatcher to see what kind of query we have and format the
+        // Use the UriMatcher to see what kind of query we have and
+        // format the
         // db query accordingly
         Cursor c;
         switch (URI_MATCHER.match(uri)) {
-        case LIST_REMINDER:
-            c = db.query(ReminderProvider.DATABASE_TABLE, projection, null,
-                    null, null, null, null);
-            break;
-        case ITEM_REMINDER:
-            c = db.query(ReminderProvider.DATABASE_TABLE, projection,
-                    ReminderProvider.COLUMN_TASKID + "=?",
-                    new String[] { Long.toString(ContentUris.parseId(uri)) },
-                    null, null, null, null);
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-            }
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown Uri: " + uri);
+            case LIST_REMINDER:
+                c = db.query(ReminderProvider.DATABASE_TABLE,
+                        projection, null,
+                        null, null, null, null);
+                break;
+            case ITEM_REMINDER:
+                c = db.query(ReminderProvider.DATABASE_TABLE, projection,
+                        ReminderProvider.COLUMN_TASKID + "=?",
+                        new String[]{Long.toString(ContentUris.parseId
+                                (uri))},
+                        null, null, null, null);
+                if (c.getCount() > 0) {
+                    c.moveToFirst();
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown Uri: " + uri);
         }
 
         c.setNotificationUri(getContext().getContentResolver(), uri);
@@ -95,9 +104,8 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        values.remove(ReminderProvider.COLUMN_TASKID); // you can't insert and
-                                                      // specify a row id, so
-                                                      // remove it if present
+        // you can't insert and specify a row id, so remove it if present
+        values.remove(ReminderProvider.COLUMN_TASKID);
         long id = db.insertOrThrow(ReminderProvider.DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
@@ -108,7 +116,7 @@ public class ReminderProvider extends ContentProvider {
     public int delete(Uri uri, String ignored1, String[] ignored2) {
         int count = db.delete(ReminderProvider.DATABASE_TABLE,
                 ReminderProvider.COLUMN_TASKID + "=?",
-                new String[] { Long.toString(ContentUris.parseId(uri)) });
+                new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
         return count;
@@ -116,34 +124,45 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
-            String[] ignored2) {
+                      String[] ignored2) {
         int count = db.update(ReminderProvider.DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
-                new String[] { Long.toString(ContentUris.parseId(uri)) });
+                new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
 
     /**
-     * This method is required in order to query the supported types. It's also
-     * useful in our own query() method to determine the type of Uri received.
+     * This method is required in order to query the supported types.
+     * It's also
+     * useful in our own query() method to determine the type of Uri
+     * received.
      */
     @Override
     public String getType(Uri uri) {
         switch (URI_MATCHER.match(uri)) {
-        case LIST_REMINDER:
-            return REMINDERS_MIME_TYPE;
-        case ITEM_REMINDER:
-            return REMINDER_MIME_TYPE;
-        default:
-            throw new IllegalArgumentException("Unknown Uri: " + uri);
+            case LIST_REMINDER:
+                return REMINDERS_MIME_TYPE;
+            case ITEM_REMINDER:
+                return REMINDER_MIME_TYPE;
+            default:
+                throw new IllegalArgumentException("Unknown Uri: " + uri);
         }
     }
 
     protected static class DatabaseHelper extends SQLiteOpenHelper {
-        
-        // BUG we should change COLUMN_DATE_TIME back to being text since it's easier
+
+        DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }        // BUG we should change COLUMN_DATE_TIME back to being
+        // text
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(DATABASE_CREATE);
+        }        // since it's easier
+
         // to read in the db that way
         private static final String DATABASE_CREATE = "create table "
                 + DATABASE_TABLE + " (" + COLUMN_TASKID
@@ -151,18 +170,12 @@ public class ReminderProvider extends ContentProvider {
                 + " text not null, " + COLUMN_BODY + " text not null, "
                 + COLUMN_DATE_TIME + " integer not null);";
 
-        DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
         @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(DATABASE_CREATE);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        public void onUpgrade(SQLiteDatabase db, int oldVersion,
+                              int newVersion) {
             throw new UnsupportedOperationException();
         }
+
+
     }
 }

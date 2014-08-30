@@ -29,13 +29,15 @@ public class ReminderListFragment extends ListFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Create an array to specify the fields we want to display in the list
+        // Create an array to specify the fields we want to display in
+        // the list
         // (only TITLE)
-        String[] from = new String[] { ReminderProvider.COLUMN_TITLE };
+        String[] from = new String[]{ReminderProvider.COLUMN_TITLE};
 
-        // and an array of the fields we want to bind those fields to (in this
+        // and an array of the fields we want to bind those fields to
+        // (in this
         // case just text1)
-        int[] to = new int[] { R.id.text1 };
+        int[] to = new int[]{R.id.text1};
 
         // Now create a simple cursor adapter and set it to display
         adapter = new SimpleCursorAdapter(getActivity(),
@@ -45,7 +47,6 @@ public class ReminderListFragment extends ListFragment implements
         getLoaderManager().initLoader(0, null, this);
     }
 
-    
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -54,7 +55,6 @@ public class ReminderListFragment extends ListFragment implements
         registerForContextMenu(getListView());
         setHasOptionsMenu(true);
     }
-
 
 
     @Override
@@ -66,19 +66,21 @@ public class ReminderListFragment extends ListFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.menu_insert:
-            ((OnEditReminder) getActivity()).editReminder(0);
-            return true;
-        case R.id.menu_settings:
-            startActivity(new Intent(getActivity(), TaskPreferencesActivity.class));
-            return true;
+            case R.id.menu_insert:
+                ((OnEditReminder) getActivity()).editReminder(0);
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(getActivity(),
+                        TaskPreferencesActivity.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(ListView l, View v, int position,
+                                long id) {
         super.onListItemClick(l, v, position, id);
         ((OnEditReminder) getActivity()).editReminder(id);
     }
@@ -86,20 +88,22 @@ public class ReminderListFragment extends ListFragment implements
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.menu_delete:
-            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-                    .getMenuInfo();
-            getActivity().getContentResolver().delete(
-                    ContentUris.withAppendedId(ReminderProvider.CONTENT_URI,
-                            info.id), null, null);
-            return true;
+            case R.id.menu_delete:
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo)
+                        item
+                        .getMenuInfo();
+                getActivity().getContentResolver().delete(
+                        ContentUris.withAppendedId(ReminderProvider
+                                        .CONTENT_URI,
+                                info.id), null, null);
+                return true;
         }
         return super.onContextItemSelected(item);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
+                                    ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater mi = getActivity().getMenuInflater();
         mi.inflate(R.menu.list_menu_item_longpress, menu);
@@ -107,7 +111,8 @@ public class ReminderListFragment extends ListFragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
-        return new CursorLoader(getActivity(), ReminderProvider.CONTENT_URI,
+        return new CursorLoader(getActivity(),
+                ReminderProvider.CONTENT_URI,
                 null, null, null, null);
     }
 
@@ -118,7 +123,8 @@ public class ReminderListFragment extends ListFragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        // This is called when the last Cursor provided to onLoadFinished()
+        // This is called when the last Cursor provided to
+        // onLoadFinished()
         // above is about to be closed. We need to make sure we are no
         // longer using it.
         adapter.swapCursor(null);

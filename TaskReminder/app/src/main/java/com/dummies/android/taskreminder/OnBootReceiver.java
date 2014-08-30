@@ -16,7 +16,7 @@ public class OnBootReceiver extends BroadcastReceiver {
         Cursor cursor = context.getContentResolver().query(
                 ReminderProvider.CONTENT_URI, null, null, null, null);
 
-        if( cursor==null )
+        if (cursor == null)
             return;
 
         cursor.moveToFirst();

@@ -16,8 +16,8 @@ public class ReminderListAndEditorActivity extends Activity implements
     }
 
     /**
-     * Set the edit fragment, replacing the existing fragment if there's one
-     * already there.
+     * Set the edit fragment, replacing the existing fragment if
+     * there's one already there.
      */
     @Override
     public void editReminder(long id) {
@@ -37,9 +37,11 @@ public class ReminderListAndEditorActivity extends Activity implements
     @Override
     public void finishEditor() {
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager
+                .beginTransaction();
         Fragment previousFragment = fragmentManager
-                .findFragmentByTag(ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+                .findFragmentByTag(ReminderEditFragment
+                        .DEFAULT_EDIT_FRAGMENT_TAG);
         transaction.remove(previousFragment);
         transaction.commit();
     }

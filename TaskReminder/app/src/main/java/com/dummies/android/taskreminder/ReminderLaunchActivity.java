@@ -11,7 +11,8 @@ public class ReminderLaunchActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Launch the phone or tablet activity, as appropriate, then finish
+        // Launch the phone or tablet activity, as appropriate,
+        // then finish
         startActivity(new Intent(this,
                 isTablet() ? ReminderListAndEditorActivity.class
                         : ReminderListActivity.class));
@@ -19,8 +20,12 @@ public class ReminderLaunchActivity extends Activity {
     }
 
     private boolean isTablet() {
-        boolean large = ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-        boolean xlarge = ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+        boolean large = ((getResources().getConfiguration()
+                .screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == Configuration.SCREENLAYOUT_SIZE_LARGE);
+        boolean xlarge = ((getResources().getConfiguration()
+                .screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                == 4);
         return large || xlarge;
     }
 }
