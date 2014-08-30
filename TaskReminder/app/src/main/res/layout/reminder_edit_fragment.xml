@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView 
 	xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 	<LinearLayout	
 		android:orientation="vertical" 
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 		<EditText android:id="@+id/title"
             android:hint="@string/title"
-		    android:layout_width="fill_parent"
+		    android:layout_width="match_parent"
 			android:layout_height="wrap_content" 
 			/>
 		<EditText android:id="@+id/body"
             android:hint="@string/body"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:minLines="5"
 			android:scrollbars="vertical" 
