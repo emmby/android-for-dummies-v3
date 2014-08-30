@@ -81,7 +81,7 @@ public class ReminderProvider extends ContentProvider {
                     ReminderProvider.COLUMN_ROWID + "=?",
                     new String[] { Long.toString(ContentUris.parseId(uri)) },
                     null, null, null, null);
-            if (c != null && c.getCount() > 0) {
+            if (c.getCount() > 0) {
                 c.moveToFirst();
             }
             break;

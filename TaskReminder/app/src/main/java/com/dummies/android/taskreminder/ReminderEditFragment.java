@@ -53,7 +53,6 @@ public class ReminderEditFragment extends Fragment implements
     private EditText mBodyText;
     private Button mDateButton;
     private Button mTimeButton;
-    private Button mConfirmButton;
     private long mRowId;
     private Calendar mCalendar;
 
@@ -86,7 +85,6 @@ public class ReminderEditFragment extends Fragment implements
         mBodyText = (EditText) v.findViewById(R.id.body);
         mDateButton = (Button) v.findViewById(R.id.reminder_date);
         mTimeButton = (Button) v.findViewById(R.id.reminder_time);
-        mConfirmButton = (Button) v.findViewById(R.id.confirm);
 
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +100,8 @@ public class ReminderEditFragment extends Fragment implements
             }
         });
 
-        mConfirmButton.setOnClickListener(new View.OnClickListener() {
+        Button confirmButton = (Button) v.findViewById(R.id.confirm);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ContentValues values = new ContentValues();

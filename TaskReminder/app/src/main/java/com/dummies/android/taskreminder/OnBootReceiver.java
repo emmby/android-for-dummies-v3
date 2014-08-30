@@ -28,7 +28,7 @@ public class OnBootReceiver extends BroadcastReceiver {
             int dateTimeColumnIndex = cursor
                     .getColumnIndex(ReminderProvider.COLUMN_DATE_TIME);
 
-            while (cursor.isAfterLast() == false) {
+            while (!cursor.isAfterLast()) {
 
                 long rowId = cursor.getLong(rowIdColumnIndex);
                 long dateTime = cursor.getLong(dateTimeColumnIndex);
