@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.dummies.android.taskreminder.ReminderProvider
+        .COLUMN_TASKID;
 
 public class OnAlarmReceiver extends BroadcastReceiver {
     @Override
@@ -26,16 +28,23 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         NotificationManager mgr = (NotificationManager) context
                 .getSystemService(NOTIFICATION_SERVICE);
 
-        Intent notificationIntent = new Intent(context,
-                ReminderEditActivity.class);
-        long taskId = intent.getExtras().getLong(ReminderProvider
-                .COLUMN_TASKID);
-        notificationIntent.putExtra(ReminderProvider.COLUMN_TASKID,
-                taskId);
+        // Create the intent that will open the ReminderEditActivity
+        // for the specified task id.  We get the id of the task
+        // from the OnAlarmReceiver's broadcast intent.
+        Intent reminderEditIntent =
+                new Intent(context, ReminderEditActivity.class);
+        long taskId = intent.getExtras().getLong( COLUMN_TASKID);
+        reminderEditIntent.putExtra(COLUMN_TASKID, taskId);
 
+        // Create the PendingIntent that will wrap the
+        // reminderEditIntent.  All intents that are used in
+        // notifications must be wrapped in a PendingIntent to "give
+        // permission" to the AlarmManager to call back into our
+        // application.
         PendingIntent pi = PendingIntent.getActivity(context, 0,
-                notificationIntent, PendingIntent.FLAG_ONE_SHOT);
+                reminderEditIntent, 0);
 
+        // Build the Notification object using a Notification.Builder
         Notification note = new Notification.Builder(context)
                 .setContentTitle(context.getString(R.string
                         .notify_new_task_title))
@@ -46,8 +55,7 @@ public class OnAlarmReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .build();
 
-        // An issue could occur if user ever enters over 2,147,483,
-        // 647 (max int value) tasks.
+        // Send the notification.
         mgr.notify((int) taskId, note);
     }
 }
