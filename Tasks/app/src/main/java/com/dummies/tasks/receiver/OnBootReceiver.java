@@ -9,6 +9,10 @@ import com.dummies.tasks.util.ReminderManager;
 
 import java.util.Calendar;
 
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
+import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
+
 /**
  * This class will be triggered when the phone first boots so that our
  * app can re-install any alarms that need to be set.  If we didn't do
@@ -21,7 +25,7 @@ public class OnBootReceiver extends BroadcastReceiver {
 
         // Get the cursor for our tasks
         Cursor cursor = context.getContentResolver().query(
-                com.dummies.tasks.provider.TaskProvider.CONTENT_URI, null, null, null, null);
+                CONTENT_URI, null, null, null, null);
 
         // If our db is empty, don't do anything
         if (cursor == null)
@@ -33,10 +37,9 @@ public class OnBootReceiver extends BroadcastReceiver {
 
             // get the indices of the taskId and date_time columns
             int taskIdColumnIndex = cursor
-                    .getColumnIndex(com.dummies.tasks.provider
-                            .TaskProvider.COLUMN_TASKID);
+                    .getColumnIndex(COLUMN_TASKID);
             int dateTimeColumnIndex = cursor
-                    .getColumnIndex(com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME);
+                    .getColumnIndex(COLUMN_DATE_TIME);
 
             // Loop over all of the tasks in the db
             while (!cursor.isAfterLast()) {
