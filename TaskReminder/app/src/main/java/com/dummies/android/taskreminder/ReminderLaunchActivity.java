@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+/**
+ * Our app's starting activity, which will detect whether we're on a
+ * tablet or on a phone and launch the right activity as appropriate.
+ */
 public class ReminderLaunchActivity extends Activity {
 
     @Override

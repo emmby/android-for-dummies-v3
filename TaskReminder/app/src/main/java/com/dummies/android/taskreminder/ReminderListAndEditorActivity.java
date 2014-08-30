@@ -6,6 +6,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
+/**
+ * Our Reminder List and Edit activity for Tablets
+ */
 public class ReminderListAndEditorActivity extends Activity implements
         OnEditReminder, OnEditFinished {
 

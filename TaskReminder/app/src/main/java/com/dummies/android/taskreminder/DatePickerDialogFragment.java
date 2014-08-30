@@ -12,6 +12,9 @@ import static com.dummies.android.taskreminder.ReminderEditFragment
 import static com.dummies.android.taskreminder.ReminderEditFragment.MONTH;
 import static com.dummies.android.taskreminder.ReminderEditFragment.YEAR;
 
+/**
+ * A DialogFragment used to display a date picker
+ */
 public class DatePickerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

@@ -2,6 +2,9 @@ package com.dummies.android.taskreminder;
 
 import android.app.Fragment;
 
+/**
+ * Our Reminder Edit Activity for Phones
+ */
 public class ReminderEditActivity extends SingleFragmentActivity
         implements OnEditFinished {
 

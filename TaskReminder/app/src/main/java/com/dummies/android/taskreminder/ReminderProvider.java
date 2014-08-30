@@ -11,6 +11,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+/**
+ * A Content Provider that knows how to read and write tasks from our
+ * tasks database.
+ */
 public class ReminderProvider extends ContentProvider {
     // Content Provider Uri and Authority
     public static final String AUTHORITY = "com.dummies.android" +

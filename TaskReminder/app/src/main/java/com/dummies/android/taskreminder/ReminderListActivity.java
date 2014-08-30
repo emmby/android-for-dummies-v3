@@ -3,6 +3,9 @@ package com.dummies.android.taskreminder;
 import android.app.Fragment;
 import android.content.Intent;
 
+/**
+ * Our Reminder List activity for Phones
+ */
 public class ReminderListActivity extends SingleFragmentActivity
         implements OnEditReminder {
 

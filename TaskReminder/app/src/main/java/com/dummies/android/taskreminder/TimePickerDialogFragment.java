@@ -6,16 +6,32 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 
+import static com.dummies.android.taskreminder.ReminderEditFragment
+        .DEFAULT_EDIT_FRAGMENT_TAG;
+import static com.dummies.android.taskreminder.ReminderEditFragment.HOUR;
+import static com.dummies.android.taskreminder.ReminderEditFragment.MINS;
+
+/**
+ * A DialogFragment used to display a time picker
+ */
 public class TimePickerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Bundle args = getArguments();
+        // Find the ReminderEditFragment that created this dialog. We'll
+        // use that fragment as the edit callback, so that when the user
+        // chooses a new date in our datepicker dialog,
+        // the dialog will call back into the edit fragment to set the
+        // new date.
         OnTimeSetListener listener = (OnTimeSetListener)
                 getFragmentManager()
-                .findFragmentByTag(
-                        ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+                .findFragmentByTag(DEFAULT_EDIT_FRAGMENT_TAG);
+
+        // Construct a new TimePicker Dialog that will be hosted by
+        // this fragment. Set its Hour and Minutes to the values
+        // specified in the args bundle
+        Bundle args = getArguments();
         return new TimePickerDialog(getActivity(), listener,
-                args.getInt(ReminderEditFragment.HOUR),
-                args.getInt(ReminderEditFragment.MINS), false);
+                args.getInt(HOUR),
+                args.getInt(MINS), false);
     }
 }
