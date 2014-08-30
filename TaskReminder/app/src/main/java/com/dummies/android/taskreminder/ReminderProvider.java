@@ -18,9 +18,9 @@ public class ReminderProvider extends ContentProvider {
             + "/reminder");
 
     // MIME types used for searching words or looking up a single definition
-    public static final String REMINDERS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
+    private static final String REMINDERS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
             + "/vnd.com.dummies.android.taskreminder.reminder";
-    public static final String REMINDER_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
+    private static final String REMINDER_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
             + "/vnd.com.dummies.android.taskreminder.reminder";
 
     // Database Columns
