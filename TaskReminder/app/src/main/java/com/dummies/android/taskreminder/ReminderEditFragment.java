@@ -64,19 +64,21 @@ public class ReminderEditFragment extends Fragment implements
         super.onCreate(savedInstanceState);
 
         // If we're restoring state from a previous activity, restore the
-        // previous date as well, otherwise use now
-        if (savedInstanceState != null
-                && savedInstanceState.containsKey(CALENDAR)) {
+        // previous date as well
+        if (savedInstanceState != null) {
             calendar = (Calendar) savedInstanceState.getSerializable
                     (CALENDAR);
-        } else {
+        }
+
+        // If we didn't have a previous date, use "now"
+        if( calendar==null ) {
             calendar = Calendar.getInstance();
         }
 
+        // Set the task id from the intent arguments, if available.
         Bundle arguments = getArguments();
         if (arguments != null) {
-            taskId = arguments.getLong(ReminderProvider.COLUMN_TASKID,
-                    0L);
+            taskId = arguments.getLong(ReminderProvider.COLUMN_TASKID,0L);
         }
     }
 
@@ -84,21 +86,25 @@ public class ReminderEditFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Inflate the layout and set the container. The layout is the
+        // view that we will return.
         View v = inflater.inflate(R.layout.reminder_edit_fragment,
                 container, false);
 
+        // From the layout, get a few views that we're going to work with
         titleText = (EditText) v.findViewById(R.id.title);
         bodyText = (EditText) v.findViewById(R.id.body);
         dateButton = (Button) v.findViewById(R.id.reminder_date);
         timeButton = (Button) v.findViewById(R.id.reminder_time);
 
+        // Tell the date and time buttons what to do when we click on
+        // them.
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
             }
         });
-
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,10 +112,14 @@ public class ReminderEditFragment extends Fragment implements
             }
         });
 
+        // Tell the confirmation button what to do when we click on it.
         Button confirmButton = (Button) v.findViewById(R.id.confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Put all the values the user entered into a
+                // ContentValues object
                 ContentValues values = new ContentValues();
                 values.put(ReminderProvider.COLUMN_TASKID, taskId);
                 values.put(ReminderProvider.COLUMN_TITLE,
@@ -121,26 +131,42 @@ public class ReminderEditFragment extends Fragment implements
                 values.put(ReminderProvider.COLUMN_DATE_TIME,
                         calendar.getTimeInMillis());
 
+                // taskId==0 when we create a new task,
+                // otherwise it's the id of the task being edited.
                 if (taskId == 0) {
+
+                    // Create the new task and set taskId to the id of
+                    // the new task.
                     Uri itemUri = getActivity().getContentResolver()
                             .insert(
                                     ReminderProvider.CONTENT_URI, values);
                     taskId = ContentUris.parseId(itemUri);
+
                 } else {
+
+                    // Edit the task
                     int count = getActivity().getContentResolver().update(
                             ContentUris.withAppendedId(
                                     ReminderProvider.CONTENT_URI, taskId),
                             values, null, null);
+
+                    // If somehow we didn't edit exactly one task,
+                    // throw an error
                     if (count != 1)
-                        throw new IllegalStateException("Unable to " +
-                                "update "
-                                + taskId);
+                        throw new IllegalStateException(
+                                "Unable to update " + taskId);
                 }
 
+                // Notify the user of the change using a Toast
                 Toast.makeText(getActivity(),
                         getString(R.string.task_saved_message),
                         Toast.LENGTH_SHORT).show();
-                ((OnFinishEditor) getActivity()).finishEditor();
+
+                // Tell our enclosing activity that we are done so that
+                // it can cleanup whatever it needs to clean up.
+                ((OnFragmentFinish) getActivity()).fragmentIsFinished();
+
+                // Create a reminder for this task
                 new ReminderManager(getActivity()).setReminder(taskId,
                         calendar);
             }
@@ -251,7 +277,7 @@ public class ReminderEditFragment extends Fragment implements
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    ((OnFinishEditor) getActivity()).finishEditor();
+                    ((OnFragmentFinish) getActivity()).fragmentIsFinished();
                 }
             });
             return;

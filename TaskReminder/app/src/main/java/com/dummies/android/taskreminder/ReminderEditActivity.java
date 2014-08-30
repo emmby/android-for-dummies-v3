@@ -3,7 +3,7 @@ package com.dummies.android.taskreminder;
 import android.app.Fragment;
 
 public class ReminderEditActivity extends SingleFragmentActivity
-        implements OnFinishEditor {
+        implements OnFragmentFinish {
 
     @Override
     protected Fragment newFragmentInstance() {
@@ -16,7 +16,7 @@ public class ReminderEditActivity extends SingleFragmentActivity
     }
 
     @Override
-    public void finishEditor() {
+    public void fragmentIsFinished() {
         // When the user dismisses the editor, call finish to destroy
         // this activity.
         finish();

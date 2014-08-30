@@ -7,7 +7,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 public class ReminderListAndEditorActivity extends Activity implements
-        OnEditReminder, OnFinishEditor {
+        OnEditReminder, OnFragmentFinish {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class ReminderListAndEditorActivity extends Activity implements
     }
 
     @Override
-    public void finishEditor() {
+    public void fragmentIsFinished() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager
                 .beginTransaction();
