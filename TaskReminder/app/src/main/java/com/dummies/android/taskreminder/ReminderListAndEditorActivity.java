@@ -23,7 +23,7 @@ public class ReminderListAndEditorActivity extends Activity implements
     public void editReminder(long id) {
         ReminderEditFragment fragment = new ReminderEditFragment();
         Bundle arguments = new Bundle();
-        arguments.putLong(ReminderProvider.COLUMN_ROWID, id);
+        arguments.putLong(ReminderProvider.COLUMN_TASKID, id);
         fragment.setArguments(arguments);
 
         FragmentTransaction transaction = getFragmentManager()

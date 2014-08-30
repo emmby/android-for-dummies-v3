@@ -53,7 +53,7 @@ public class ReminderEditFragment extends Fragment implements
     private EditText bodyText;
     private Button dateButton;
     private Button timeButton;
-    private long rowId;
+    private long taskId;
     private Calendar calendar;
 
     @Override
@@ -71,7 +71,7 @@ public class ReminderEditFragment extends Fragment implements
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            rowId = arguments.getLong(ReminderProvider.COLUMN_ROWID,0L);
+            taskId = arguments.getLong(ReminderProvider.COLUMN_TASKID,0L);
         }
     }
 
@@ -105,7 +105,7 @@ public class ReminderEditFragment extends Fragment implements
             @Override
             public void onClick(View view) {
                 ContentValues values = new ContentValues();
-                values.put(ReminderProvider.COLUMN_ROWID, rowId);
+                values.put(ReminderProvider.COLUMN_TASKID, taskId);
                 values.put(ReminderProvider.COLUMN_TITLE, titleText.getText()
                         .toString());
                 values.put(ReminderProvider.COLUMN_BODY, bodyText.getText()
@@ -113,31 +113,31 @@ public class ReminderEditFragment extends Fragment implements
                 values.put(ReminderProvider.COLUMN_DATE_TIME,
                         calendar.getTimeInMillis());
 
-                if (rowId == 0) {
+                if (taskId == 0) {
                     Uri itemUri = getActivity().getContentResolver().insert(
                             ReminderProvider.CONTENT_URI, values);
-                    rowId = ContentUris.parseId(itemUri);
+                    taskId = ContentUris.parseId(itemUri);
                 } else {
                     int count = getActivity().getContentResolver().update(
                             ContentUris.withAppendedId(
-                                    ReminderProvider.CONTENT_URI, rowId),
+                                    ReminderProvider.CONTENT_URI, taskId),
                             values, null, null);
                     if (count != 1)
                         throw new IllegalStateException("Unable to update "
-                                + rowId);
+                                + taskId);
                 }
 
                 Toast.makeText(getActivity(),
                         getString(R.string.task_saved_message),
                         Toast.LENGTH_SHORT).show();
                 ((OnFinishEditor) getActivity()).finishEditor();
-                new ReminderManager(getActivity()).setReminder(rowId,
+                new ReminderManager(getActivity()).setReminder(taskId,
                         calendar);
             }
 
         });
 
-        if (rowId == 0) {
+        if (taskId == 0) {
             // This is a new task - add defaults from preferences if set.
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(getActivity());
@@ -226,7 +226,7 @@ public class ReminderEditFragment extends Fragment implements
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), ContentUris.withAppendedId(
-                ReminderProvider.CONTENT_URI, rowId), null, null, null, null);
+                ReminderProvider.CONTENT_URI, taskId), null, null, null, null);
     }
 
     @Override

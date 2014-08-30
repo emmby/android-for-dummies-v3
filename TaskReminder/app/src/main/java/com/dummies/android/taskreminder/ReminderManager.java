@@ -21,7 +21,7 @@ public class ReminderManager {
     public void setReminder(Long taskId, Calendar when) {
 
         Intent i = new Intent(context, OnAlarmReceiver.class);
-        i.putExtra(ReminderProvider.COLUMN_ROWID, (long) taskId);
+        i.putExtra(ReminderProvider.COLUMN_TASKID, (long) taskId);
 
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i,
                 PendingIntent.FLAG_ONE_SHOT);

@@ -24,7 +24,7 @@ public class ReminderProvider extends ContentProvider {
             + "/vnd.com.dummies.android.taskreminder.reminder";
 
     // Database Columns
-    public static final String COLUMN_ROWID = "_id";
+    public static final String COLUMN_TASKID = "_id";
     public static final String COLUMN_DATE_TIME = "reminder_date_time";
     public static final String COLUMN_BODY = "body";
     public static final String COLUMN_TITLE = "title";
@@ -64,7 +64,7 @@ public class ReminderProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] ignored1, String ignored2,
             String[] ignored3, String ignored4) {
 
-        String[] projection = new String[] { ReminderProvider.COLUMN_ROWID,
+        String[] projection = new String[] { ReminderProvider.COLUMN_TASKID,
                 ReminderProvider.COLUMN_TITLE, ReminderProvider.COLUMN_BODY,
                 ReminderProvider.COLUMN_DATE_TIME };
 
@@ -78,7 +78,7 @@ public class ReminderProvider extends ContentProvider {
             break;
         case ITEM_REMINDER:
             c = db.query(ReminderProvider.DATABASE_TABLE, projection,
-                    ReminderProvider.COLUMN_ROWID + "=?",
+                    ReminderProvider.COLUMN_TASKID + "=?",
                     new String[] { Long.toString(ContentUris.parseId(uri)) },
                     null, null, null, null);
             if (c.getCount() > 0) {
@@ -95,7 +95,7 @@ public class ReminderProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        values.remove(ReminderProvider.COLUMN_ROWID); // you can't insert and
+        values.remove(ReminderProvider.COLUMN_TASKID); // you can't insert and
                                                       // specify a row id, so
                                                       // remove it if present
         long id = db.insertOrThrow(ReminderProvider.DATABASE_TABLE, null,
@@ -107,7 +107,7 @@ public class ReminderProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
         int count = db.delete(ReminderProvider.DATABASE_TABLE,
-                ReminderProvider.COLUMN_ROWID + "=?",
+                ReminderProvider.COLUMN_TASKID + "=?",
                 new String[] { Long.toString(ContentUris.parseId(uri)) });
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
@@ -118,7 +118,7 @@ public class ReminderProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String ignored1,
             String[] ignored2) {
         int count = db.update(ReminderProvider.DATABASE_TABLE, values,
-                COLUMN_ROWID + "=?",
+                COLUMN_TASKID + "=?",
                 new String[] { Long.toString(ContentUris.parseId(uri)) });
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
@@ -146,7 +146,7 @@ public class ReminderProvider extends ContentProvider {
         // BUG we should change COLUMN_DATE_TIME back to being text since it's easier
         // to read in the db that way
         private static final String DATABASE_CREATE = "create table "
-                + DATABASE_TABLE + " (" + COLUMN_ROWID
+                + DATABASE_TABLE + " (" + COLUMN_TASKID
                 + " integer primary key autoincrement, " + COLUMN_TITLE
                 + " text not null, " + COLUMN_BODY + " text not null, "
                 + COLUMN_DATE_TIME + " integer not null);";

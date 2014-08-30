@@ -8,7 +8,7 @@ public class ReminderEditActivity extends SingleFragmentActivity implements
     @Override
     protected Fragment getFragmentInstance() {
         Fragment fragment = new ReminderEditFragment();
-        // pass along arguments (like COLUMN_ROWID) from the activity to the fragment
+        // pass along arguments (like COLUMN_TASKID) from the activity to the fragment
         fragment.setArguments(getIntent().getExtras());
         return fragment;
     }

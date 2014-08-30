@@ -14,6 +14,6 @@ public class ReminderListActivity extends SingleFragmentActivity implements
     @Override
     public void editReminder(long id) {
         startActivity(new Intent(this, ReminderEditActivity.class).putExtra(
-                ReminderProvider.COLUMN_ROWID, id));
+                ReminderProvider.COLUMN_TASKID, id));
     }
 }
