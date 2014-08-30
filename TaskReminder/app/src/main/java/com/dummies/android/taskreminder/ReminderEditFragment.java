@@ -5,21 +5,21 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.LoaderManager;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +30,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class ReminderEditFragment extends Fragment implements
-        OnDateSetListener, OnTimeSetListener, LoaderCallbacks<Cursor> {
+        OnDateSetListener, OnTimeSetListener, LoaderManager.LoaderCallbacks<Cursor> {
     public static final String DEFAULT_EDIT_FRAGMENT_TAG = "editFragmentTag";
 
     //

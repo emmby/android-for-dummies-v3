@@ -1,12 +1,12 @@
 package com.dummies.android.taskreminder;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
-public class ReminderListAndEditorActivity extends FragmentActivity implements
+public class ReminderListAndEditorActivity extends Activity implements
         OnEditReminder, OnFinishEditor {
 
     @Override
@@ -26,7 +26,7 @@ public class ReminderListAndEditorActivity extends FragmentActivity implements
         arguments.putLong(ReminderProvider.COLUMN_ROWID, id);
         fragment.setArguments(arguments);
 
-        FragmentTransaction transaction = getSupportFragmentManager()
+        FragmentTransaction transaction = getFragmentManager()
                 .beginTransaction();
         transaction.replace(R.id.edit_container, fragment,
                 ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
@@ -36,7 +36,7 @@ public class ReminderListAndEditorActivity extends FragmentActivity implements
 
     @Override
     public void finishEditor() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Fragment previousFragment = fragmentManager
                 .findFragmentByTag(ReminderEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);

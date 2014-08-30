@@ -1,23 +1,23 @@
 apply plugin: 'com.android.application'
 
+// BUG I should regenerate this file from scratch
 android {
-    compileSdkVersion 16
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 16 // BUG do I need to change this?
+    buildToolsVersion "20.0.0" // BUG do I need to change this?
 
     defaultConfig {
         applicationId "com.dummies.android.taskreminder"
-        minSdkVersion 4
-        targetSdkVersion 16
+        minSdkVersion 20  // "L" Preview
+        compileSdkVersion 20  // "L" Preview
     }
 
     buildTypes {
         release {
-            runProguard false
+            runProguard false // BUG is this in the default gradle file?
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 }
 
 dependencies {
-    compile files('libs/android-support-v13.jar')
 }

@@ -1,10 +1,10 @@
 package com.dummies.android.taskreminder;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
-public class ReminderListActivity extends FragmentActivity implements
+public class ReminderListActivity extends Activity implements
         OnEditReminder {
 
     @Override
