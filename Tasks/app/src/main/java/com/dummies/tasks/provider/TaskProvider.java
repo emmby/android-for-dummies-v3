@@ -161,8 +161,7 @@ public class TaskProvider extends ContentProvider {
 
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }        // TODO we should change COLUMN_DATE_TIME back to being
-        // text
+        }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
