@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.dummies.tasks.R;
-import com.dummies.tasks.R.string;
 import com.dummies.tasks.activity.TaskPreferencesActivity;
 
 public class TaskListFragment extends ListFragment implements
@@ -54,7 +53,7 @@ public class TaskListFragment extends ListFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setEmptyText(getResources().getString(string.no_tasks));
+        setEmptyText(getResources().getString(R.string.no_tasks));
         registerForContextMenu(getListView());
         setHasOptionsMenu(true);
     }
