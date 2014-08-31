@@ -9,6 +9,8 @@
     <string name="confirm">Save</string>
     <string name="date">Task Date</string>
     <string name="time">Task Time</string>
+    <string name="delete">Delete</string>
+    <string name="delete_q">Delete?</string>
 
     <!-- Toasts -->
     <string name="task_saved_message">Task has been saved</string>

@@ -1,24 +1,24 @@
 package com.dummies.tasks.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
 
 import com.dummies.tasks.R;
@@ -87,28 +87,6 @@ public class TaskListFragment extends Fragment implements
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_delete:
-                AdapterContextMenuInfo info =
-                        (AdapterContextMenuInfo) item.getMenuInfo();
-                getActivity().getContentResolver().delete(
-                        ContentUris.withAppendedId(CONTENT_URI,
-                                info.id), null, null);
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater mi = getActivity().getMenuInflater();
-        mi.inflate(R.menu.list_menu_item_longpress, menu);
-    }
-
-    @Override
     public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
         return new CursorLoader(getActivity(), CONTENT_URI, null, null,
                 null, null);
@@ -153,8 +131,10 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder,
-                                 final int i) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int i) {
+        final long id = getItemId(i);
+        final Context context = viewHolder.title.getContext();
+
         // set the text
         cursor.moveToPosition(i);
         viewHolder.title.setText(cursor.getString(titleColumnIndex));
@@ -163,12 +143,34 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         viewHolder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long id = getItemId(i);
-                ((OnEditTask) viewHolder.title.getContext()).editTask(id);
+                ((OnEditTask) context).editTask(id);
             }
         });
 
-        //registerForContextMenu(viewHolder.title); // TODO not working
+        viewHolder.title.setOnLongClickListener( new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                new AlertDialog.Builder(context)
+                        .setTitle(R.string.delete_q)
+                        .setMessage(viewHolder.title.getText())
+                        .setCancelable(true)
+                        .setNegativeButton(android.R.string.cancel,null)
+                        .setPositiveButton(R.string.delete,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface
+                                                                dialogInterface, int i) {
+                                        context.getContentResolver()
+                                                .delete(ContentUris
+                                                        .withAppendedId
+                                                                (CONTENT_URI, id), null, null);
+                                    }
+                                })
+                        .show();
+                return true;
+            }
+        });
+
     }
 
     @Override
