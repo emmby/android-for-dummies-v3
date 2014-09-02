@@ -144,7 +144,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
         // set the thumbnail image
         Picasso.with(context)
-                .load("http://lorempixel.com/50/50/cats/?fakeId=" + id)
+                .load("http://lorempixel.com/200/200/cats/?fakeId=" + id)
                 .into(viewHolder.imageView);
 
         // Set the click action

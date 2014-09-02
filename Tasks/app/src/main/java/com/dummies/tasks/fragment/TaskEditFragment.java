@@ -22,12 +22,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.util.ReminderManager;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,12 +64,13 @@ public class TaskEditFragment extends Fragment implements
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
 
-    private EditText titleText;
-    private EditText bodyText;
-    private Button dateButton;
-    private Button timeButton;
-    private long taskId;
-    private Calendar calendar;
+    EditText titleText;
+    EditText bodyText;
+    ImageView imageView;
+    Button dateButton;
+    Button timeButton;
+    long taskId;
+    Calendar calendar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,7 @@ public class TaskEditFragment extends Fragment implements
         bodyText = (EditText) v.findViewById(R.id.body);
         dateButton = (Button) v.findViewById(R.id.task_date);
         timeButton = (Button) v.findViewById(R.id.task_time);
+        imageView = (ImageView) v.findViewById(R.id.image);
 
         // Tell the date and time buttons what to do when we click on
         // them.
@@ -291,6 +295,12 @@ public class TaskEditFragment extends Fragment implements
                 .getColumnIndexOrThrow(COLUMN_TITLE)));
         bodyText.setText(task.getString(task
                 .getColumnIndexOrThrow(COLUMN_BODY)));
+
+        // set the thumbnail image
+        Picasso.with(getActivity())
+                .load("http://lorempixel.com/200/200/cats/?fakeId=" + taskId)
+                .into(imageView);
+
 
         // Get the date from the database
         Long dateInMillis = task.getLong(task
