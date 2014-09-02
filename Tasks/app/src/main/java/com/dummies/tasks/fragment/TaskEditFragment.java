@@ -315,6 +315,6 @@ public class TaskEditFragment extends Fragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> arg0) {
-        // nothing to reset for this fragmentClass
+        // nothing to reset for this fragment
     }
 }
