@@ -123,7 +123,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_row, parent, false);
 
         // wrap it in a ViewHolder
@@ -187,9 +187,9 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
 
-        public ViewHolder(TextView itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            title = itemView;
+            title = (TextView) itemView.findViewById(R.id.text1);
         }
 
     }
