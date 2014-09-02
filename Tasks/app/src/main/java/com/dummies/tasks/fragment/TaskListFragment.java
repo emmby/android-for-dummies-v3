@@ -20,11 +20,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskPreferencesActivity;
 import com.dummies.tasks.interfaces.OnEditTask;
+import com.squareup.picasso.Picasso;
 
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
@@ -134,11 +136,15 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int i) {
         final long id = getItemId(i);
-        final Context context = viewHolder.title.getContext();
+        final Context context = viewHolder.titleView.getContext();
 
         // set the text
         cursor.moveToPosition(i);
-        viewHolder.title.setText(cursor.getString(titleColumnIndex));
+        viewHolder.titleView.setText(cursor.getString(titleColumnIndex));
+
+        // set the thumbnail image
+        Picasso.with(context).load("http://lorempixel.com/50/50/cats/")
+                .into(viewHolder.imageView);
 
         // Set the click action
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +160,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
             public boolean onLongClick(View view) {
                 new AlertDialog.Builder(context)
                         .setTitle(R.string.delete_q)
-                        .setMessage(viewHolder.title.getText())
+                        .setMessage(viewHolder.titleView.getText())
                         .setCancelable(true)
                         .setNegativeButton(android.R.string.cancel,null)
                         .setPositiveButton(R.string.delete,
@@ -188,12 +194,14 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView title;
+        TextView titleView;
+        ImageView imageView;
 
         public ViewHolder(CardView itemView) {
             super(itemView);
             cardView = itemView;
-            title = (TextView) itemView.findViewById(R.id.text1);
+            titleView = (TextView) itemView.findViewById(R.id.text1);
+            imageView = (ImageView) itemView.findViewById(R.id.image);
         }
 
     }
