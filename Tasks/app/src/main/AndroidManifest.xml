@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TaskListActivity" />
-        <activity android:name=".activity.TaskEditActivity" />
+        <!-- TODO documentLaunchMode not working? -->
+        <activity android:name=".activity.TaskEditActivity"
+                  android:documentLaunchMode="always"/>
         <activity android:name=".activity.TaskListAndEditorActivity" />
         <activity android:name=".activity.TaskPreferencesActivity" />
 
