@@ -118,9 +118,11 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
 
     public void swapCursor(Cursor c) {
         cursor = c;
-        cursor.moveToFirst();
-        titleColumnIndex = cursor.getColumnIndex(COLUMN_TITLE);
-        idColumnIndex = cursor.getColumnIndex(COLUMN_TASKID);
+        if(c!=null) {
+            cursor.moveToFirst();
+            titleColumnIndex = cursor.getColumnIndex(COLUMN_TITLE);
+            idColumnIndex = cursor.getColumnIndex(COLUMN_TASKID);
+        }
     }
 
     @Override
