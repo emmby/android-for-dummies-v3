@@ -1,0 +1,11 @@
+language: android
+jdk: oraclejdk7
+
+
+android:
+  components:
+    - build-tools-20.0.0
+
+script:
+    - echo "Travis branch is $TRAVIS_BRANCH"
+    - cd Tasks && ./gradlew clean assemble
