@@ -143,7 +143,8 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         viewHolder.titleView.setText(cursor.getString(titleColumnIndex));
 
         // set the thumbnail image
-        Picasso.with(context).load("http://lorempixel.com/50/50/cats/")
+        Picasso.with(context)
+                .load("http://lorempixel.com/50/50/cats/?fakeId=" + id)
                 .into(viewHolder.imageView);
 
         // Set the click action
