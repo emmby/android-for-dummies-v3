@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -123,7 +124,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
+        CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_row, parent, false);
 
         // wrap it in a ViewHolder
@@ -140,14 +141,15 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         viewHolder.title.setText(cursor.getString(titleColumnIndex));
 
         // Set the click action
-        viewHolder.title.setOnClickListener(new View.OnClickListener() {
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((OnEditTask) context).editTask(id);
             }
         });
 
-        viewHolder.title.setOnLongClickListener( new View.OnLongClickListener() {
+        viewHolder.cardView.setOnLongClickListener( new View
+                .OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 new AlertDialog.Builder(context)
@@ -185,10 +187,12 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
         TextView title;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(CardView itemView) {
             super(itemView);
+            cardView = itemView;
             title = (TextView) itemView.findViewById(R.id.text1);
         }
 
