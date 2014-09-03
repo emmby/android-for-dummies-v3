@@ -48,7 +48,7 @@ public class TaskProvider extends ContentProvider {
     private static final UriMatcher URI_MATCHER = buildUriMatcher();
 
 
-    private SQLiteDatabase db;
+    SQLiteDatabase db;
 
     /**
      * Builds up a UriMatcher for search suggestion and shortcut refresh
