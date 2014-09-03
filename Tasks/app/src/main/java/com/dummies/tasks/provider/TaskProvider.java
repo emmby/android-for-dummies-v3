@@ -73,11 +73,11 @@ public class TaskProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] ignored1, String ignored2,
                         String[] ignored3, String ignored4) {
 
-        String[] projection = new String[]{com.dummies.tasks.provider
-                .TaskProvider.COLUMN_TASKID,
-                com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE,
-                com.dummies.tasks.provider.TaskProvider.COLUMN_BODY,
-                com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME};
+        String[] projection = new String[]{
+                TaskProvider.COLUMN_TASKID,
+                TaskProvider.COLUMN_TITLE,
+                TaskProvider.COLUMN_BODY,
+                TaskProvider.COLUMN_DATE_TIME};
 
         // Use the UriMatcher to see what kind of query we have and
         // format the
@@ -85,13 +85,13 @@ public class TaskProvider extends ContentProvider {
         Cursor c;
         switch (URI_MATCHER.match(uri)) {
             case LIST_TASK:
-                c = db.query(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE,
+                c = db.query(TaskProvider.DATABASE_TABLE,
                         projection, null,
                         null, null, null, null);
                 break;
             case ITEM_TASK:
-                c = db.query(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, projection,
-                        com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID + "=?",
+                c = db.query(TaskProvider.DATABASE_TABLE, projection,
+                        TaskProvider.COLUMN_TASKID + "=?",
                         new String[]{Long.toString(ContentUris.parseId
                                 (uri))},
                         null, null, null, null);
@@ -110,8 +110,8 @@ public class TaskProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         // you can't insert and specify a row id, so remove it if present
-        values.remove(com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID);
-        long id = db.insertOrThrow(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, null,
+        values.remove(TaskProvider.COLUMN_TASKID);
+        long id = db.insertOrThrow(TaskProvider.DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
@@ -119,9 +119,8 @@ public class TaskProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
-        int count = db.delete(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE,
-
-                com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID + "=?",
+        int count = db.delete(TaskProvider.DATABASE_TABLE,
+                TaskProvider.COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
@@ -131,7 +130,7 @@ public class TaskProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
                       String[] ignored2) {
-        int count = db.update(com.dummies.tasks.provider.TaskProvider.DATABASE_TABLE, values,
+        int count = db.update(TaskProvider.DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)

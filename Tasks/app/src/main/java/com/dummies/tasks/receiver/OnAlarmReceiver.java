@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.dummies.tasks.R;
+import com.dummies.tasks.activity.TaskEditActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.dummies.tasks.provider.TaskProvider
@@ -34,7 +35,7 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // for the specified task id.  We get the id of the task
         // from the OnAlarmReceiver's broadcast intent.
         Intent taskEditIntent =
-                new Intent(context, com.dummies.tasks.activity.TaskEditActivity.class);
+                new Intent(context, TaskEditActivity.class);
         long taskId = intent.getExtras().getLong( COLUMN_TASKID);
         taskEditIntent.putExtra(COLUMN_TASKID, taskId);
 

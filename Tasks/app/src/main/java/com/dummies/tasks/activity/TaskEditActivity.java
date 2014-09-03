@@ -2,6 +2,7 @@ package com.dummies.tasks.activity;
 
 import android.app.Fragment;
 
+import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.util.SingleFragmentActivity;
 
@@ -16,7 +17,7 @@ public class TaskEditActivity extends SingleFragmentActivity
 
         // Create a new fragment and pass along arguments (like
         // COLUMN_TASKID) from the activity to the fragment
-        Fragment fragment = new com.dummies.tasks.fragment.TaskEditFragment();
+        Fragment fragment = new TaskEditFragment();
         fragment.setArguments(getIntent().getExtras());
         return fragment;
     }
