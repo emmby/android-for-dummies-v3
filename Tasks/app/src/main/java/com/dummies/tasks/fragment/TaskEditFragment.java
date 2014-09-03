@@ -8,20 +8,24 @@ import android.app.LoaderManager;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -320,7 +324,7 @@ public class TaskEditFragment extends Fragment implements
 
         // set the thumbnail image
         Picasso.with(getActivity())
-                .load("http://lorempixel.com/200/200/cats/?fakeId=" + taskId)
+                .load(getImageUrlForTask(getActivity(),taskId))
                 .into(imageView);
 
 
@@ -338,5 +342,20 @@ public class TaskEditFragment extends Fragment implements
     @Override
     public void onLoaderReset(Loader<Cursor> arg0) {
         // nothing to reset for this fragment
+    }
+
+    // TODO move this somewhere else
+    public static String getImageUrlForTask(
+            Context context, long taskId) {
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x; // in pixels
+        int height = width * 2 / 3; // like a 4 x 6 photo
+
+        return "http://lorempixel.com/" + width + "/" + height +
+                "/cats/?fakeId=" + taskId;
     }
 }
