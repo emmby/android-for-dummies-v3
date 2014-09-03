@@ -1,5 +1,6 @@
 package com.dummies.tasks.fragment;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -13,11 +14,16 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v7.graphics.Palette;
+import android.support.v7.graphics.PaletteItem;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +42,7 @@ import android.widget.Toast;
 import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.util.ReminderManager;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -71,11 +78,13 @@ public class TaskEditFragment extends Fragment implements
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "kk:mm";
 
+    View rootView;
     EditText titleText;
     EditText bodyText;
     ImageView imageView;
     Button dateButton;
     Button timeButton;
+    ActionBar actionBar;
     long taskId;
     Calendar calendar;
 
@@ -118,6 +127,8 @@ public class TaskEditFragment extends Fragment implements
                 container, false);
 
         // From the layout, get a few views that we're going to work with
+        actionBar = getActivity().getActionBar();
+        rootView = v;
         titleText = (EditText) v.findViewById(R.id.title);
         bodyText = (EditText) v.findViewById(R.id.body);
         dateButton = (Button) v.findViewById(R.id.task_date);
@@ -325,7 +336,34 @@ public class TaskEditFragment extends Fragment implements
         // set the thumbnail image
         Picasso.with(getActivity())
                 .load(getImageUrlForTask(getActivity(),taskId))
-                .into(imageView);
+                .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // Set the colors of the activity based on the
+                        // colors of the image, if available
+                        Bitmap bitmap = ((BitmapDrawable)imageView
+                                .getDrawable())
+                                .getBitmap();
+                        Palette palette = Palette.generate(bitmap,24);
+
+                        PaletteItem bgColor =
+                                palette.getLightMutedColor();
+                        PaletteItem fgColor =
+                                palette.getLightVibrantColor();
+
+                        if( bgColor!=null && fgColor!=null ) {
+                            rootView.setBackgroundColor(bgColor.getRgb());
+                            actionBar.setBackgroundDrawable(
+                                    new ColorDrawable(fgColor.getRgb())
+                            );
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        // do nothing
+                    }
+                });
 
 
         // Get the date from the database

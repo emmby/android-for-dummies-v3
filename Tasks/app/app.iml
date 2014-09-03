@@ -84,6 +84,7 @@
     <orderEntry type="library" exported="" name="picasso-2.3.4" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.0-rc1" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.0-rc1" level="project" />
+    <orderEntry type="library" exported="" name="palette-v7-21.0.0-rc1" level="project" />
   </component>
 </module>
 
