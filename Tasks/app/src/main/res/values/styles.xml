@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="TasksAppTheme" parent="android:Theme.Material.Light">
         <!-- Main theme colors -->
-        <!-- TODO colors -->
+        <!-- TODO colors http://stackoverflow.com/questions/22192291/how-to-change-the-status-bar-color-in-android -->
         <!--   your app's branding color (for the app bar) -->
         <!--<item name="android:colorPrimary">@color/primary</item>-->
         <!--   darker variant of colorPrimary (for status bar, contextual app bars) -->
