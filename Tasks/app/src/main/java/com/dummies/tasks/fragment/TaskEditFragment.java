@@ -128,7 +128,7 @@ public class TaskEditFragment extends Fragment implements
 
         // From the layout, get a few views that we're going to work with
         actionBar = getActivity().getActionBar();
-        rootView = v;
+        rootView = v.getRootView();
         titleText = (EditText) v.findViewById(R.id.title);
         bodyText = (EditText) v.findViewById(R.id.body);
         dateButton = (Button) v.findViewById(R.id.task_date);
@@ -348,11 +348,13 @@ public class TaskEditFragment extends Fragment implements
 
                         PaletteItem bgColor =
                                 palette.getLightMutedColor();
+                        if( bgColor!=null ) {
+                            rootView.setBackgroundColor(bgColor.getRgb());
+
+                        }
                         PaletteItem fgColor =
                                 palette.getLightVibrantColor();
-
-                        if( bgColor!=null && fgColor!=null ) {
-                            rootView.setBackgroundColor(bgColor.getRgb());
+                        if( fgColor!=null ) {
                             actionBar.setBackgroundDrawable(
                                     new ColorDrawable(fgColor.getRgb())
                             );
