@@ -17,6 +17,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -96,6 +99,12 @@ public class TaskEditFragment extends Fragment implements
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -124,61 +133,6 @@ public class TaskEditFragment extends Fragment implements
             public void onClick(View v) {
                 showTimePicker();
             }
-        });
-
-        // Tell the confirmation button what to do when we click on it.
-        Button confirmButton = (Button) v.findViewById(R.id.confirm);
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Put all the values the user entered into a
-                // ContentValues object
-                ContentValues values = new ContentValues();
-                values.put(COLUMN_TASKID, taskId);
-                values.put(COLUMN_TITLE, titleText.getText().toString());
-                values.put(COLUMN_BODY, bodyText.getText().toString());
-                values.put(COLUMN_DATE_TIME, calendar.getTimeInMillis());
-
-                // taskId==0 when we create a new task,
-                // otherwise it's the id of the task being edited.
-                if (taskId == 0) {
-
-                    // Create the new task and set taskId to the id of
-                    // the new task.
-                    Uri itemUri = getActivity().getContentResolver()
-                            .insert(CONTENT_URI, values);
-                    taskId = ContentUris.parseId(itemUri);
-
-                } else {
-
-                    // Edit the task
-                    int count = getActivity().getContentResolver().update(
-                            ContentUris.withAppendedId(CONTENT_URI,
-                                    taskId),
-                            values, null, null);
-
-                    // If somehow we didn't edit exactly one task,
-                    // throw an error
-                    if (count != 1)
-                        throw new IllegalStateException(
-                                "Unable to update " + taskId);
-                }
-
-                // Notify the user of the change using a Toast
-                Toast.makeText(getActivity(),
-                        getString(R.string.task_saved_message),
-                        Toast.LENGTH_SHORT).show();
-
-                // Tell our enclosing activity that we are done so that
-                // it can cleanup whatever it needs to clean up.
-                ((OnEditFinished) getActivity()).finishEditingTask();
-
-                // Create a reminder for this task
-                new ReminderManager(getActivity()).setReminder(taskId,
-                        calendar);
-            }
-
         });
 
         if (taskId == 0) {
@@ -213,12 +167,80 @@ public class TaskEditFragment extends Fragment implements
         return v;
     }
 
+    private void save() {
+        // Put all the values the user entered into a
+        // ContentValues object
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TASKID, taskId);
+        values.put(COLUMN_TITLE, titleText.getText().toString());
+        values.put(COLUMN_BODY, bodyText.getText().toString());
+        values.put(COLUMN_DATE_TIME, calendar.getTimeInMillis());
+
+        // taskId==0 when we create a new task,
+        // otherwise it's the id of the task being edited.
+        if (taskId == 0) {
+
+            // Create the new task and set taskId to the id of
+            // the new task.
+            Uri itemUri = getActivity().getContentResolver()
+                    .insert(CONTENT_URI, values);
+            taskId = ContentUris.parseId(itemUri);
+
+        } else {
+
+            // Edit the task
+            int count = getActivity().getContentResolver().update(
+                    ContentUris.withAppendedId(CONTENT_URI,
+                            taskId),
+                    values, null, null);
+
+            // If somehow we didn't edit exactly one task,
+            // throw an error
+            if (count != 1)
+                throw new IllegalStateException(
+                        "Unable to update " + taskId);
+        }
+
+        // Notify the user of the change using a Toast
+        Toast.makeText(getActivity(),
+                getString(R.string.task_saved_message),
+                Toast.LENGTH_SHORT).show();
+
+        // Create a reminder for this task
+        new ReminderManager(getActivity()).setReminder(taskId,
+                calendar);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save the calendar instance in case the user changed it
         outState.putSerializable(CALENDAR, calendar);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.add(0, 1, 0, R.string.confirm).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Save button
+        if( item.getItemId() == 1) {
+            save();
+
+            // Tell our enclosing activity that we are done so that
+            // it can cleanup whatever it needs to clean up.
+            ((OnEditFinished) getActivity()).finishEditingTask();
+
+            return true;
+        }
+
+        // If we can't handle this menu item, see if our parent can
+        return super.onOptionsItemSelected(item);
     }
 
     private void showDatePicker() {
