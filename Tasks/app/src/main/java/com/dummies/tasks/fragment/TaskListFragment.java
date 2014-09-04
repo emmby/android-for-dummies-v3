@@ -129,7 +129,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_row, parent, false);
+                .inflate(R.layout.task_card, parent, false);
 
         // wrap it in a ViewHolder
         return new ViewHolder(v);
