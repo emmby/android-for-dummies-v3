@@ -18,5 +18,5 @@
     <color name="primary_dark">#178acf</color>
     <color name="accent">@color/primary_dark</color>
     <color name="text_color_primary">@android:color/white</color>
-    <color name="window_background">@android:color/white</color>
+    <color name="window_background">#c1dae6</color>
 </resources>
