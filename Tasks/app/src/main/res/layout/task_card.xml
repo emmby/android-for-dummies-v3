@@ -26,13 +26,13 @@
             />
 
         <TextView
+            style="@android:style/TextAppearance.Medium.Inverse"
             android:id="@+id/text1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dip"
             android:layout_alignTop="@id/image"
-            android:layout_toEndOf="@id/image"
-            android:text="testing 1 2 3"/>
+            android:layout_toEndOf="@id/image" />
 
     </RelativeLayout>
 
