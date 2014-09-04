@@ -35,5 +35,7 @@
     <string name="pref_default_time_from_now_message">The default time from now that a new task should be set to.</string>
     <string name="pref_default_time_from_now_summary">Sets the default time for a task.</string>
     <string name="pref_default_time_from_now_title">Default Task Time</string>
+    <string name="notes">Notes</string>
+    <string name="date_and_time">Date and Time</string>
 
 </resources>
