@@ -344,12 +344,12 @@ public class TaskEditFragment extends Fragment implements
                         Bitmap bitmap = ((BitmapDrawable)imageView
                                 .getDrawable())
                                 .getBitmap();
-                        Palette palette = Palette.generate(bitmap,24);
+                        Palette palette = Palette.generate(bitmap,32);
 
                         PaletteItem bgColor =
                                 palette.getLightMutedColor();
                         PaletteItem fgColor =
-                                palette.getLightVibrantColor();
+                                palette.getDarkVibrantColor();
 
                         if( bgColor!=null && fgColor!=null ) {
                             rootView.setBackgroundColor(bgColor.getRgb());
