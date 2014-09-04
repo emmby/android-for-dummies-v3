@@ -348,13 +348,12 @@ public class TaskEditFragment extends Fragment implements
 
                         PaletteItem bgColor =
                                 palette.getLightMutedColor();
-                        if( bgColor!=null ) {
-                            rootView.setBackgroundColor(bgColor.getRgb());
-
-                        }
                         PaletteItem fgColor =
                                 palette.getLightVibrantColor();
-                        if( fgColor!=null ) {
+
+                        if( bgColor!=null && fgColor!=null ) {
+                            rootView.setBackgroundColor(bgColor.getRgb());
+
                             actionBar.setBackgroundDrawable(
                                     new ColorDrawable(fgColor.getRgb())
                             );
