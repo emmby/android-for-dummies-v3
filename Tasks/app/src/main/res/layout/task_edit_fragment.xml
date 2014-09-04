@@ -36,6 +36,7 @@
 
 
         <Button
+            style="@android:style/TextAppearance.Medium"
             android:id="@+id/task_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
             />
 
         <Button
+            style="@android:style/TextAppearance.Medium"
             android:id="@+id/task_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
