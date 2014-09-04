@@ -1,6 +1,7 @@
 package com.dummies.tasks.fragment;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -348,15 +349,23 @@ public class TaskEditFragment extends Fragment implements
 
                         PaletteItem bgColor =
                                 palette.getLightMutedColor();
-                        PaletteItem fgColor =
+                        PaletteItem actionbarColor =
                                 palette.getDarkVibrantColor();
+                        PaletteItem statusColor =
+                                palette.getDarkMutedColor();
 
-                        if( bgColor!=null && fgColor!=null ) {
+                        if( bgColor!=null && actionbarColor!=null ) {
                             rootView.setBackgroundColor(bgColor.getRgb());
-
                             actionBar.setBackgroundDrawable(
-                                    new ColorDrawable(fgColor.getRgb())
+                                    new ColorDrawable(actionbarColor.getRgb())
                             );
+                            ((Activity)rootView.getContext())
+                                    .getWindow()
+                                    .setStatusBarColor(
+                                            (statusColor!=null ?
+                                                    statusColor :
+                                                    actionbarColor )
+                                    .getRgb());
                         }
                     }
 
