@@ -26,8 +26,10 @@ import android.widget.TextView;
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskPreferencesActivity;
 import com.dummies.tasks.interfaces.OnEditTask;
+import com.dummies.tasks.provider.TaskProvider;
 import com.squareup.picasso.Picasso;
 
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
 import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
@@ -113,6 +115,7 @@ public class TaskListFragment extends Fragment implements
 class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     Cursor cursor;
     int titleColumnIndex;
+    int notesColumnIndex;
     int idColumnIndex;
 
 
@@ -121,6 +124,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         if(c!=null) {
             cursor.moveToFirst();
             titleColumnIndex = cursor.getColumnIndex(COLUMN_TITLE);
+            notesColumnIndex = cursor.getColumnIndex(COLUMN_NOTES);
             idColumnIndex = cursor.getColumnIndex(COLUMN_TASKID);
         }
     }
@@ -143,6 +147,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         // set the text
         cursor.moveToPosition(i);
         viewHolder.titleView.setText(cursor.getString(titleColumnIndex));
+        viewHolder.notesView.setText(cursor.getString(notesColumnIndex));
 
         // set the thumbnail image
         Picasso.with(context)
@@ -198,12 +203,14 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView titleView;
+        TextView notesView;
         ImageView imageView;
 
         public ViewHolder(CardView itemView) {
             super(itemView);
             cardView = itemView;
             titleView = (TextView) itemView.findViewById(R.id.text1);
+            notesView = (TextView) itemView.findViewById(R.id.text2);
             imageView = (ImageView) itemView.findViewById(R.id.image);
         }
 
