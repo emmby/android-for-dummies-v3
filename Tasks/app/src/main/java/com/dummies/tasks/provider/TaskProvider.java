@@ -25,7 +25,7 @@ public class TaskProvider extends ContentProvider {
     // Database Columns
     public static final String COLUMN_TASKID = "_id";
     public static final String COLUMN_DATE_TIME = "task_date_time";
-    public static final String COLUMN_BODY = "body";
+    public static final String COLUMN_NOTES = "notes";
     public static final String COLUMN_TITLE = "title";
 
     // MIME types used for searching words or looking up a single
@@ -76,7 +76,7 @@ public class TaskProvider extends ContentProvider {
         String[] projection = new String[]{
                 TaskProvider.COLUMN_TASKID,
                 TaskProvider.COLUMN_TITLE,
-                TaskProvider.COLUMN_BODY,
+                TaskProvider.COLUMN_NOTES,
                 TaskProvider.COLUMN_DATE_TIME};
 
         // Use the UriMatcher to see what kind of query we have and
@@ -171,7 +171,7 @@ public class TaskProvider extends ContentProvider {
         private static final String DATABASE_CREATE = "create table "
                 + DATABASE_TABLE + " (" + COLUMN_TASKID
                 + " integer primary key autoincrement, " + COLUMN_TITLE
-                + " text not null, " + COLUMN_BODY + " text not null, "
+                + " text not null, " + COLUMN_NOTES + " text not null, "
                 + COLUMN_DATE_TIME + " integer not null);";
 
         @Override

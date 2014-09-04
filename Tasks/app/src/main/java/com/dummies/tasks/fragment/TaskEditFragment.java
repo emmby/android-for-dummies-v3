@@ -49,7 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_BODY;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
@@ -80,7 +80,7 @@ public class TaskEditFragment extends Fragment implements
 
     View rootView;
     EditText titleText;
-    EditText bodyText;
+    EditText notesText;
     ImageView imageView;
     Button dateButton;
     Button timeButton;
@@ -130,7 +130,7 @@ public class TaskEditFragment extends Fragment implements
         actionBar = getActivity().getActionBar();
         rootView = v.getRootView();
         titleText = (EditText) v.findViewById(R.id.title);
-        bodyText = (EditText) v.findViewById(R.id.body);
+        notesText = (EditText) v.findViewById(R.id.notes);
         dateButton = (Button) v.findViewById(R.id.task_date);
         timeButton = (Button) v.findViewById(R.id.task_time);
         imageView = (ImageView) v.findViewById(R.id.image);
@@ -188,7 +188,7 @@ public class TaskEditFragment extends Fragment implements
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKID, taskId);
         values.put(COLUMN_TITLE, titleText.getText().toString());
-        values.put(COLUMN_BODY, bodyText.getText().toString());
+        values.put(COLUMN_NOTES, notesText.getText().toString());
         values.put(COLUMN_DATE_TIME, calendar.getTimeInMillis());
 
         // taskId==0 when we create a new task,
@@ -330,8 +330,8 @@ public class TaskEditFragment extends Fragment implements
 
         titleText.setText(task.getString(task
                 .getColumnIndexOrThrow(COLUMN_TITLE)));
-        bodyText.setText(task.getString(task
-                .getColumnIndexOrThrow(COLUMN_BODY)));
+        notesText.setText(task.getString(task
+                .getColumnIndexOrThrow(COLUMN_NOTES)));
 
         // set the thumbnail image
         Picasso.with(getActivity())
