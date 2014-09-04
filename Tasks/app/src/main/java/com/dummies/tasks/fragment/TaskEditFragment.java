@@ -46,12 +46,12 @@ import com.dummies.tasks.util.ReminderManager;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
 import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
@@ -63,21 +63,12 @@ public class TaskEditFragment extends Fragment implements
     public static final String DEFAULT_EDIT_FRAGMENT_TAG =
             "editFragmentTag";
 
-    //
-    // Dialog Constants
-    //
     static final String YEAR = "year";
     static final String MONTH = "month";
     static final String DAY = "day";
     static final String HOUR = "hour";
     static final String MINS = "mins";
     static final String CALENDAR = "calendar";
-
-    //
-    // Date Format
-    //
-    private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private static final String TIME_FORMAT = "kk:mm";
 
     View rootView;
     EditText titleText;
@@ -282,12 +273,12 @@ public class TaskEditFragment extends Fragment implements
 
     private void updateButtons() {
         // Set the time button text
-        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
+        DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
         String timeForButton = timeFormat.format(calendar.getTime());
         timeButton.setText(timeForButton);
 
         // Set the date button text
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat dateFormat = DateFormat.getDateInstance();
         String dateForButton = dateFormat.format(calendar.getTime());
         dateButton.setText(dateForButton);
     }
@@ -357,7 +348,8 @@ public class TaskEditFragment extends Fragment implements
                         if( bgColor!=null && actionbarColor!=null ) {
                             rootView.setBackgroundColor(bgColor.getRgb());
                             actionBar.setBackgroundDrawable(
-                                    new ColorDrawable(actionbarColor.getRgb())
+                                    new ColorDrawable(actionbarColor
+                                            .getRgb())
                             );
                             ((Activity)rootView.getContext())
                                     .getWindow()
