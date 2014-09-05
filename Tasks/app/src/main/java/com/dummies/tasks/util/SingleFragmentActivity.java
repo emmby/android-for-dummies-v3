@@ -19,7 +19,8 @@ abstract public class SingleFragmentActivity extends Activity {
         // orientation change)
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().add(
-                    android.R.id.content, newFragmentInstance()).commit();
+                    android.R.id.content, newFragmentInstance(),
+                    getFragmentTag() ).commit();
     }
 
     /**
@@ -27,4 +28,8 @@ abstract public class SingleFragmentActivity extends Activity {
      * you wish to wrap.
      */
     protected abstract Fragment newFragmentInstance();
+
+    protected String getFragmentTag() {
+        return null;
+    }
 }

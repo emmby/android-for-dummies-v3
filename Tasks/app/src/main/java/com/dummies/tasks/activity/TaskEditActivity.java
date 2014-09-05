@@ -22,6 +22,11 @@ public class TaskEditActivity extends SingleFragmentActivity
         return fragment;
     }
 
+    @Override
+    protected String getFragmentTag() {
+        return TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG;
+    }
+
     /**
      * Called when the user finishes editing a task.
      */
