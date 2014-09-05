@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
 import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
 
 /**
@@ -40,6 +41,8 @@ public class OnBootReceiver extends BroadcastReceiver {
                     .getColumnIndex(COLUMN_TASKID);
             int dateTimeColumnIndex = cursor
                     .getColumnIndex(COLUMN_DATE_TIME);
+            int titleColumnIndex = cursor
+                    .getColumnIndex(COLUMN_TITLE);
 
             // Loop over all of the tasks in the db
             while (!cursor.isAfterLast()) {
@@ -47,12 +50,14 @@ public class OnBootReceiver extends BroadcastReceiver {
                 // Get the id and dateTime for this task
                 long taskId = cursor.getLong(taskIdColumnIndex);
                 long dateTime = cursor.getLong(dateTimeColumnIndex);
+                String title = cursor.getString(titleColumnIndex);
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new java.util.Date(dateTime));
 
                 // Set the reminder
-                new ReminderManager(context).setReminder(taskId, cal);
+                new ReminderManager(context).setReminder(taskId,
+                        title, cal);
 
                 cursor.moveToNext();
             }

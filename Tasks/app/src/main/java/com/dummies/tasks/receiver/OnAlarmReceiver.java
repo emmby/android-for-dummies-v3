@@ -13,6 +13,7 @@ import com.dummies.tasks.activity.TaskEditActivity;
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.dummies.tasks.provider.TaskProvider
         .COLUMN_TASKID;
+import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
 
 public class OnAlarmReceiver extends BroadcastReceiver {
     @Override
@@ -36,7 +37,8 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // from the OnAlarmReceiver's broadcast intent.
         Intent taskEditIntent =
                 new Intent(context, TaskEditActivity.class);
-        long taskId = intent.getExtras().getLong( COLUMN_TASKID);
+        long taskId = intent.getLongExtra(COLUMN_TASKID, -1);
+        String title = intent.getStringExtra(COLUMN_TITLE);
         taskEditIntent.putExtra(COLUMN_TASKID, taskId);
 
         // Create the PendingIntent that will wrap the
@@ -45,14 +47,13 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // permission" to the OS to call back into our
         // application when the notification is clicked.
         PendingIntent pi = PendingIntent.getActivity(context, 0,
-                taskEditIntent, 0);
+                taskEditIntent, PendingIntent.FLAG_ONE_SHOT);
 
         // Build the Notification object using a Notification.Builder
         Notification note = new Notification.Builder(context)
                 .setContentTitle(context.getString(R.string
                         .notify_new_task_title))
-                .setContentText(context.getString(R.string
-                        .notify_new_task_message))
+                .setContentText(title)
                 .setSmallIcon(android.R.drawable.stat_sys_warning)
                 .setContentIntent(pi)
                 .setAutoCancel(true)

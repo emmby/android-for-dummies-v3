@@ -177,9 +177,10 @@ public class TaskEditFragment extends Fragment implements
     private void save() {
         // Put all the values the user entered into a
         // ContentValues object
+        String title = titleText.getText().toString();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKID, taskId);
-        values.put(COLUMN_TITLE, titleText.getText().toString());
+        values.put(COLUMN_TITLE, title);
         values.put(COLUMN_NOTES, notesText.getText().toString());
         values.put(COLUMN_DATE_TIME, calendar.getTimeInMillis());
 
@@ -214,8 +215,8 @@ public class TaskEditFragment extends Fragment implements
                 Toast.LENGTH_SHORT).show();
 
         // Create a reminder for this task
-        new ReminderManager(getActivity()).setReminder(taskId,
-                calendar);
+        new ReminderManager(getActivity()).setReminder(
+                taskId, title, calendar);
     }
 
     @Override
