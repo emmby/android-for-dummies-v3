@@ -19,7 +19,8 @@ abstract public class SingleFragmentActivity extends Activity {
         // orientation change)
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().add(
-                    android.R.id.content, newFragmentInstance(),
+                    android.R.id.content,
+                    newFragmentInstance(),
                     getFragmentTag() ).commit();
     }
 
