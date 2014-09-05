@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskPreferencesActivity;
 import com.dummies.tasks.interfaces.OnEditTask;
-import com.dummies.tasks.provider.TaskProvider;
 import com.squareup.picasso.Picasso;
 
 import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
