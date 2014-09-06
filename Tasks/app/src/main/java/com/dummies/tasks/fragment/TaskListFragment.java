@@ -126,6 +126,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
             notesColumnIndex = cursor.getColumnIndex(COLUMN_NOTES);
             idColumnIndex = cursor.getColumnIndex(COLUMN_TASKID);
         }
+        notifyDataSetChanged();
     }
 
     @Override

@@ -80,8 +80,7 @@ public class TaskProvider extends ContentProvider {
                 TaskProvider.COLUMN_DATE_TIME};
 
         // Use the UriMatcher to see what kind of query we have and
-        // format the
-        // db query accordingly
+        // format the db query accordingly
         Cursor c;
         switch (URI_MATCHER.match(uri)) {
             case LIST_TASK:
