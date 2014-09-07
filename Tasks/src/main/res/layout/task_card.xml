@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- The Card into which we'll place our task info.  The view will be
+     the same width as our parent and a height of 100dp.  We'll add a
+     margin on the bottom to create an empty space between items in the
+     list, and we'll also add a 5dp gutter on the left and right.
+     We're using an elevation of 2dp to add a subtle shadowing effect.
+     We set the foreground drawable to android's selectableItemBackground
+     so that we get a nice click animation when the user clicks on the
+     card.  We also turn off the default rounded corners for the card -->
 <android.support.v7.widget.CardView
-    android:id="@+id/card_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginBottom="10dp"
@@ -17,6 +26,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- The image for the task.  It's a cropped square image that
+             fills the height of the card.  It's aligned to the far
+             left of the card (the far right in languages that read
+             right-to-left like hebrew and arabic) -->
         <ImageView
             android:id="@+id/image"
             android:contentDescription="@string/task_image"
