@@ -16,7 +16,10 @@
         <!-- This is the same image that was used on the list view,
              but here we show the full image instead of cropping it.
              When we downloaded the image, we made sure to download
-             a size that could fully fill our screen horizontally. -->
+             a size that could fully fill our screen horizontally.
+             We enable adjustViewBounds so that the ImageView will
+             shrink or expand itself to properly fit the image once it's
+             loaded. -->
         <ImageView
             android:id="@+id/image"
             android:contentDescription="@string/task_image"
