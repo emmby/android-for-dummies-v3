@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditFinished;
+import com.dummies.tasks.provider.TaskProvider;
 import com.dummies.tasks.util.ReminderManager;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -49,12 +50,6 @@ import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
-import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
 
 public class TaskEditFragment extends Fragment implements
         OnDateSetListener, OnTimeSetListener,
@@ -92,14 +87,14 @@ public class TaskEditFragment extends Fragment implements
         }
 
         // If we didn't have a previous date, use "now"
-        if( calendar==null ) {
+        if (calendar == null) {
             calendar = Calendar.getInstance();
         }
 
         // Set the task id from the intent arguments, if available.
         Bundle arguments = getArguments();
         if (arguments != null) {
-            taskId = arguments.getLong(COLUMN_TASKID,0L);
+            taskId = arguments.getLong(TaskProvider.COLUMN_TASKID, 0L);
         }
     }
 
@@ -179,10 +174,12 @@ public class TaskEditFragment extends Fragment implements
         // ContentValues object
         String title = titleText.getText().toString();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TASKID, taskId);
-        values.put(COLUMN_TITLE, title);
-        values.put(COLUMN_NOTES, notesText.getText().toString());
-        values.put(COLUMN_DATE_TIME, calendar.getTimeInMillis());
+        values.put(TaskProvider.COLUMN_TASKID, taskId);
+        values.put(TaskProvider.COLUMN_TITLE, title);
+        values.put(TaskProvider.COLUMN_NOTES, notesText.getText()
+                .toString());
+        values.put(TaskProvider.COLUMN_DATE_TIME,
+                calendar.getTimeInMillis());
 
         // taskId==0 when we create a new task,
         // otherwise it's the id of the task being edited.
@@ -191,14 +188,14 @@ public class TaskEditFragment extends Fragment implements
             // Create the new task and set taskId to the id of
             // the new task.
             Uri itemUri = getActivity().getContentResolver()
-                    .insert(CONTENT_URI, values);
+                    .insert(TaskProvider.CONTENT_URI, values);
             taskId = ContentUris.parseId(itemUri);
 
         } else {
 
             // Edit the task
             int count = getActivity().getContentResolver().update(
-                    ContentUris.withAppendedId(CONTENT_URI,
+                    ContentUris.withAppendedId(TaskProvider.CONTENT_URI,
                             taskId),
                     values, null, null);
 
@@ -231,13 +228,14 @@ public class TaskEditFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.add(0, 1, 0, R.string.confirm).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, 1, 0, R.string.confirm).setShowAsAction(MenuItem
+                .SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Save button
-        if( item.getItemId() == 1) {
+        if (item.getItemId() == 1) {
             save();
 
             // Tell our enclosing activity that we are done so that
@@ -274,7 +272,8 @@ public class TaskEditFragment extends Fragment implements
 
     private void updateButtons() {
         // Set the time button text
-        DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
+        DateFormat timeFormat = DateFormat.getTimeInstance(DateFormat
+                .SHORT);
         String timeForButton = timeFormat.format(calendar.getTime());
         timeButton.setText(timeForButton);
 
@@ -303,7 +302,7 @@ public class TaskEditFragment extends Fragment implements
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), ContentUris.withAppendedId(
-                CONTENT_URI, taskId), null, null,
+                TaskProvider.CONTENT_URI, taskId), null, null,
                 null, null);
     }
 
@@ -322,22 +321,22 @@ public class TaskEditFragment extends Fragment implements
         }
 
         titleText.setText(task.getString(task
-                .getColumnIndexOrThrow(COLUMN_TITLE)));
+                .getColumnIndexOrThrow(TaskProvider.COLUMN_TITLE)));
         notesText.setText(task.getString(task
-                .getColumnIndexOrThrow(COLUMN_NOTES)));
+                .getColumnIndexOrThrow(TaskProvider.COLUMN_NOTES)));
 
         // set the thumbnail image
         Picasso.with(getActivity())
-                .load(getImageUrlForTask(getActivity(),taskId))
+                .load(getImageUrlForTask(getActivity(), taskId))
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
                         // Set the colors of the activity based on the
                         // colors of the image, if available
-                        Bitmap bitmap = ((BitmapDrawable)imageView
+                        Bitmap bitmap = ((BitmapDrawable) imageView
                                 .getDrawable())
                                 .getBitmap();
-                        Palette palette = Palette.generate(bitmap,32);
+                        Palette palette = Palette.generate(bitmap, 32);
 
                         PaletteItem bgColor =
                                 palette.getLightMutedColor();
@@ -346,19 +345,19 @@ public class TaskEditFragment extends Fragment implements
                         PaletteItem statusColor =
                                 palette.getDarkMutedColor();
 
-                        if( bgColor!=null && actionbarColor!=null ) {
+                        if (bgColor != null && actionbarColor != null) {
                             rootView.setBackgroundColor(bgColor.getRgb());
                             actionBar.setBackgroundDrawable(
                                     new ColorDrawable(actionbarColor
                                             .getRgb())
                             );
-                            ((Activity)rootView.getContext())
+                            ((Activity) rootView.getContext())
                                     .getWindow()
                                     .setStatusBarColor(
-                                            (statusColor!=null ?
+                                            (statusColor != null ?
                                                     statusColor :
-                                                    actionbarColor )
-                                    .getRgb());
+                                                    actionbarColor)
+                                                    .getRgb());
                         }
                     }
 
@@ -372,7 +371,7 @@ public class TaskEditFragment extends Fragment implements
         // Get the date from the database
         Long dateInMillis = task.getLong(task
                 .getColumnIndexOrThrow(
-                        COLUMN_DATE_TIME));
+                        TaskProvider.COLUMN_DATE_TIME));
         Date date = new Date(dateInMillis);
         calendar.setTime(date);
 
@@ -389,7 +388,8 @@ public class TaskEditFragment extends Fragment implements
     public static String getImageUrlForTask(
             Context context, long taskId) {
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService
+                (Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

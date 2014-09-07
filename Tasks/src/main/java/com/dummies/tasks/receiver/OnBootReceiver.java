@@ -5,14 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
+import com.dummies.tasks.provider.TaskProvider;
 import com.dummies.tasks.util.ReminderManager;
 
 import java.util.Calendar;
-
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_DATE_TIME;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
-import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
 
 /**
  * This class will be triggered when the phone first boots so that our
@@ -26,7 +22,7 @@ public class OnBootReceiver extends BroadcastReceiver {
 
         // Get the cursor for our tasks
         Cursor cursor = context.getContentResolver().query(
-                CONTENT_URI, null, null, null, null);
+                TaskProvider.CONTENT_URI, null, null, null, null);
 
         // If our db is empty, don't do anything
         if (cursor == null)
@@ -38,11 +34,11 @@ public class OnBootReceiver extends BroadcastReceiver {
 
             // get the indices of the taskId and date_time columns
             int taskIdColumnIndex = cursor
-                    .getColumnIndex(COLUMN_TASKID);
+                    .getColumnIndex(TaskProvider.COLUMN_TASKID);
             int dateTimeColumnIndex = cursor
-                    .getColumnIndex(COLUMN_DATE_TIME);
+                    .getColumnIndex(TaskProvider.COLUMN_DATE_TIME);
             int titleColumnIndex = cursor
-                    .getColumnIndex(COLUMN_TITLE);
+                    .getColumnIndex(TaskProvider.COLUMN_TITLE);
 
             // Loop over all of the tasks in the db
             while (!cursor.isAfterLast()) {

@@ -26,12 +26,8 @@ import android.widget.TextView;
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskPreferencesActivity;
 import com.dummies.tasks.interfaces.OnEditTask;
+import com.dummies.tasks.provider.TaskProvider;
 import com.squareup.picasso.Picasso;
-
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_NOTES;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TASKID;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
-import static com.dummies.tasks.provider.TaskProvider.CONTENT_URI;
 
 public class TaskListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -92,7 +88,7 @@ public class TaskListFragment extends Fragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
-        return new CursorLoader(getActivity(), CONTENT_URI, null, null,
+        return new CursorLoader(getActivity(), TaskProvider.CONTENT_URI, null, null,
                 null, null);
     }
 
@@ -122,9 +118,9 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         cursor = c;
         if(c!=null) {
             cursor.moveToFirst();
-            titleColumnIndex = cursor.getColumnIndex(COLUMN_TITLE);
-            notesColumnIndex = cursor.getColumnIndex(COLUMN_NOTES);
-            idColumnIndex = cursor.getColumnIndex(COLUMN_TASKID);
+            titleColumnIndex = cursor.getColumnIndex(TaskProvider.COLUMN_TITLE);
+            notesColumnIndex = cursor.getColumnIndex(TaskProvider.COLUMN_NOTES);
+            idColumnIndex = cursor.getColumnIndex(TaskProvider.COLUMN_TASKID);
         }
         notifyDataSetChanged();
     }
@@ -179,7 +175,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
                                         context.getContentResolver()
                                                 .delete(ContentUris
                                                         .withAppendedId
-                                                                (CONTENT_URI, id), null, null);
+                                                                (TaskProvider.CONTENT_URI, id), null, null);
                                     }
                                 })
                         .show();

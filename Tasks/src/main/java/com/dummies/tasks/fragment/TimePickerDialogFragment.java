@@ -6,11 +6,6 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 
-import static com.dummies.tasks.fragment.TaskEditFragment
-        .DEFAULT_EDIT_FRAGMENT_TAG;
-import static com.dummies.tasks.fragment.TaskEditFragment.HOUR;
-import static com.dummies.tasks.fragment.TaskEditFragment.MINS;
-
 /**
  * A DialogFragment used to display a time picker
  */
@@ -24,14 +19,16 @@ public class TimePickerDialogFragment extends DialogFragment {
         // new date.
         OnTimeSetListener listener = (OnTimeSetListener)
                 getFragmentManager()
-                .findFragmentByTag(DEFAULT_EDIT_FRAGMENT_TAG);
+                        .findFragmentByTag(
+                                TaskEditFragment
+                                        .DEFAULT_EDIT_FRAGMENT_TAG);
 
         // Construct a new TimePicker Dialog that will be hosted by
         // this fragment. Set its Hour and Minutes to the values
         // specified in the args bundle
         Bundle args = getArguments();
         return new TimePickerDialog(getActivity(), listener,
-                args.getInt(HOUR),
-                args.getInt(MINS), false);
+                args.getInt(TaskEditFragment.HOUR),
+                args.getInt(TaskEditFragment.MINS), false);
     }
 }

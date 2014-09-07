@@ -9,11 +9,7 @@ import android.content.Intent;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskEditActivity;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
-import static com.dummies.tasks.provider.TaskProvider
-        .COLUMN_TASKID;
-import static com.dummies.tasks.provider.TaskProvider.COLUMN_TITLE;
+import com.dummies.tasks.provider.TaskProvider;
 
 public class OnAlarmReceiver extends BroadcastReceiver {
     @Override
@@ -30,16 +26,16 @@ public class OnAlarmReceiver extends BroadcastReceiver {
         // service when you are done.
 
         NotificationManager mgr = (NotificationManager) context
-                .getSystemService(NOTIFICATION_SERVICE);
+                .getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Create the intent that will open the TaskEditActivity
         // for the specified task id.  We get the id of the task
         // from the OnAlarmReceiver's broadcast intent.
         Intent taskEditIntent =
                 new Intent(context, TaskEditActivity.class);
-        long taskId = intent.getLongExtra(COLUMN_TASKID, -1);
-        String title = intent.getStringExtra(COLUMN_TITLE);
-        taskEditIntent.putExtra(COLUMN_TASKID, taskId);
+        long taskId = intent.getLongExtra(TaskProvider.COLUMN_TASKID, -1);
+        String title = intent.getStringExtra(TaskProvider.COLUMN_TITLE);
+        taskEditIntent.putExtra(TaskProvider.COLUMN_TASKID, taskId);
 
         // Create the PendingIntent that will wrap the
         // taskEditIntent.  All intents that are used in
