@@ -7,7 +7,8 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
 
 /**
- * A DialogFragment used to display a time picker
+ * A lightweight wrapper for a TimePickerDialog that wraps the dialog
+ * in a fragment.
  */
 public class TimePickerDialogFragment extends DialogFragment {
     @Override
