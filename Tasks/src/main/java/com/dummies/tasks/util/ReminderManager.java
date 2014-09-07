@@ -15,16 +15,11 @@ import java.util.Calendar;
  */
 public class ReminderManager {
 
-    Context context;
-    AlarmManager alarmManager;
+    public static void setReminder(Context context, long taskId,
+                                   String title, Calendar when) {
 
-    public ReminderManager(Context context) {
-        this.context = context;
-        alarmManager = (AlarmManager) context
+        AlarmManager alarmManager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
-    }
-
-    public void setReminder(long taskId, String title, Calendar when) {
 
         // Create an intent for our OnAlarmReceiver,
         // which will show the notification when it is called

@@ -52,7 +52,7 @@ public class OnBootReceiver extends BroadcastReceiver {
                 cal.setTime(new java.util.Date(dateTime));
 
                 // Set the reminder
-                new ReminderManager(context).setReminder(taskId,
+                ReminderManager.setReminder(context, taskId,
                         title, cal);
 
                 cursor.moveToNext();

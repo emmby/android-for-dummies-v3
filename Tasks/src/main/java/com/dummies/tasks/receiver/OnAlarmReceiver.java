@@ -11,6 +11,10 @@ import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskEditActivity;
 import com.dummies.tasks.provider.TaskProvider;
 
+/**
+ * This class is called when our reminder alarm fires,
+ * at which point we'll create a notification and show it to the user.
+ */
 public class OnAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

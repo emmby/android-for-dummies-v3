@@ -222,7 +222,7 @@ public class TaskEditFragment extends Fragment implements
                 Toast.LENGTH_SHORT).show();
 
         // Create a reminder for this task
-        new ReminderManager(getActivity()).setReminder(
+        ReminderManager.setReminder( getActivity(),
                 taskId, title, taskDateAndTime);
     }
 
