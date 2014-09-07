@@ -1,31 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- The AndroidManifest.xml describes all the things that we're going
+     to put into our app.  Here we set our app's package identifier
+     to com.dummies.tasks -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.dummies.tasks">
 
+    <!-- Declare the various permissions that our app needs to run.
+         When users download our app from the Play store, the store
+         will notify users of the permissions we request here. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- Declare the application.  We'll allow backups since we have
+         nothing sensitive to hide.  We'll also set our app's Theme
+         to a custom theme we'll define in styles.xml.
+         You can add a custom application icon if you like by setting
+         android:icon and removing tools:ignore="MissingApplicationIcon".
+         We'll set the app's label to "Tasks", which will be the default
+         title for each of our activities if we don't set their labels
+         to something else.
+         -->
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/TasksAppTheme"
         tools:ignore="MissingApplicationIcon">
+
+        <!-- Declare our main activity.  Set its intent filter to
+             match android.intent.action.MAIN and
+             android.intent.category.LAUNCHER, which means that users
+             can launch it by clicking on the app icon in the phone's
+             home screen (aka the launcher app).
+             For android:name, you can either specify the full path to
+             the activity (eg com.dummies.tasks.activity.LaunchActivity),
+             or you can use a shortcut and just specify the relative
+             path relative to your app's package id.
+             -->
         <activity
-            android:name=".activity.LaunchActivity"
-            android:label="@string/app_name">
+            android:name=".activity.LaunchActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- The Task List Activity for phones -->
         <activity android:name=".activity.TaskListActivity" />
+
+        <!-- The Task Edit Activity for phones.
+             We set documentLaunchMode to always to make every task
+             we edit show up as a separate entry in the phone's Recent
+             Apps list.  If we didn't do this, Recent Apps would only
+             show the most recent task that the user edited. -->
         <activity android:name=".activity.TaskEditActivity"
                   android:documentLaunchMode="always"/>
+
+        <!-- The Task + Edit Activity used for tablets -->
         <activity android:name=".activity.TaskListAndEditorActivity" />
+
+        <!-- The Preferences activity for customizing apps settings -->
         <activity android:name=".activity.TaskPreferencesActivity" />
 
+
+        <!-- Our OnAlarmReceiver, which is triggered whenever one of
+             our reminder alarms fires.  We don't need other apps to be
+             able to call it, so as a security measure let's set
+             export to false. -->
+        <receiver android:name=".receiver.OnAlarmReceiver"
+                  android:exported="false"/>
+
+        <!-- Our OnBootReceiver, which is triggered whenever the phone
+             boots up (android.intent.action.BOOT_COMPLETED). Again,
+             no one else should be able to invoke our OnBootReceiver,
+             so we'll set exported to false. -->
         <receiver
             android:name=".receiver.OnBootReceiver"
             android:exported="false">
@@ -33,12 +83,19 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.OnAlarmReceiver" />
 
+        <!-- Our contentprovider, which maintains a database of tasks.
+             This content provider is the "authority" for content under
+             the "com.dummies.tasks.provider.TaskProvider" name, which
+             is how we'll look up this content later.
+             We do not want other apps to be able to read our task data,
+             so set exported to false.
+             -->
         <provider
             android:name=".provider.TaskProvider"
             android:authorities="com.dummies.tasks.provider.TaskProvider"
             android:exported="false" />
+
     </application>
 
 </manifest>
