@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Our default menu, which we'll load into the ActionBar of our main
+     app activity -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- The Insert button, used to create a new task.  This button
+         is important and small, so we'll force it to always be
+         in the action bar. In general, you should try to have as
+         few items as possible configured with showAsAction=always.
+         We'll use the default Add button icon that ships with
+         Android.  If you want to see what other drawables Android
+         ships with, you can look in
+         $ANDROID_SDK/platforms/android-*/res/drawable-*
+         -->
     <item
         android:id="@+id/menu_insert"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="always"
         android:title="@string/menu_insert" />
+
+    <!-- The Settings menu.  The settings menu is less important to
+         put front and center, so we'll configure it with
+         showAsAction=ifRoom.  If the ActionBar gets crowded, the
+         Settings menu may get moved into the overflow menu in
+         the action bar (three vertical dots on the right hand side).
+         This won't happen for our app since we only have to small
+         icons in our action bar, but it could easily happen in other
+         apps. -->
     <item
         android:id="@+id/menu_settings"
         android:icon="@android:drawable/ic_menu_preferences"
