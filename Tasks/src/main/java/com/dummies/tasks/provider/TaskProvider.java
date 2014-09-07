@@ -48,6 +48,7 @@ public class TaskProvider extends ContentProvider {
     private static final UriMatcher URI_MATCHER = buildUriMatcher();
 
 
+    // The database
     SQLiteDatabase db;
 
     /**
@@ -63,12 +64,21 @@ public class TaskProvider extends ContentProvider {
         return matcher;
     }
 
+    /**
+     * This method is called when our ContentProvider is created
+     */
     @Override
     public boolean onCreate() {
+        // Grab a connection to our database
         db = new DatabaseHelper(getContext()).getWritableDatabase();
         return true;
     }
 
+    /**
+     * This method is called when someone wants to read something from
+     * our content provider.  We'll turn around and ask our database
+     * for the information, and then return it in a Cursor.
+     */
     @Override
     public Cursor query(Uri uri, String[] ignored1, String ignored2,
                         String[] ignored3, String ignored4) {
@@ -83,11 +93,15 @@ public class TaskProvider extends ContentProvider {
         // format the db query accordingly
         Cursor c;
         switch (URI_MATCHER.match(uri)) {
+
+            // We were asked to return a list of tasks
             case LIST_TASK:
                 c = db.query(TaskProvider.DATABASE_TABLE,
                         projection, null,
                         null, null, null, null);
                 break;
+
+            // We were asked to return a specific task
             case ITEM_TASK:
                 c = db.query(TaskProvider.DATABASE_TABLE, projection,
                         TaskProvider.COLUMN_TASKID + "=?",
@@ -102,10 +116,17 @@ public class TaskProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown Uri: " + uri);
         }
 
+        // Set the notification URI for this cursor.  Our Loader will
+        // use this URI to watch for any changes to our data,
+        // and if the data changes the Loader will automatically refresh.
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
 
+    /**
+     * This method is called when someone wants to insert something
+     * into our content provider.
+     */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         // you can't insert and specify a row id, so remove it if present
@@ -116,6 +137,10 @@ public class TaskProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
+    /**
+     * This method is called when someone wants to delete something
+     * from our content provider.
+     */
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
         int count = db.delete(TaskProvider.DATABASE_TABLE,
@@ -126,6 +151,10 @@ public class TaskProvider extends ContentProvider {
         return count;
     }
 
+    /**
+     * This method is called when someone wants to update something
+     * in our content provider.
+     */
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
                       String[] ignored2) {
@@ -139,9 +168,8 @@ public class TaskProvider extends ContentProvider {
 
     /**
      * This method is required in order to query the supported types.
-     * It's also
-     * useful in our own query() method to determine the type of Uri
-     * received.
+     * It's also useful in our own query() method to determine the type
+     * of Uri received.
      */
     @Override
     public String getType(Uri uri) {
@@ -155,24 +183,37 @@ public class TaskProvider extends ContentProvider {
         }
     }
 
+    /**
+     * A helper class which knows how to create and update our database.
+     */
     protected static class DatabaseHelper extends SQLiteOpenHelper {
 
-        DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(DATABASE_CREATE);
-        }        // since it's easier
-
-        // to read in the db that way
-        private static final String DATABASE_CREATE = "create table "
+        static final String DATABASE_CREATE = "create table "
                 + DATABASE_TABLE + " (" + COLUMN_TASKID
                 + " integer primary key autoincrement, " + COLUMN_TITLE
                 + " text not null, " + COLUMN_NOTES + " text not null, "
                 + COLUMN_DATE_TIME + " integer not null);";
 
+        DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        /**
+         * This method is called when the app is first installed and no
+         * database has yet been created.
+         */
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(DATABASE_CREATE);
+        }
+
+
+        /**
+         * This method will be called in the future when we release
+         * version 2.0 of our Tasks app, at which point we'll need to
+         * upgrade our database from version 1.0 to version 2.0.
+         * For now, there's nothing that needs to be done here.
+         */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion,
                               int newVersion) {
