@@ -5,6 +5,7 @@ jdk: oraclejdk7
 android:
   components:
     - build-tools-20.0.0
+    - android-L
 
 script:
     - echo "Travis branch is $TRAVIS_BRANCH"
