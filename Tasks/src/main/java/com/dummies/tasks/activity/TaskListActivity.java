@@ -27,7 +27,7 @@ public class TaskListActivity extends SingleFragmentActivity
     @Override
     public void editTask(long id) {
         // When we are asked to edit a reminder, start the
-        // TaskEditActivity
+        // TaskEditActivity with the id of the task to edit.
         startActivity(new Intent(this, TaskEditActivity.class)
                 .putExtra(TaskProvider.COLUMN_TASKID, id));
     }

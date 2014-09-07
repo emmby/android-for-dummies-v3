@@ -13,6 +13,8 @@ public class TaskPreferencesActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment newFragmentInstance() {
+        // Create the new fragment and return it.
+        // This fragment doesn't need any params when it's created
         return new TaskPreferencesFragment();
     }
 }

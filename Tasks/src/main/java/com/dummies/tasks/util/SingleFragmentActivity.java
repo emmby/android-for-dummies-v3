@@ -30,6 +30,12 @@ abstract public class SingleFragmentActivity extends Activity {
      */
     protected abstract Fragment newFragmentInstance();
 
+    /**
+     * Implement this method to tag your fragment when it is added to
+     * the activity.
+     *
+     * @see android.support.v4.app.FragmentManager#beginTransaction()
+     */
     protected String getFragmentTag() {
         return null;
     }

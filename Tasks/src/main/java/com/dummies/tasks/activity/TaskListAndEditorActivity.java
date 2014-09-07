@@ -18,9 +18,14 @@ import com.dummies.tasks.provider.TaskProvider;
 public class TaskListAndEditorActivity extends Activity
         implements OnEditTask, OnEditFinished {
 
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set up the layout from an XML file
         setContentView(R.layout.task_list_and_editor_activity);
     }
 
@@ -41,12 +46,15 @@ public class TaskListAndEditorActivity extends Activity
                 .beginTransaction();
         transaction.replace(R.id.edit_container, fragment,
                 TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+
         // Add this change to the backstack, so that when the user
         // clicks the back button we'll pop this editor off the stack.
         // If we don't do this, the whole activity will close when the
         // user clicks the back button, which will be disruptive and
         // unexpected.
         transaction.addToBackStack(null);
+
+        // Make it so!
         transaction.commit();
     }
 
@@ -55,14 +63,16 @@ public class TaskListAndEditorActivity extends Activity
      */
     @Override
     public void finishEditingTask() {
-        // Find the edit fragment, and remove it from the activity.
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager
                 .beginTransaction();
+
+        // Find the edit fragment, and remove it from the activity.
         Fragment previousFragment = fragmentManager
                 .findFragmentByTag(
                         TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
         transaction.remove(previousFragment);
+
         transaction.commit();
     }
 

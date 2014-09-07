@@ -14,7 +14,6 @@ public class TaskEditActivity extends SingleFragmentActivity
 
     @Override
     protected Fragment newFragmentInstance() {
-
         // Create a new fragment and pass along arguments (like
         // COLUMN_TASKID) from the activity to the fragment
         Fragment fragment = new TaskEditFragment();
@@ -24,6 +23,10 @@ public class TaskEditActivity extends SingleFragmentActivity
 
     @Override
     protected String getFragmentTag() {
+        // The tag that we'll use to add the fragment to the activity.
+        // This will allow us to reference this fragment from other
+        // fragments, such as the Date and Time picker dialog fragments,
+        // for example.
         return TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG;
     }
 
