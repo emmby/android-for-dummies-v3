@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Set isTablet to true if the device has a smallest width (sw)
+         of 600dp or higher.  See
+         http://developer.android.com/training/multiscreen/screensizes.html
+         for more information about supporting multiple screen sizes -->
     <bool name="isTablet">true</bool>
 </resources>

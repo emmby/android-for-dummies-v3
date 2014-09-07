@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- By default, the isTablet boolean is false for most devices.
+         See values-sw600dp/bools.xml for the value for tablets -->
     <bool name="isTablet">false</bool>
 </resources>
