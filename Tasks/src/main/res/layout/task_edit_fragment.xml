@@ -6,11 +6,12 @@
      like RecyclerView that have their own built-in scrolling. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <!-- This is the same image that was used on the list view,
              but here we show the full image instead of cropping it.
@@ -21,6 +22,8 @@
             android:contentDescription="@string/task_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_alignParentTop="true"
             />
 
         <!-- Allows the user to edit the task's title.
