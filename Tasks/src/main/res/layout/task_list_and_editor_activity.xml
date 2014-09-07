@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- A horizontal LinearLayout that will hold our two fragments for our
+     tablet layout.  We set baselineAligned=false as recommended by
+     Android lint to get tiny bump in performance -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
+    <!-- Our list view, which will occupy the leftmost third (1 of 3
+         parts) of the screen.  When using layout_weight, you must
+         set your layout_width to 0. -->
     <fragment
         android:id="@+id/list_fragment"
         android:name="com.dummies.tasks.fragment.TaskListFragment"
@@ -11,6 +19,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
+    <!-- Our edit view, which will occupy the remaining 2 of 3 parts
+         of the screen. -->
     <FrameLayout
         android:id="@+id/edit_container"
         android:layout_width="0dp"
