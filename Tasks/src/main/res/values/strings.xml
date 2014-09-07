@@ -2,21 +2,18 @@
 <resources>
     <string name="app_name">Tasks</string>
     <string name="menu_insert">Add Task</string>
-    <string name="menu_delete">Delete Task</string>
     <string name="menu_settings">Settings</string>
     <string name="title">Title</string>
-    <string name="body">Body</string>
     <string name="confirm">Save</string>
-    <string name="date">Task Date</string>
-    <string name="time">Task Time</string>
     <string name="delete">Delete</string>
     <string name="delete_q">Delete?</string>
+    <string name="notes">Notes</string>
+    <string name="task_image">Task Image</string>
 
     <!-- Toasts -->
     <string name="task_saved_message">Task has been saved</string>
 
     <!-- Notification Bar -->
-    <string name="notify_new_task_message">A task needs to be reviewed!</string>
     <string name="notify_new_task_title">Task Reminder!</string>
 
     <!-- Preferences -->
@@ -27,7 +24,6 @@
     <string name="pref_task_title_message">The default title for a task.</string>
     <string name="pref_task_title_summary">Default title for tasks.</string>
     <string name="pref_task_title_title">Default Task Title</string>
-
     <string name="pref_category_datetime_key">date_time_default_category</string>
     <string name="pref_category_datetime_title">Date Time Defaults</string>
     <string name="pref_default_time_from_now_key">time_from_now_default</string>
@@ -35,7 +31,5 @@
     <string name="pref_default_time_from_now_message">The default time from now that a new task should be set to.</string>
     <string name="pref_default_time_from_now_summary">Sets the default time for a task.</string>
     <string name="pref_default_time_from_now_title">Default Task Time</string>
-    <string name="notes">Notes</string>
-    <string name="date_and_time">Date and Time</string>
 
 </resources>

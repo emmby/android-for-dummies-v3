@@ -19,6 +19,7 @@
 
         <ImageView
             android:id="@+id/image"
+            android:contentDescription="@string/task_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
