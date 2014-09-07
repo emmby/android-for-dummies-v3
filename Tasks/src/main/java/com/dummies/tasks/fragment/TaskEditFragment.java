@@ -423,7 +423,7 @@ public class TaskEditFragment extends Fragment implements
         notesText.setText(task.getString(task
                 .getColumnIndexOrThrow(TaskProvider.COLUMN_NOTES)));
 
-        // The our date from the database
+        // The task date from the database
         Long dateInMillis = task.getLong(task
                 .getColumnIndexOrThrow(
                         TaskProvider.COLUMN_DATE_TIME));
