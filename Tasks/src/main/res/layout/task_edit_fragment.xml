@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- We place the entire edit fragment inside of a scroll view.  If we
+     didn't do that, then the user wouldn't be able to see the bottom
+     of the screen on small devices or when in landscape mode.
+     Most screens should be wrapped inside a scroll view, except views
+     like RecyclerView that have their own built-in scrolling. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
+        <!-- This is the same image that was used on the list view,
+             but here we show the full image instead of cropping it.
+             When we downloaded the image, we made sure to download
+             a size that could fully fill our screen horizontally. -->
         <ImageView
             android:id="@+id/image"
             android:contentDescription="@string/task_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             />
 
+        <!-- Allows the user to edit the task's title.
+             We provide hint text ("Title") which indicates what field
+             the user is editing. -->
         <EditText
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -24,6 +34,12 @@
             android:layout_below="@id/image"
             android:hint="@string/title" />
 
+        <!-- Allows the user to edit the task's notes.
+             We'll place this below the title.  We'll also give it
+             a minimum of 5 lines of height to accommodate longer
+             notes.  We'll set the gravity to "top" to make the text
+             align with the top of the text field because it looks
+             better. -->
         <EditText
             android:id="@+id/notes"
             android:layout_width="match_parent"
@@ -32,19 +48,22 @@
             android:layout_below="@id/title"
             android:gravity="top"
             android:hint="@string/notes"
-            android:minLines="5"
-            android:scrollbars="vertical" />
+            android:minLines="5" />
 
 
+        <!-- The time button.  We'll put this button on top of the
+             image in the lower right hand corner.  We'll also give
+             it a slightly larger font. -->
         <Button
             style="@android:style/TextAppearance.Medium"
             android:id="@+id/task_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/image"
-            android:layout_alignEnd="@id/image"
-            />
+            android:layout_alignEnd="@id/image" />
 
+        <!-- The date button.  We'll put this to the left of the
+             time button -->
         <Button
             style="@android:style/TextAppearance.Medium"
             android:id="@+id/task_date"
