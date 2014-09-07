@@ -436,6 +436,12 @@ public class TaskEditFragment extends Fragment implements
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
+                        // Don't do this for tablets, only phones,
+                        // since it doesn't really work with a split
+                        // screen view.
+                        if( getResources().getBoolean(R.bool.isTablet) )
+                            return;
+
                         // Set the colors of the activity based on the
                         // colors of the image, if available
                         Bitmap bitmap = ((BitmapDrawable) imageView
