@@ -171,11 +171,9 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface
-                                                                dialogInterface, int i) {
-                                        context.getContentResolver()
-                                                .delete(ContentUris
-                                                        .withAppendedId
-                                                                (TaskProvider.CONTENT_URI, id), null, null);
+                                                        dialogInterface,
+                                                        int i) {
+                                        deleteTask(context,id);
                                     }
                                 })
                         .show();
@@ -183,6 +181,15 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
             }
         });
 
+    }
+
+    private void deleteTask(Context context, long taskId) {
+        context.getContentResolver()
+                .delete(
+                        ContentUris.withAppendedId(
+                                TaskProvider.CONTENT_URI,
+                                taskId),
+                        null, null);
     }
 
     @Override
