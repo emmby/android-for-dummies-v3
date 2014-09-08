@@ -8,6 +8,8 @@ import android.os.Bundle;
  * A simple wrapper for showing a single fragment.
  * Does not support adding or removing fragments from the activity.
  */
+ //There is something wrong in this package. This is not a utility package. 
+ //this class should be inside the activity package.
 abstract public class SingleFragmentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
