@@ -486,7 +486,6 @@ public class TaskEditFragment extends Fragment implements
 
     // TODO move this somewhere else
     public static String getImageUrlForTask(long taskId) {
-
         return "http://lorempixel.com/600/400/cats/?fakeId=" + taskId;
     }
 }

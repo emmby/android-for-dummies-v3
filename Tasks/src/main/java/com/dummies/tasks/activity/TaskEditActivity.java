@@ -10,7 +10,7 @@ import com.dummies.tasks.util.SingleFragmentActivity;
  * Our Reminder Edit Activity for Phones
  */
 public class TaskEditActivity extends SingleFragmentActivity
-        implements OnEditFinished {
+implements OnEditFinished {
 
     @Override
     protected Fragment newFragmentInstance() {

@@ -16,6 +16,7 @@ import com.dummies.tasks.provider.TaskProvider;
  * at which point we'll create a notification and show it to the user.
  */
 public class OnAlarmReceiver extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // Note: Do not do any asynchronous operations in

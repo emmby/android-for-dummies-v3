@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- define your colors separately so that they can be referenced
+	    anywhere else you might need them -->
+	<color name="primary">#1eabf2</color>
+	<color name="primary_dark">#178acf</color>
+	<color name="accent">@color/primary_dark</color>
+	<color name="window_background">#c1dae6</color>
+
+</resources>

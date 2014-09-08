@@ -13,24 +13,8 @@
         <item name="android:colorAccent">@color/accent</item>
 
         <!-- the background color of your windows -->
-        <item name="android:windowBackground">
-            @color/window_background
-        </item>
+        <item name="android:windowBackground">@color/window_background</item>
 
-        <!-- your primary and inverse text colors used in things like
-             the actionbar -->
-        <!--<item name="android:textColorPrimary">-->
-            <!--@color/text_color_primary-->
-        <!--</item>-->
-        <!--<item name="android:textColorPrimaryInverse">-->
-            <!--@color/text_color_primary_inverse-->
-        <!--</item>-->
     </style>
 
-    <!-- define your colors separately so that they can be referenced
-         anywhere else you might need them -->
-    <color name="primary">#1eabf2</color>
-    <color name="primary_dark">#178acf</color>
-    <color name="accent">@color/primary_dark</color>
-    <color name="window_background">#c1dae6</color>
 </resources>

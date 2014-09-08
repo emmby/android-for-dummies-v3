@@ -84,7 +84,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- Our contentprovider, which maintains a database of tasks.
+        <!-- Our ContentProvider, which maintains a database of tasks.
              This content provider is the "authority" for content under
              the "com.dummies.tasks.provider.TaskProvider" name, which
              is how we'll look up this content later.

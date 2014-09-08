@@ -36,8 +36,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:layout_alignParentStart="true"
-            />
+            android:layout_alignParentStart="true"/>
 
         <!-- The title of the task.  We'll make it a little larger
              (Medium) than normal text.  We also use the Inverse color
@@ -45,7 +44,7 @@
              background by default, which is what we want, but if we did
              that on the light colored Cards then you wouldn't be able
              to read the text.
-             We set a maxlines of 1 to prevent wrapping of the title,
+             We set a maxLines of 1 to prevent wrapping of the title,
              and we'll ellipsize the end if it exceeds one line.
              We place the title to the right and aligned with
              the top of the task image.
@@ -80,4 +79,3 @@
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
-

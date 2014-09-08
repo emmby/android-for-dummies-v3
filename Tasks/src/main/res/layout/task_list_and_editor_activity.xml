@@ -9,7 +9,7 @@
     android:orientation="horizontal"
     android:baselineAligned="false">
 
-    <!-- Our list view, which will occupy the leftmost third (1 of 3
+    <!-- Our ListView, which will occupy the leftmost third (1 of 3
          parts) of the screen.  When using layout_weight, you must
          set your layout_width to 0. -->
     <fragment
