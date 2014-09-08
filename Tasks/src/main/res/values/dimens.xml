@@ -9,4 +9,7 @@
 
     <!-- The elevation of our task cards -->
     <dimen name="task_card_elevation">6dp</dimen>
+    <!-- the task card elevation value when the view is selected
+    (after long click) -->
+    <dimen name="task_card_lifted_elevation">6dp</dimen>
 </resources>

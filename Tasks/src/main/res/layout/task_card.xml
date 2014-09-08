@@ -2,8 +2,8 @@
 
 <!-- The Card into which we'll place our task info.  The view will be
      the same width as our parent and a height of 100dp.  We'll add a
-     margin on the bottom to create an empty space between items in the
-     list, and we'll also add a 5dp gutter on the left and right.
+     margin on the top and bottom to create an empty space between items
+     in the list, and we'll also add a 10dp gutter on the left and right.
      We're using an elevation of 2dp to add a subtle shadowing effect.
      We set the foreground drawable to android's selectableItemBackground
      so that we get a nice click animation when the user clicks on the

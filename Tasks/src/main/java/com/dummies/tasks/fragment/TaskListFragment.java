@@ -104,4 +104,3 @@ public class TaskListFragment extends Fragment implements
         adapter.swapCursor(null);
     }
 }
-
