@@ -18,5 +18,3 @@ public class TaskPreferencesActivity extends SingleFragmentActivity {
         return new TaskPreferencesFragment();
     }
 }
-
-

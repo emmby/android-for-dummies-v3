@@ -25,5 +25,4 @@ public class LaunchActivity extends Activity {
         // Finish this launcher, we don't need it anymore
         finish();
     }
-
 }

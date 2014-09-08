@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- We place the entire edit fragment inside of a scroll view.  If we
+<!-- We place the entire edit fragment inside of a ScrollView.  If we
      didn't do that, then the user wouldn't be able to see the bottom
      of the screen on small devices or when in landscape mode.
-     Most screens should be wrapped inside a scroll view, except views
+     Most screens should be wrapped inside a ScrollView, except views
      like RecyclerView that have their own built-in scrolling. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
-        <!-- This is the same image that was used on the list view,
+        <!-- This is the same image that was used on the ListView,
              but here we show the full image instead of cropping it.
              When we downloaded the image, we made sure to download
              a size that could fully fill our screen horizontally.
@@ -26,8 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:layout_alignParentTop="true"
-            />
+            android:layout_alignParentTop="true"/>
 
         <!-- Allows the user to edit the task's title.
              We provide hint text ("Title") which indicates what field

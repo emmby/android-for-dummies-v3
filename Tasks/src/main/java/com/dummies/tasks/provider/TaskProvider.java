@@ -47,7 +47,6 @@ public class TaskProvider extends ContentProvider {
     private static final int ITEM_TASK = 1;
     private static final UriMatcher URI_MATCHER = buildUriMatcher();
 
-
     // The database
     SQLiteDatabase db;
 

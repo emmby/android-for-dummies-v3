@@ -63,17 +63,14 @@ public class TaskListAndEditorActivity extends Activity
      */
     @Override
     public void finishEditingTask() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager
-                .beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
         // Find the edit fragment, and remove it from the activity.
-        Fragment previousFragment = fragmentManager
-                .findFragmentByTag(
-                        TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
-        transaction.remove(previousFragment);
-
-        transaction.commit();
+        Fragment previousFragment = fm.findFragmentByTag(
+            TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+        ft.remove(previousFragment);
+        ft.commit();
     }
 
 }

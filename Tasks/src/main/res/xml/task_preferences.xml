@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
     <PreferenceCategory
         android:key="@string/pref_category_task_defaults_key"
         android:title="@string/pref_category_task_defaults_title">
@@ -10,8 +9,8 @@
             android:key="@string/pref_task_title_key"
             android:summary="@string/pref_task_title_summary"
             android:title="@string/pref_task_title_title" />
-
     </PreferenceCategory>
+
     <PreferenceCategory
         android:key="@string/pref_category_datetime_key"
         android:title="@string/pref_category_datetime_title">
@@ -21,7 +20,5 @@
             android:key="@string/pref_default_time_from_now_key"
             android:summary="@string/pref_default_time_from_now_summary"
             android:title="@string/pref_default_time_from_now_title" />
-
-
     </PreferenceCategory>
 </PreferenceScreen>
