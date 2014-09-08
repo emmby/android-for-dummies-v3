@@ -50,7 +50,8 @@ public class TaskListFragment extends Fragment implements
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(getActivity()));
         return v;
     }
 
@@ -84,7 +85,8 @@ public class TaskListFragment extends Fragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
-        return new CursorLoader(getActivity(), TaskProvider.CONTENT_URI, null, null,
+        return new CursorLoader(getActivity(),
+                TaskProvider.CONTENT_URI, null, null,
                 null, null);
     }
 
