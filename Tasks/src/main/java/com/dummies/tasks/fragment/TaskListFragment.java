@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +26,7 @@ import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskPreferencesActivity;
 import com.dummies.tasks.interfaces.OnEditTask;
 import com.dummies.tasks.provider.TaskProvider;
+import com.dummies.tasks.view.TaskCard;
 import com.squareup.picasso.Picasso;
 
 public class TaskListFragment extends Fragment implements
@@ -129,8 +128,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // create a new view
-        CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false);
+        TaskCard v = new TaskCard(parent.getContext());
 
         // wrap it in a ViewHolder
         return new ViewHolder(v);
@@ -163,7 +161,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
                 .OnLongClickListener() {
             @Override
             public boolean onLongClick(final View view) {
-                animateCardUp(view);
+                ((TaskCard) view).animateCardUp();
                 new AlertDialog.Builder(context)
                         .setTitle(R.string.delete_q)
                         .setMessage(viewHolder.titleView.getText())
@@ -181,7 +179,7 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialogInterface) {
-                                animateCardDown(view);
+                                ((TaskCard) view).animateCardDown();
                             }
                         })
                         .show();
@@ -189,29 +187,6 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
             }
         });
 
-    }
-
-    private void animateCardUp(View view) {
-        // Animates the CardView up to a specified elevation value, and scales
-        // it up by 10% to give the impression of the view being lifted up.
-        final float elevation = view.getContext().getResources().getDimension(
-                R.dimen.task_card_lifted_elevation);
-        view.animate().setDuration(300)
-                .setInterpolator(new OvershootInterpolator())
-                .translationZ(elevation)
-                .scaleX(1.1f)
-                .scaleY(1.1f);
-    }
-
-    private void animateCardDown(View view) {
-        // Animates the CardView down to it's default elevation and size.
-        final float elevation = view.getContext().getResources().getDimension(
-                R.dimen.task_card_default_elevation);
-        view.animate().setDuration(300)
-                .setInterpolator(new OvershootInterpolator())
-                .translationZ(elevation)
-                .scaleX(1.0f)
-                .scaleY(1.0f);
     }
 
     private void deleteTask(Context context, long taskId) {
@@ -235,12 +210,12 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
+        TaskCard cardView;
         TextView titleView;
         TextView notesView;
         ImageView imageView;
 
-        public ViewHolder(CardView itemView) {
+        public ViewHolder(TaskCard itemView) {
             super(itemView);
             cardView = itemView;
             titleView = (TextView) itemView.findViewById(R.id.text1);
