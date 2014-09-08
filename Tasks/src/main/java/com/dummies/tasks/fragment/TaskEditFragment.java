@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -458,13 +459,17 @@ public class TaskEditFragment extends Fragment implements
                                     new ColorDrawable(actionbarColor
                                             .getRgb())
                             );
-                            ((Activity) rootView.getContext())
-                                    .getWindow()
-                                    .setStatusBarColor(
-                                            (statusColor != null ?
-                                                    statusColor :
-                                                    actionbarColor)
-                                                    .getRgb());
+
+                            final Window window = ((Activity)
+                                    rootView.getContext()).getWindow();
+
+                            window.setStatusBarColor(
+                                    (statusColor != null
+                                            ? statusColor
+                                            : actionbarColor)
+                                            .getRgb());
+                            window.setNavigationBarColor(
+                                    actionbarColor.getRgb());
                         }
                     }
 

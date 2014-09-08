@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -161,7 +162,8 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
         viewHolder.cardView.setOnLongClickListener( new View
                 .OnLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public boolean onLongClick(final View view) {
+                animateCardUp(view);
                 new AlertDialog.Builder(context)
                         .setTitle(R.string.delete_q)
                         .setMessage(viewHolder.titleView.getText())
@@ -176,11 +178,40 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
                                         deleteTask(context,id);
                                     }
                                 })
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                animateCardDown(view);
+                            }
+                        })
                         .show();
                 return true;
             }
         });
 
+    }
+
+    private void animateCardUp(View view) {
+        // Animates the CardView up to a specified elevation value, and scales
+        // it up by 10% to give the impression of the view being lifted up.
+        final float elevation = view.getContext().getResources().getDimension(
+                R.dimen.task_card_lifted_elevation);
+        view.animate().setDuration(300)
+                .setInterpolator(new OvershootInterpolator())
+                .translationZ(elevation)
+                .scaleX(1.1f)
+                .scaleY(1.1f);
+    }
+
+    private void animateCardDown(View view) {
+        // Animates the CardView down to it's default elevation and size.
+        final float elevation = view.getContext().getResources().getDimension(
+                R.dimen.task_card_default_elevation);
+        view.animate().setDuration(300)
+                .setInterpolator(new OvershootInterpolator())
+                .translationZ(elevation)
+                .scaleX(1.0f)
+                .scaleY(1.0f);
     }
 
     private void deleteTask(Context context, long taskId) {
