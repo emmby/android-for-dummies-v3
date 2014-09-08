@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dummies.tasks.R;
-import com.dummies.tasks.activity.TaskPreferencesActivity;
+import com.dummies.tasks.activity.PreferencesActivity;
 import com.dummies.tasks.adapter.TaskListAdapter;
 import com.dummies.tasks.interfaces.OnEditTask;
 import com.dummies.tasks.provider.TaskProvider;
@@ -75,7 +75,7 @@ public class TaskListFragment extends Fragment implements
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(getActivity(),
-                        TaskPreferencesActivity.class));
+                        PreferencesActivity.class));
                 return true;
         }
 

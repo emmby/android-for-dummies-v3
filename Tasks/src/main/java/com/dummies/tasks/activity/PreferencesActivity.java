@@ -9,7 +9,7 @@ import com.dummies.tasks.fragment.TaskPreferencesFragment;
  * An activity for displaying and editing preferences.
  * Uses a TaskPreferencesFragment to do all of the dirty work.
  */
-public class TaskPreferencesActivity extends Activity {
+public class PreferencesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
