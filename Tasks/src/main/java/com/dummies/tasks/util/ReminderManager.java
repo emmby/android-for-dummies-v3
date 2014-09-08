@@ -13,6 +13,8 @@ import java.util.Calendar;
 /**
  * A helper class that knows how to set reminders using the AlarmManager
  */
+ //If this is to be a utility class, add a private constructor to respect fully the design pattern
+ //I would prefer this class to be non-utility but a simple, mockable class.
 public class ReminderManager {
 
     public static void setReminder(Context context, long taskId,
