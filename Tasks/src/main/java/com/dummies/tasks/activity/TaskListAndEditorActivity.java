@@ -6,9 +6,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
+import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditFinished;
-import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditTask;
 import com.dummies.tasks.provider.TaskProvider;
 
@@ -42,9 +42,9 @@ public class TaskListAndEditorActivity extends Activity
 
         // Add the fragment to the activity. If there's one already
         // there (eg. the user clicks on another task), replace it
-        FragmentTransaction transaction = getFragmentManager()
+        FragmentTransaction ft = getFragmentManager()
                 .beginTransaction();
-        transaction.replace(R.id.edit_container, fragment,
+        ft.replace(R.id.edit_container, fragment,
                 TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
 
         // Add this change to the backstack, so that when the user
@@ -52,10 +52,10 @@ public class TaskListAndEditorActivity extends Activity
         // If we don't do this, the whole activity will close when the
         // user clicks the back button, which will be disruptive and
         // unexpected.
-        transaction.addToBackStack(null);
+        ft.addToBackStack(null);
 
         // Make it so!
-        transaction.commit();
+        ft.commit();
     }
 
     /**
@@ -63,12 +63,12 @@ public class TaskListAndEditorActivity extends Activity
      */
     @Override
     public void finishEditingTask() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm
                 .beginTransaction();
 
         // Find the edit fragment, and remove it from the activity.
-        Fragment previousFragment = fragmentManager
+        Fragment previousFragment = fm
                 .findFragmentByTag(
                         TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
         transaction.remove(previousFragment);
