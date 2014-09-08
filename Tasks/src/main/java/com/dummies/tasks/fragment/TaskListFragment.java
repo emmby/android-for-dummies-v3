@@ -151,6 +151,8 @@ class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
                 .into(viewHolder.imageView);
 
         // Set the click action
+        //The creation of the listener happens on each bind. Same below.
+        //This should be avoided for performance reasons. The listeners could be a shared instance.
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
