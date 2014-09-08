@@ -5,9 +5,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +15,7 @@ import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditTask;
 import com.dummies.tasks.provider.TaskProvider;
+import com.dummies.tasks.view.TaskCard;
 import com.squareup.picasso.Picasso;
 
 public class TaskListAdapter
@@ -41,8 +40,7 @@ public class TaskListAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // create a new view
-        CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false);
+        TaskCard v = new TaskCard(parent.getContext());
 
         // wrap it in a ViewHolder
         return new ViewHolder(v);
@@ -75,6 +73,7 @@ public class TaskListAdapter
                 .OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                viewHolder.cardView.animateCardUp();
                 new AlertDialog.Builder(context)
                         .setTitle(R.string.delete_q)
                         .setMessage(viewHolder.titleView.getText())
@@ -89,6 +88,12 @@ public class TaskListAdapter
                                         deleteTask(context,id);
                                     }
                                 })
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                viewHolder.cardView.animateCardDown();
+                            }
+                        })
                         .show();
                 return true;
             }
@@ -117,12 +122,12 @@ public class TaskListAdapter
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
+        TaskCard cardView;
         TextView titleView;
         TextView notesView;
         ImageView imageView;
 
-        public ViewHolder(CardView itemView) {
+        public ViewHolder(TaskCard itemView) {
             super(itemView);
             cardView = itemView;
             titleView = (TextView) itemView.findViewById(R.id.text1);
