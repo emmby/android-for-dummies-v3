@@ -11,7 +11,7 @@ import com.dummies.tasks.R;
  * A fragment that reads a list of preferences from a file and shows
  * them to the user for editing.
  */
-public class TaskPreferencesFragment extends PreferenceFragment {
+public class PreferencesFragment extends PreferenceFragment {
 
     // The "name" that we'll usually use to identify this fragment
     public static final String DEFAULT_FRAGMENT_TAG =

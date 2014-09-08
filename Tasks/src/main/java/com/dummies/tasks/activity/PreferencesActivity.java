@@ -3,7 +3,7 @@ package com.dummies.tasks.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.dummies.tasks.fragment.TaskPreferencesFragment;
+import com.dummies.tasks.fragment.PreferencesFragment;
 
 /**
  * An activity for displaying and editing preferences.
@@ -19,7 +19,7 @@ public class PreferencesActivity extends Activity {
         // This will allow us to reference this fragment from other
         // fragments, such as the Date and Time picker dialog fragments,
         // for example.
-        String fragmentTag = TaskPreferencesFragment.DEFAULT_FRAGMENT_TAG;
+        String fragmentTag = PreferencesFragment.DEFAULT_FRAGMENT_TAG;
 
         // Add the fragment if it has not already been added to the
         // FragmentManager. If you don't do this a new Fragment will be
@@ -28,7 +28,7 @@ public class PreferencesActivity extends Activity {
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().add(
                     android.R.id.content,
-                    new TaskPreferencesFragment(),
+                    new PreferencesFragment(),
                     fragmentTag ).commit();
     }
 
