@@ -17,6 +17,9 @@ abstract public class SingleFragmentActivity extends Activity {
         // FragmentManager. If you don't do this a new Fragment will be
         // added every time this method is called (such as on
         // orientation change)
+        
+        //I don't see this as a good practice. The test here should be 
+        //to ask the fragment manager if it knows the fragment identified by the tag.
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().add(
                     android.R.id.content,
@@ -37,6 +40,8 @@ abstract public class SingleFragmentActivity extends Activity {
      * @see android.support.v4.app.FragmentManager#beginTransaction()
      */
     protected String getFragmentTag() {
+        //the tag could be fixed in this class, no need to override.
+        //the fragment manager can't get confused, they will be different instances.
         return null;
     }
 }
