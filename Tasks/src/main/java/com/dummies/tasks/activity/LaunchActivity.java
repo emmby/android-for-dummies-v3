@@ -18,12 +18,16 @@ public class LaunchActivity extends Activity {
 
         // Launch the phone or tablet activity, as appropriate
         startActivity(new Intent(this,
-                getResources().getBoolean(R.bool.isTablet)
+                isTablet()
                         ? TaskListAndEditorActivity.class
                         : TaskListActivity.class));
 
         // Finish this launcher, we don't need it anymore
         finish();
+    }
+    
+    private boolean isTablet() {
+        return getResources().getBoolean(R.bool.isTablet);
     }
 
 }
