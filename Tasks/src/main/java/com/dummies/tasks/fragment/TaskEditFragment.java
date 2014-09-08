@@ -50,9 +50,9 @@ public class TaskEditFragment extends Fragment implements
         OnDateSetListener, OnTimeSetListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    // The "name" that we'll use to identify this fragment
-    public static final String DEFAULT_EDIT_FRAGMENT_TAG =
-            "editFragment";
+    // The "name" that we'll usually use to identify this fragment
+    public static final String DEFAULT_FRAGMENT_TAG =
+            "taskEditFragment";
 
     // Various date and time constants
     static final String YEAR = "year";

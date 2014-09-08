@@ -12,6 +12,11 @@ import com.dummies.tasks.R;
  * them to the user for editing.
  */
 public class TaskPreferencesFragment extends PreferenceFragment {
+
+    // The "name" that we'll usually use to identify this fragment
+    public static final String DEFAULT_FRAGMENT_TAG =
+            "preferencesFragment";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

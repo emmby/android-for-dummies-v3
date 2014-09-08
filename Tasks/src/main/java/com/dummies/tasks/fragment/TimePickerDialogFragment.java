@@ -22,7 +22,7 @@ public class TimePickerDialogFragment extends DialogFragment {
                 getFragmentManager()
                         .findFragmentByTag(
                                 TaskEditFragment
-                                        .DEFAULT_EDIT_FRAGMENT_TAG);
+                                        .DEFAULT_FRAGMENT_TAG);
 
         // Construct a new TimePicker Dialog that will be hosted by
         // this fragment. Set its Hour and Minutes to the values

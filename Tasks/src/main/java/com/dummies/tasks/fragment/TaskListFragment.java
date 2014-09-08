@@ -25,6 +25,9 @@ import com.dummies.tasks.provider.TaskProvider;
 public class TaskListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    // The "name" that we'll usually use to identify this fragment
+    public static final String DEFAULT_FRAGMENT_TAG = "taskListFragment";
+
     TaskListAdapter adapter;
     RecyclerView recyclerView;
 

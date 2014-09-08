@@ -45,7 +45,7 @@ public class TaskListAndEditorActivity extends Activity
         FragmentTransaction ft = getFragmentManager()
                 .beginTransaction();
         ft.replace(R.id.edit_container, fragment,
-                TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+                TaskEditFragment.DEFAULT_FRAGMENT_TAG);
 
         // Add this change to the backstack, so that when the user
         // clicks the back button we'll pop this editor off the stack.
@@ -70,7 +70,7 @@ public class TaskListAndEditorActivity extends Activity
         // Find the edit fragment, and remove it from the activity.
         Fragment previousFragment = fm
                 .findFragmentByTag(
-                        TaskEditFragment.DEFAULT_EDIT_FRAGMENT_TAG);
+                        TaskEditFragment.DEFAULT_FRAGMENT_TAG);
         transaction.remove(previousFragment);
 
         transaction.commit();

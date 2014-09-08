@@ -23,7 +23,7 @@ public class DatePickerDialogFragment extends DialogFragment {
                 getFragmentManager()
                         .findFragmentByTag
                                 (TaskEditFragment
-                                        .DEFAULT_EDIT_FRAGMENT_TAG);
+                                        .DEFAULT_FRAGMENT_TAG);
 
         // Construct a new DatePicker dialog that will be hosted by
         // this fragment. Set its Year, Month, and Day to the values
