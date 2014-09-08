@@ -130,6 +130,7 @@ public class TaskEditFragment extends Fragment implements
 
         // Tell the date and time buttons what to do when we click on
         // them.
+        //Should be a shared listener class / instance
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
