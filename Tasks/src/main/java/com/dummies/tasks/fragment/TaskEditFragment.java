@@ -301,6 +301,13 @@ public class TaskEditFragment extends Fragment implements
 
         // Create the DatePickerDialogFragment and initialize it with
         // the appropriate values.
+        
+        //this should be encapsulated 
+        //the conventional design pattern for passing arguments to a fragment should be used : 
+        //DatePickerdialogFragment.newInstance(taskDateAndTime.get(Calendar.YEAR), etc...)
+        //and the constants used to bundle / de-bundle should be private to the fragments.
+        //here, you create a semantic coupling that makes DatePickerDialog hard to use 
+        //outside of TaskEditFragment.
         DialogFragment newFragment = new DatePickerDialogFragment();
         Bundle args = new Bundle();
         args.putInt(YEAR, taskDateAndTime.get(Calendar.YEAR));
@@ -486,7 +493,8 @@ public class TaskEditFragment extends Fragment implements
 
     // TODO move this somewhere else
     public static String getImageUrlForTask(long taskId) {
-
+        //make this a constant.
+        //display bugdroids, not cats.
         return "http://lorempixel.com/600/400/cats/?fakeId=" + taskId;
     }
 }
