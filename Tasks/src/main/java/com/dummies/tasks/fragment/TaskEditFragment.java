@@ -3,7 +3,6 @@ package com.dummies.tasks.fragment;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
@@ -53,13 +52,6 @@ public class TaskEditFragment extends Fragment implements
     // The "name" that we'll usually use to identify this fragment
     public static final String DEFAULT_FRAGMENT_TAG =
             "taskEditFragment";
-
-    // Various date and time constants
-    static final String YEAR = "year";
-    static final String MONTH = "month";
-    static final String DAY = "day";
-    static final String HOUR = "hour";
-    static final String MINS = "mins";
 
     // Constants for saving instance state
     static final String TASK_ID = "taskId";
@@ -301,12 +293,8 @@ public class TaskEditFragment extends Fragment implements
 
         // Create the DatePickerDialogFragment and initialize it with
         // the appropriate values.
-        DialogFragment newFragment = new DatePickerDialogFragment();
-        Bundle args = new Bundle();
-        args.putInt(YEAR, taskDateAndTime.get(Calendar.YEAR));
-        args.putInt(MONTH, taskDateAndTime.get(Calendar.MONTH));
-        args.putInt(DAY, taskDateAndTime.get(Calendar.DAY_OF_MONTH));
-        newFragment.setArguments(args);
+        DatePickerDialogFragment newFragment =
+                DatePickerDialogFragment.newInstance( taskDateAndTime );
 
         // Show the dialog, and name it "datePicker".  By naming it,
         // Android can automatically manage its state for us if it
@@ -320,16 +308,13 @@ public class TaskEditFragment extends Fragment implements
 
         // Create the TimePickerDialogFragment and initialize it with
         // the appropriate values.
-        DialogFragment newFragment = new TimePickerDialogFragment();
-        Bundle args = new Bundle();
-        args.putInt(HOUR, taskDateAndTime.get(Calendar.HOUR_OF_DAY));
-        args.putInt(MINS, taskDateAndTime.get(Calendar.MINUTE));
-        newFragment.setArguments(args);
+        TimePickerDialogFragment fragment =
+                TimePickerDialogFragment.newInstance(taskDateAndTime);
 
         // Show the dialog, and name it "timePicker".  By naming it,
         // Android can automatically manage its state for us if it
         // needs to be killed and recreated.
-        newFragment.show(ft, "timePicker");
+        fragment.show(ft, "timePicker");
     }
 
     /**
