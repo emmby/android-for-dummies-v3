@@ -78,6 +78,7 @@ public class TaskEditFragment extends Fragment implements
     // save it to the database
     long taskId;
     Calendar taskDateAndTime;
+    ShowTimePickerClickListener showTimePickerClickListener = new ShowTimePickerClickListener();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,18 +132,8 @@ public class TaskEditFragment extends Fragment implements
         // Tell the date and time buttons what to do when we click on
         // them.
         //Should be a shared listener class / instance
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
-        timeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
+        dateButton.setOnClickListener(showTimePickerClickListener);
+        timeButton.setOnClickListener(showTimePickerClickListener);
 
         if (taskId == 0) {
             // This is a new task - add defaults from preferences if set.
@@ -489,5 +480,13 @@ public class TaskEditFragment extends Fragment implements
     public static String getImageUrlForTask(long taskId) {
 
         return "http://lorempixel.com/600/400/cats/?fakeId=" + taskId;
+    }
+    
+    private class ShowTimePickerClickListener implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        }
     }
 }
