@@ -19,7 +19,13 @@ public class OnAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // Note: Do not do any asynchronous operations in
-        // BroadcastReceive.onReceive. If you need to do asynchronous
+        // BroadcastReceive.onReceive!
+        // The OS may kill your process immediately after onReceive
+        // returns, so if you attempt to do asynchronous operations
+        // in onReceive, they may get killed before they ever finish!
+        // The result will be that sometimes things will appear to work,
+        // and sometimes they won't.
+        // If you need to do asynchronous
         // operations (eg. network requests, disk or database reads or
         // writes, etc.), then update OnAlarmReceiver to subclass
         // android.support.v4.content.WakefulBroadcastReceiver and
