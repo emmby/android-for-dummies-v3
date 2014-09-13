@@ -28,10 +28,11 @@ public class AppWidget extends AppWidgetProvider {
 		context.startService(new Intent(context, ToggleService.class));
 	}
 
+        //make me a high level class
 	public static class ToggleService extends IntentService {
 
 		public ToggleService() {
-			super("AppWidget$ToggleService");
+			super(ToggleService.class.getSimpleName());
 		}
 
 		@Override
