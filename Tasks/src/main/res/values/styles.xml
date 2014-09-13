@@ -17,6 +17,10 @@
             @color/window_background
         </item>
 
+        <!-- the background of the device's navigation bar (visible if the
+             device doesn't have physical navigation buttons) -->
+        <item name="android:navigationBarColor">@color/accent</item>
+
         <!-- your primary and inverse text colors used in things like
              the actionbar -->
         <!--<item name="android:textColorPrimary">-->
