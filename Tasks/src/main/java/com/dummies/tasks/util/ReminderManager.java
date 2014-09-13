@@ -15,6 +15,9 @@ import java.util.Calendar;
  */
 public class ReminderManager {
 
+    // class should not be instantiated so make constructor private
+    private ReminderManager() {}
+
     public static void setReminder(Context context, long taskId,
                                    String title, Calendar when) {
 
