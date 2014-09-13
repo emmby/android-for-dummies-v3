@@ -14,11 +14,12 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:layout_marginTop="@dimen/task_card_half_spacing"
+    android:layout_marginBottom="@dimen/task_card_half_spacing"
+    android:layout_marginLeft="@dimen/gutter"
+    android:layout_marginRight="@dimen/gutter"
     android:layout_gravity="center"
-    android:elevation="2dp"
+    android:elevation="@dimen/task_card_elevation"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="0dp" >
 
