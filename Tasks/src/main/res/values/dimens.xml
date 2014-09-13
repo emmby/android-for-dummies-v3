@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- the default task card elevation value -->
+    <dimen name="task_card_default_elevation">2dp</dimen>
+
+    <!-- the task card elevation value when the view is selected
+        (after long click) -->
+    <dimen name="task_card_lifted_elevation">6dp</dimen>
+
+</resources>
