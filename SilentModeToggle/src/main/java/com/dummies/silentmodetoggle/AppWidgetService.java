@@ -62,8 +62,8 @@ public class AppWidgetService extends IntentService {
      */
     private void updateUi(RemoteViews remoteViews) {
         int phoneImage = isPhoneSilent()
-                ? R.drawable.phone_on
-                : R.drawable.phone_silent;
+                ? R.drawable.phone_silent
+                : R.drawable.phone_on;
 
         remoteViews.setImageViewResource(R.id.phoneState, phoneImage);
     }
