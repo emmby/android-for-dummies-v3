@@ -19,6 +19,7 @@ public class AppWidgetService extends IntentService {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         audioManager = (AudioManager) getSystemService(
                 Activity.AUDIO_SERVICE);
     }
