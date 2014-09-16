@@ -1,4 +1,4 @@
-package com.dummies.android.silentmodetoggle;
+package com.dummies.silentmodetoggle;
 
 import android.app.Activity;
 import android.app.IntentService;
