@@ -14,7 +14,7 @@ public class AppWidgetService extends IntentService {
     AudioManager audioManager;
 
     public AppWidgetService() {
-        super("ToggleService");
+        super("AppWidgetService");
     }
 
     @Override
