@@ -30,7 +30,7 @@
                 android:resource="@xml/widget_provider"/>
         </receiver>
 
-        <service android:name=".AppWidget$ToggleService"/>
+        <service android:name=".AppWidgetService"/>
 
     </application>
 </manifest>

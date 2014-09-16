@@ -22,17 +22,12 @@ public class MainActivity extends Activity {
         Button toggleButton = (Button) findViewById(R.id.toggleButton);
         toggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (isPhoneSilent()) {
-                    // Change back to normal mode
-                    audioManager.setRingerMode(
-                            AudioManager.RINGER_MODE_NORMAL);
-                } else {
-                    // Change to silent mode
-                    audioManager.setRingerMode(
-                            AudioManager.RINGER_MODE_SILENT);
-                }
 
-                // Now toggle the UI again
+                audioManager.setRingerMode(
+                        isPhoneSilent()
+                                ? AudioManager.RINGER_MODE_NORMAL
+                                : AudioManager.RINGER_MODE_SILENT);
+
                 updateUi();
             }
         });
