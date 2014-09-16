@@ -53,4 +53,4 @@ android {
 // Libraries that our app will use
 dependencies {
     // For @Nullable/@NonNull
-    compile 'com.android.support:support-annotations:21.0.0-rc1'}
+    provided 'com.android.support:support-annotations:21.0.0-rc1'}
