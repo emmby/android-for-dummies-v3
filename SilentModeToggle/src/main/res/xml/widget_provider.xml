@@ -4,5 +4,5 @@
 	android:minWidth="79px"
 	android:minHeight="79px"
 	android:updatePeriodMillis="1800000"
-	android:initialLayout="@layout/widget"
+	android:initialLayout="@layout/app_widget"
 />

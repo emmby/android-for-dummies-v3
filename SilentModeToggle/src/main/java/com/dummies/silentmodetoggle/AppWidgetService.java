@@ -32,7 +32,7 @@ public class AppWidgetService extends IntentService {
 
     private RemoteViews buildUpdate() {
         RemoteViews remoteViews = new RemoteViews(getPackageName(),
-                R.layout.widget);
+                R.layout.app_widget);
 
         audioManager.setRingerMode(
                 isPhoneSilent()
