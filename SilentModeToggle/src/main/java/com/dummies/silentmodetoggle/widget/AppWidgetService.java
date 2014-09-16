@@ -1,4 +1,4 @@
-package com.dummies.silentmodetoggle;
+package com.dummies.silentmodetoggle.widget;
 
 import android.app.Activity;
 import android.app.IntentService;
@@ -8,6 +8,8 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.widget.RemoteViews;
+
+import com.dummies.silentmodetoggle.R;
 
 public class AppWidgetService extends IntentService {
 
@@ -63,8 +65,8 @@ public class AppWidgetService extends IntentService {
      */
     private void updateUi(RemoteViews remoteViews) {
         int phoneImage = isPhoneSilent()
-                ? R.drawable.phone_silent
-                : R.drawable.phone_on;
+                ? R.drawable.phone_state_silent
+                : R.drawable.phone_state_normal;
 
         remoteViews.setImageViewResource(R.id.phoneState, phoneImage);
     }

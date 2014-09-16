@@ -1,4 +1,4 @@
-package com.dummies.silentmodetoggle;
+package com.dummies.silentmodetoggle.activity;
 
 import android.app.Activity;
 import android.media.AudioManager;
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.dummies.silentmodetoggle.R;
 
 public class MainActivity extends Activity {
 

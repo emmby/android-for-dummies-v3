@@ -2,6 +2,4 @@
 <resources>
     <string name="app_name">Silent Mode Toggle</string>
     <string name="toggle_silent_mode">Toggle Silent Mode</string>
-    
-    <string name="hello">Hello World, MainActivity!</string>
 </resources>

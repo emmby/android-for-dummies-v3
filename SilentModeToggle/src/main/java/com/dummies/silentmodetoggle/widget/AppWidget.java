@@ -1,4 +1,4 @@
-package com.dummies.silentmodetoggle;
+package com.dummies.silentmodetoggle.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
