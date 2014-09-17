@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 import com.dummies.silentmodetoggle.R;
 
 public class AppWidgetService extends IntentService {
+    public static String ACTION_DO_TOGGLE = "actionDoToggle";
 
     AudioManager audioManager;
 
@@ -28,25 +29,44 @@ public class AppWidgetService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
+        if( intent!=null && intent.getBooleanExtra(
+                ACTION_DO_TOGGLE,false)) {
+            performToggle();
+        }
+
         ComponentName me = new ComponentName(this, AppWidget.class);
         AppWidgetManager mgr = AppWidgetManager.getInstance(this);
-        mgr.updateAppWidget(me, buildUpdate());
+        mgr.updateAppWidget(me, updateUi());
     }
 
-    private RemoteViews buildUpdate() {
-        RemoteViews remoteViews = new RemoteViews(getPackageName(),
-                R.layout.app_widget);
-
+    private void performToggle() {
         audioManager.setRingerMode(
                 isPhoneSilent()
                         ? AudioManager.RINGER_MODE_NORMAL
                         : AudioManager.RINGER_MODE_SILENT);
+    }
 
-        updateUi(remoteViews);
+    private RemoteViews updateUi() {
+        RemoteViews remoteViews = new RemoteViews(getPackageName(),
+                R.layout.app_widget);
 
-        Intent i = new Intent(this, AppWidget.class);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
-        remoteViews.setOnClickPendingIntent(R.id.phoneState, pi);
+        int phoneImage = isPhoneSilent()
+                ? R.drawable.phone_state_silent
+                : R.drawable.phone_state_normal;
+
+        remoteViews.setImageViewResource(R.id.phone_state, phoneImage);
+
+        // Create an Intent to toggle the phone's state
+        Intent intent = new Intent(this, AppWidgetService.class)
+                .putExtra(ACTION_DO_TOGGLE,true);
+        PendingIntent pendingIntent =
+                PendingIntent.getService(this, 0, intent,
+                        PendingIntent.FLAG_ONE_SHOT);
+
+        // Get the layout for the App Widget and attach an on-click
+        // listener to the button
+        remoteViews.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         return remoteViews;
     }
@@ -60,14 +80,4 @@ public class AppWidgetService extends IntentService {
     }
 
 
-    /**
-     * Updates the UI image to show silent or normal, as appropriate
-     */
-    private void updateUi(RemoteViews remoteViews) {
-        int phoneImage = isPhoneSilent()
-                ? R.drawable.phone_state_silent
-                : R.drawable.phone_state_normal;
-
-        remoteViews.setImageViewResource(R.id.phoneState, phoneImage);
-    }
 }

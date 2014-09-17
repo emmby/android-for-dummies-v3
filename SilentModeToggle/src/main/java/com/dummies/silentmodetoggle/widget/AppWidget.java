@@ -4,23 +4,23 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 
 public class AppWidget extends AppWidgetProvider {
 
-    @Override
-    public void onReceive(@NonNull Context ctxt, @NonNull Intent intent) {
-
-        if (intent.getAction() == null) {
-            ctxt.startService(new Intent(ctxt, AppWidgetService.class));
-        } else {
-            super.onReceive(ctxt, intent);
-        }
-    }
-
+    /**
+     * Called when the widget is first created, and every update period
+     * as defined in xml/widget_provider.xml
+     */
     @Override
     public void onUpdate(Context context, AppWidgetManager
             appWidgetManager, int[] appWidgetIds) {
+
+        // Start a service so the service can take on updating the
+        // widget without having to worry about how long the responses
+        // take to generate.  This is necessary for any widgets that do
+        // any sort of I/O (network, disk, etc).  Our widget doesn't do
+        // I/O so using a service is not strictly-speaking necessary,
+        // but it's a good practice to be aware of and know how to use.
         context.startService(new Intent(context, AppWidgetService.class));
     }
 
