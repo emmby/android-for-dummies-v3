@@ -5,7 +5,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.dummies.silentmodetoggle.R;
@@ -21,7 +20,7 @@ public class MainActivity extends Activity {
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-        Button toggleButton = (Button) findViewById(R.id.toggleButton);
+        View toggleButton = findViewById(R.id.content);
         toggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
