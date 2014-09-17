@@ -52,8 +52,8 @@ public class MainActivity extends Activity {
         ImageView imageView = (ImageView) findViewById(R.id.phone_icon);
 
         int phoneImage = isPhoneSilent()
-                ? R.drawable.phone_silent
-                : R.drawable.phone_on;
+                ? R.drawable.ringer_off
+                : R.drawable.ringer_on;
 
         imageView.setImageDrawable(getDrawable(phoneImage));
     }

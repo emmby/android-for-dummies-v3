@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/phone_on"
+        android:src="@drawable/ringer_on"
         android:contentDescription="@string/toggle_silent_mode"/>
 
     <Button

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/icon_ringer_on"
         android:contentDescription="@string/toggle_silent_mode"/>
 
 </RelativeLayout>

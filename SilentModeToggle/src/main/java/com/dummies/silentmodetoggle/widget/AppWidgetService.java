@@ -52,8 +52,8 @@ public class AppWidgetService extends IntentService {
                 R.layout.app_widget);
 
         int phoneImage = isPhoneSilent()
-                ? R.drawable.phone_state_silent
-                : R.drawable.phone_state_normal;
+                ? R.drawable.icon_ringer_off
+                : R.drawable.icon_ringer_on;
 
         remoteViews.setImageViewResource(R.id.phone_state, phoneImage);
 
