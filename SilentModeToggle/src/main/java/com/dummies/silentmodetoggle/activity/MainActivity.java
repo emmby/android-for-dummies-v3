@@ -13,31 +13,57 @@ public class MainActivity extends Activity {
 
     AudioManager audioManager;
 
+    /**
+     * This method is called to initialize the activity after the
+     * java constructor for this class has been called.  This is
+     * typically where you would call setContentView to inflate your
+     * layout, and findViewById to initialize your views.
+     * @param savedInstanceState contains additional data about the
+     *                           saved state of the activity,
+     *                           if it was previously shutdown and is
+     *                           now being re-created from saved state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Always call super.onCreate() first.
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        // Get a reference to Android's AudioManager so we can use
+        // it to toggle our ringer.
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
-        View toggleButton = findViewById(R.id.content);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
+        // Initialize our layout using the res/layout/activity_main.xml
+        // layout file that contains our views for this activity.
+        setContentView(R.layout.activity_main);
+
+        // Find the view named "content" in our layout file.
+        View contentView = findViewById(R.id.content);
+
+        // Create a click listener for the contentView that will toggle
+        // the phone's ringer state, and then update the UI to reflect
+        // the new state.
+        contentView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                // Toggle the ringer mode.  If it's currently normal,
+                // make it silent.  If it's currently silent,
+                // do the opposite.
                 audioManager.setRingerMode(
                         isPhoneSilent()
                                 ? AudioManager.RINGER_MODE_NORMAL
                                 : AudioManager.RINGER_MODE_SILENT);
 
+                // Update the UI to reflect the new state
                 updateUi();
             }
         });
 
-        Log.d("SilentModeApp", "This is a test");
+        // This is how you log messages to adb logcat!
+        Log.d("SilentModeToggle", "This is a test");
     }
 
     /**
-     * Returns whether the phone is currently in silent mode.
+     * Reports whether the phone is currently in silent mode.
      */
     private boolean isPhoneSilent() {
         return audioManager.getRingerMode()
@@ -45,16 +71,22 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Updates the UI image to show silent or normal, as appropriate
+     * Updates the UI image to show an image representing silent or
+     * normal, as appropriate
      */
     private void updateUi() {
+        // Find the view named phone_icon in our layout.  We know it's
+        // an ImageView in the layout, so downcast it to an ImageView.
         ImageView imageView = (ImageView) findViewById(R.id.phone_icon);
 
+        // Set phoneImage to the ID of image that represents ringer on
+        // or off.  These are found in res/drawable-xhdpi
         int phoneImage = isPhoneSilent()
                 ? R.drawable.ringer_off
                 : R.drawable.ringer_on;
 
-        imageView.setImageDrawable(getDrawable(phoneImage));
+        // Set the imageView to the image in phoneImage
+        imageView.setImageResource(phoneImage);
     }
 
     /**
@@ -62,10 +94,15 @@ public class MainActivity extends Activity {
      * buttons to reflect the current state of the system (since the
      * user may have changed the phone's silent state while we were in
      * the background).
+     *
+     * Visit http://d.android.com/reference/android/app/Activity.html
+     * for more information about the Android Activity lifecycle.
      */
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Update our UI in case anything has changed.
         updateUi();
     }
 }
