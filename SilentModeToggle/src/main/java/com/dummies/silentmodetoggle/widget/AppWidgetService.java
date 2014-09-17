@@ -10,48 +10,88 @@ import android.media.AudioManager;
 import android.widget.RemoteViews;
 
 import com.dummies.silentmodetoggle.R;
+import com.dummies.silentmodetoggle.util.RingerHelper;
 
+/**
+ * The service that will handle all of our widget's operations.  The
+ * intent sent to the service will tell it what we want to do.
+ *
+ * This is an instance of IntentService.  An IntentService is a
+ * convenient way to handle things that need to be done on background
+ * threads.  Whenever a new intent is received, onHandleIntent will be
+ * executed in a background thread.  This will allow you to perform
+ * whatever operations you want to in the background,
+ * no matter how long they might take, without blocking the foreground
+ * UI thread (which would cause the app to hang).
+ */
 public class AppWidgetService extends IntentService {
-    public static String ACTION_DO_TOGGLE = "actionDoToggle";
+
+    // A flag that we'll set in our intent whenever we want to indicate
+    // that we wish to toggle the phone's silent setting
+    private static String ACTION_DO_TOGGLE = "actionDoToggle";
 
     AudioManager audioManager;
 
+    /**
+     * All IntentServices need to have a name.  Ours is called
+     * "AppWidgetService"
+     */
     public AppWidgetService() {
         super("AppWidgetService");
     }
 
+    /**
+     * This is called when the service is initialized,
+     * after the object's java constructor.
+     */
     @Override
     public void onCreate() {
+        // Always call super.onCreate
         super.onCreate();
+
+        // Just like in our activity, we'll get a reference to Android's
+        // AudioManager so we can use it to toggle our ringer.
         audioManager = (AudioManager) getSystemService(
                 Activity.AUDIO_SERVICE);
     }
 
+    /**
+     * onHandleIntent is called on a background thread.
+     * @param intent The intent to be processed
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        // Check the intent.  If it says ACTION_DO_TOGGLE,
+        // then toggle the phone's silent mode.
+        // If it doesn't say ACTION_DO_TOGGLE, then this is just an
+        // update request so update the UI.
         if( intent!=null && intent.getBooleanExtra(
                 ACTION_DO_TOGGLE,false)) {
-            performToggle();
+            RingerHelper.performToggle(audioManager);
         }
 
-        ComponentName me = new ComponentName(this, AppWidget.class);
+        // Get a reference to Android's AppWidgetManager
         AppWidgetManager mgr = AppWidgetManager.getInstance(this);
-        mgr.updateAppWidget(me, updateUi());
+
+        // Update the widget's UI
+        // First, find the name for our widget,
+        // then ask the AppWidgetManager to update it using the views
+        // that we'll construct in update()
+        ComponentName name = new ComponentName(this, AppWidget.class);
+        mgr.updateAppWidget(name, updateUi());
     }
 
-    private void performToggle() {
-        audioManager.setRingerMode(
-                isPhoneSilent()
-                        ? AudioManager.RINGER_MODE_NORMAL
-                        : AudioManager.RINGER_MODE_SILENT);
-    }
-
+    /**
+     * Returns the RemoteViews that will be used to update the widget.
+     * Similar to updateUi in MainActivity, but appropriate for use
+     * with widgets.
+     */
     private RemoteViews updateUi() {
         RemoteViews remoteViews = new RemoteViews(getPackageName(),
                 R.layout.app_widget);
 
-        int phoneImage = isPhoneSilent()
+        int phoneImage = RingerHelper.isPhoneSilent(audioManager)
                 ? R.drawable.icon_ringer_off
                 : R.drawable.icon_ringer_on;
 
@@ -70,14 +110,4 @@ public class AppWidgetService extends IntentService {
 
         return remoteViews;
     }
-
-    /**
-     * Returns whether the phone is currently in silent mode.
-     */
-    private boolean isPhoneSilent() {
-        return audioManager.getRingerMode()
-                == AudioManager.RINGER_MODE_SILENT;
-    }
-
-
 }

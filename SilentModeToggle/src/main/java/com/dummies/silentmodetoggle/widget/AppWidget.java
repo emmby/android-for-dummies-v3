@@ -5,6 +5,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+ * The main class that represents our app's widget.
+ * Dispatches to a service to do all of the heavy lifting.
+ */
 public class AppWidget extends AppWidgetProvider {
 
     /**
@@ -20,7 +24,8 @@ public class AppWidget extends AppWidgetProvider {
         // take to generate.  This is necessary for any widgets that do
         // any sort of I/O (network, disk, etc).  Our widget doesn't do
         // I/O so using a service is not strictly-speaking necessary,
-        // but it's a good practice to be aware of and know how to use.
+        // but it's a very common practice and it's important to be aware
+        // know how to use.
         context.startService(new Intent(context, AppWidgetService.class));
     }
 

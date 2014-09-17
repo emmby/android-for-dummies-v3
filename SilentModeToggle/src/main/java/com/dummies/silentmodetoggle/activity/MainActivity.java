@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.dummies.silentmodetoggle.R;
+import com.dummies.silentmodetoggle.util.RingerHelper;
 
 public class MainActivity extends Activity {
 
@@ -48,10 +49,7 @@ public class MainActivity extends Activity {
                 // Toggle the ringer mode.  If it's currently normal,
                 // make it silent.  If it's currently silent,
                 // do the opposite.
-                audioManager.setRingerMode(
-                        isPhoneSilent()
-                                ? AudioManager.RINGER_MODE_NORMAL
-                                : AudioManager.RINGER_MODE_SILENT);
+                RingerHelper.performToggle(audioManager);
 
                 // Update the UI to reflect the new state
                 updateUi();
@@ -62,13 +60,6 @@ public class MainActivity extends Activity {
         Log.d("SilentModeToggle", "This is a test");
     }
 
-    /**
-     * Reports whether the phone is currently in silent mode.
-     */
-    private boolean isPhoneSilent() {
-        return audioManager.getRingerMode()
-                == AudioManager.RINGER_MODE_SILENT;
-    }
 
     /**
      * Updates the UI image to show an image representing silent or
@@ -81,7 +72,7 @@ public class MainActivity extends Activity {
 
         // Set phoneImage to the ID of image that represents ringer on
         // or off.  These are found in res/drawable-xhdpi
-        int phoneImage = isPhoneSilent()
+        int phoneImage = RingerHelper.isPhoneSilent(audioManager)
                 ? R.drawable.ringer_off
                 : R.drawable.ringer_on;
 
