@@ -43,6 +43,16 @@ public class MainActivity extends Activity {
         // Create a click listener for the contentView that will toggle
         // the phone's ringer state, and then update the UI to reflect
         // the new state.
+        // The astute reader might wonder why we don't set a click
+        // listener on the image itself instead of on the surrounding
+        // frame.  There are two reasons for this:
+        //   1. We want the whole page to be clickable instead of just
+        //      the image.
+        //   2. We use android:foreground with a value of
+        //      ?android:attr/selectableItemBackground to create a
+        //      pretty ripple effect when we click on the page.  For
+        //      technical reasons, it is not possible to use this same
+        //      technique on an ImageView.
         contentView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 

@@ -88,18 +88,39 @@ public class AppWidgetService extends IntentService {
      * with widgets.
      */
     private RemoteViews updateUi() {
+        // Inflate the res/layout/app_widget.xml layout file into a
+        // RemoteViews object, which will be used to communicate with
+        // our widget.
         RemoteViews remoteViews = new RemoteViews(getPackageName(),
                 R.layout.app_widget);
 
+        // Determine which image to use in our widget
         int phoneImage = RingerHelper.isPhoneSilent(audioManager)
                 ? R.drawable.icon_ringer_off
                 : R.drawable.icon_ringer_on;
 
+        // Set the appropriate image
         remoteViews.setImageViewResource(R.id.phone_state, phoneImage);
 
-        // Create an Intent to toggle the phone's state
+        // Create an Intent to toggle the phone's state.
+        // This intent specifies ACTION_DO_TOGGLE=true,
+        // which we look for in onHandleIntent.
         Intent intent = new Intent(this, AppWidgetService.class)
                 .putExtra(ACTION_DO_TOGGLE,true);
+
+        // Wrap the intent in a pending intent.  A PendingIntent gives
+        // someone in another process permission to send us an intent.
+        // In this case, the widget is actually running in another
+        // process (the phone's launcher process),
+        // so it will need to have a pending intent to communicate back
+        // into our service.
+        // We'll specify FLAG_ONE_SHOT to this intent to ensure it is
+        // only used once.  There are some situations where a
+        // PendingIntent can be automatically retried on our behalf,
+        // and we want to ensure that we don't accidentally do a few
+        // extra toggles.  See
+        // http://d.android.com/reference/android/app/PendingIntent.html
+        // for more information about pending intents.
         PendingIntent pendingIntent =
                 PendingIntent.getService(this, 0, intent,
                         PendingIntent.FLAG_ONE_SHOT);
