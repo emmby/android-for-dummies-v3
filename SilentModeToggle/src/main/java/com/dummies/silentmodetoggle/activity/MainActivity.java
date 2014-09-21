@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
         ImageView imageView = (ImageView) findViewById(R.id.phone_icon);
 
         // Set phoneImage to the ID of image that represents ringer on
-        // or off.  These are found in res/drawable-xhdpi
+        // or off.  These are found in res/drawable-xxhdpi
         int phoneImage = RingerHelper.isPhoneSilent(audioManager)
                 ? R.drawable.ringer_off
                 : R.drawable.ringer_on;
