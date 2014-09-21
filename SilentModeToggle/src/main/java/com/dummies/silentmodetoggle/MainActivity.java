@@ -1,13 +1,13 @@
-package com.dummies.silentmodetoggle.activity;
+package com.dummies.silentmodetoggle;
 
 import android.app.Activity;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.dummies.silentmodetoggle.R;
 import com.dummies.silentmodetoggle.util.RingerHelper;
 
 public class MainActivity extends Activity {
@@ -38,7 +38,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         // Find the view named "content" in our layout file.
-        View contentView = findViewById(R.id.content);
+        FrameLayout contentView =
+                (FrameLayout) findViewById(R.id.content);
 
         // Create a click listener for the contentView that will toggle
         // the phone's ringer state, and then update the UI to reflect
