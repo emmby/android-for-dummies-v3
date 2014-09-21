@@ -3,7 +3,7 @@
           package="com.dummies.silentmodetoggle">
 
     <application
-        android:icon="@drawable/icon_ringer_off"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:allowBackup="true">
 
