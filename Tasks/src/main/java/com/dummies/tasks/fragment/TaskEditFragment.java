@@ -417,6 +417,15 @@ public class TaskEditFragment extends Fragment implements
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
+                        // Because Picasso downloads images in the
+                        // background, we can't be sure that the user
+                        // didn't close the activity while the image
+                        // was being loaded.  If they did,
+                        // we will bomb out, so check do a sanity check
+                        // to be sure.
+                        if( getActivity()==null )
+                            return;
+
                         // Don't do this for tablets, only phones,
                         // since it doesn't really work with a split
                         // screen view.
