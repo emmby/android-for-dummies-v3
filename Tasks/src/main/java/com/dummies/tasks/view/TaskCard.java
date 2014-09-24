@@ -47,7 +47,7 @@ public class TaskCard extends FrameLayout {
      */
     public void animateCardDown() {
         final float elevation = getContext().getResources().getDimension(
-                R.dimen.task_card_default_elevation);
+                R.dimen.task_card_elevation);
         animate().setDuration(ANIMATION_DURATION)
                 .setInterpolator(new OvershootInterpolator())
                 .translationZ(elevation)
