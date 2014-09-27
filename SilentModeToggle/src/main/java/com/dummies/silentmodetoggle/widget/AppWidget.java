@@ -24,8 +24,8 @@ public class AppWidget extends AppWidgetProvider {
         // take to generate.  This is necessary for any widgets that do
         // any sort of I/O (network, disk, etc).  Our widget doesn't do
         // I/O so using a service is not strictly-speaking necessary,
-        // but it's a very common practice and it's important to be aware
-        // know how to use.
+        // but it's a very common practice and it's important to know
+        // how to use it.
         context.startService(new Intent(context, AppWidgetService.class));
     }
 
