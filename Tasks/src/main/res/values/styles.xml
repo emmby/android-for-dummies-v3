@@ -31,15 +31,19 @@
         <!--</item>-->
     </style>
 
-    <!-- A variation of the TasksAppTheme, but without an ActionBar -->
+    <!-- A variation of the TasksAppTheme, but with a transparent (clear)
+         ActionBar. Also has a translucent (grey) status and navigation
+         bar. -->
     <style name="TasksAppTheme.NoActionBar" parent="TasksAppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:actionBarStyle">@style/NoActionBar</item>
     </style>
 
     <!-- The NoActionBar style used by TasksAppTheme.NoActionBar -->
     <style name="NoActionBar" parent="android:Theme.Material">
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <!-- define your colors separately so that they can be referenced
