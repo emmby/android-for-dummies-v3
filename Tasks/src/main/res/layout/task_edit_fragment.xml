@@ -19,12 +19,15 @@
              a size that could fully fill our screen horizontally.
              We enable adjustViewBounds so that the ImageView will
              shrink or expand itself to properly fit the image once it's
-             loaded. -->
+             loaded. We set the minHeight to the height of the ActionBar,
+             so that if the image isn't available yet, the ActionBar
+             won't cover up the title field. -->
         <ImageView
             android:id="@+id/image"
             android:contentDescription="@string/task_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="?android:actionBarSize"
             android:adjustViewBounds="true"
             android:layout_alignParentTop="true"
             />
@@ -40,6 +43,30 @@
             android:layout_below="@id/image"
             android:hint="@string/title" />
 
+        <!-- The time button.  We'll set this button's color to the same
+             color used by the blue line in the title EditText -->
+        <TextView
+            style="@android:style/TextAppearance.Medium"
+            android:id="@+id/task_time"
+            android:textColor="?android:colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_below="@id/title"
+            android:layout_alignParentEnd="true"/>
+
+        <!-- The date button.  We'll put this to the left of the
+             time button -->
+        <TextView
+            style="@android:style/TextAppearance.Medium"
+            android:textColor="?android:colorAccent"
+            android:id="@+id/task_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/task_time"
+            android:layout_alignBottom="@id/task_time"/>
+
         <!-- Allows the user to edit the task's notes.
              We'll place this below the title.  We'll also give it
              a minimum of 5 lines of height to accommodate longer
@@ -51,32 +78,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/title"
-            android:layout_below="@id/title"
+            android:layout_below="@id/task_time"
             android:gravity="top"
             android:hint="@string/notes"
             android:minLines="5" />
-
-
-        <!-- The time button.  We'll put this button on top of the
-             image in the lower right hand corner.  We'll also give
-             it a slightly larger font. -->
-        <Button
-            style="@android:style/TextAppearance.Medium"
-            android:id="@+id/task_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/image"
-            android:layout_alignEnd="@id/image" />
-
-        <!-- The date button.  We'll put this to the left of the
-             time button -->
-        <Button
-            style="@android:style/TextAppearance.Medium"
-            android:id="@+id/task_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/task_time"
-            android:layout_alignBottom="@id/task_time"/>
-
     </RelativeLayout>
 </ScrollView>

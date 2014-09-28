@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,10 +26,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -62,8 +61,8 @@ public class TaskEditFragment extends Fragment implements
     EditText titleText;
     EditText notesText;
     ImageView imageView;
-    Button dateButton;
-    Button timeButton;
+    TextView dateButton;
+    TextView timeButton;
     ActionBar actionBar;
 
     // Some information about this task that we'll store here until we
@@ -116,8 +115,8 @@ public class TaskEditFragment extends Fragment implements
         rootView = v.getRootView();
         titleText = (EditText) v.findViewById(R.id.title);
         notesText = (EditText) v.findViewById(R.id.notes);
-        dateButton = (Button) v.findViewById(R.id.task_date);
-        timeButton = (Button) v.findViewById(R.id.task_time);
+        dateButton = (TextView) v.findViewById(R.id.task_date);
+        timeButton = (TextView) v.findViewById(R.id.task_time);
         imageView = (ImageView) v.findViewById(R.id.image);
 
         // Tell the date and time buttons what to do when we click on
@@ -441,24 +440,15 @@ public class TaskEditFragment extends Fragment implements
 
                         PaletteItem bgColor =
                                 palette.getLightMutedColor();
-                        PaletteItem actionbarColor =
-                                palette.getDarkVibrantColor();
                         PaletteItem statusColor =
-                                palette.getDarkMutedColor();
+                                palette.getDarkVibrantColor();
 
-                        if (bgColor != null && actionbarColor != null) {
+                        if (bgColor != null && statusColor!=null ) {
                             rootView.setBackgroundColor(bgColor.getRgb());
-                            actionBar.setBackgroundDrawable(
-                                    new ColorDrawable(actionbarColor
-                                            .getRgb())
-                            );
                             ((Activity) rootView.getContext())
                                     .getWindow()
                                     .setStatusBarColor(
-                                            (statusColor != null ?
-                                                    statusColor :
-                                                    actionbarColor)
-                                                    .getRgb());
+                                            statusColor.getRgb());
                         }
                     }
 
