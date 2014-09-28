@@ -127,7 +127,7 @@ public class AppWidgetService extends IntentService {
 
         // Get the layout for the App Widget and attach an on-click
         // listener to the button
-        remoteViews.setOnClickPendingIntent(R.id.widget, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.phone_state, pendingIntent);
 
         return remoteViews;
     }
