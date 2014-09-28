@@ -27,6 +27,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/TasksAppTheme"
+        android:icon="@drawable/ic_launcher"
         tools:ignore="MissingApplicationIcon">
 
         <!-- Declare our main activity.  Set its intent filter to
