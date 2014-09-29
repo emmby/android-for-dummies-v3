@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dummies.wearableapp" >
+    package="com.dummies.wearable" >
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.DeviceDefault" >
         <activity
-            android:name="com.dummies.wearableapp.WearableActivity"
+            android:name="com.dummies.wearable.WearableActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
