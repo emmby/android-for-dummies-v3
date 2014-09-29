@@ -52,6 +52,9 @@ public class TaskProvider extends ContentProvider implements
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "tasks";
 
+    // Google Play Constants
+    private static final String PLAY_BASE_URL = "/" + DATABASE_TABLE;
+
     // UriMatcher stuff
     private static final int LIST_TASK = 0;
     private static final int ITEM_TASK = 1;
@@ -152,9 +155,15 @@ public class TaskProvider extends ContentProvider implements
      */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        // you can't insert and specify a row id, so remove it if present
+        values.remove(TaskProvider.COLUMN_TASKID);
+        long id = db.insertOrThrow(TaskProvider.DATABASE_TABLE, null,
+                values);
+        getContext().getContentResolver().notifyChange(uri, null);
 
         // Save to google Play for wearable support
-        PutDataMapRequest dataMap = PutDataMapRequest.create("/count");
+        PutDataMapRequest dataMap = PutDataMapRequest.create(
+                PLAY_BASE_URL + "/" + id);
         DataMap map = dataMap.getDataMap();
         map.putLong(COLUMN_TASKID, values.getAsLong(COLUMN_TASKID));
         map.putString(COLUMN_TITLE, values.getAsString(COLUMN_TITLE));
@@ -164,11 +173,6 @@ public class TaskProvider extends ContentProvider implements
         Wearable.DataApi.putDataItem(googleApiClient, request);
 
 
-        // you can't insert and specify a row id, so remove it if present
-        values.remove(TaskProvider.COLUMN_TASKID);
-        long id = db.insertOrThrow(TaskProvider.DATABASE_TABLE, null,
-                values);
-        getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
     }
 
@@ -178,6 +182,8 @@ public class TaskProvider extends ContentProvider implements
      */
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
+        // TODO delete from google play
+
         int count = db.delete(TaskProvider.DATABASE_TABLE,
                 TaskProvider.COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
@@ -193,11 +199,25 @@ public class TaskProvider extends ContentProvider implements
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
                       String[] ignored2) {
+        long id = ContentUris.parseId(uri);
         int count = db.update(TaskProvider.DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
-                new String[]{Long.toString(ContentUris.parseId(uri))});
+                new String[]{Long.toString(id)});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
+
+        // Update to google Play for wearable support
+        PutDataMapRequest dataMap = PutDataMapRequest.create(
+                PLAY_BASE_URL + "/" + id);
+        DataMap map = dataMap.getDataMap();
+        map.putLong(COLUMN_TASKID, values.getAsLong(COLUMN_TASKID));
+        map.putString(COLUMN_TITLE, values.getAsString(COLUMN_TITLE));
+        map.putLong(COLUMN_DATE_TIME, values.getAsLong(COLUMN_DATE_TIME));
+        map.putString(COLUMN_NOTES, values.getAsString(COLUMN_NOTES));
+        PutDataRequest request = dataMap.asPutDataRequest();
+        Wearable.DataApi.putDataItem(googleApiClient, request);
+
+
         return count;
     }
 
