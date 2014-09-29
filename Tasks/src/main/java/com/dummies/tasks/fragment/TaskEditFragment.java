@@ -1,6 +1,5 @@
 package com.dummies.tasks.fragment;
 
-import android.app.ActionBar;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -62,7 +61,6 @@ public class TaskEditFragment extends Fragment implements
     ImageView imageView;
     TextView dateButton;
     TextView timeButton;
-    ActionBar actionBar;
 
     // Some information about this task that we'll store here until we
     // save it to the database
@@ -110,7 +108,6 @@ public class TaskEditFragment extends Fragment implements
                 container, false);
 
         // From the layout, get a few views that we're going to work with
-        actionBar = getActivity().getActionBar();
         rootView = v.getRootView();
         titleText = (EditText) v.findViewById(R.id.title);
         notesText = (EditText) v.findViewById(R.id.notes);
