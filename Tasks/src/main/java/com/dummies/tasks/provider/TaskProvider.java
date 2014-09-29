@@ -10,12 +10,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.Bundle;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 
 /**
  * A Content Provider that knows how to read and write tasks from our
  * tasks database.
  */
-public class TaskProvider extends ContentProvider {
+public class TaskProvider extends ContentProvider implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient
+        .OnConnectionFailedListener {
     // Content Provider Uri and Authority
     public static final String AUTHORITY = "com.dummies" +
             ".tasks.provider.TaskProvider";
@@ -51,6 +61,9 @@ public class TaskProvider extends ContentProvider {
     // The database
     SQLiteDatabase db;
 
+    // The Google Play api client, used for Android Wearable syncing
+    GoogleApiClient googleApiClient;
+
     /**
      * Builds up a UriMatcher for search suggestion and shortcut refresh
      * queries.
@@ -71,8 +84,18 @@ public class TaskProvider extends ContentProvider {
     public boolean onCreate() {
         // Grab a connection to our database
         db = new DatabaseHelper(getContext()).getWritableDatabase();
+
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        googleApiClient.connect(); // TODO there is no disconnect
+
         return true;
     }
+
+
 
     /**
      * This method is called when someone wants to read something from
@@ -129,6 +152,18 @@ public class TaskProvider extends ContentProvider {
      */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+
+        // Save to google Play for wearable support
+        PutDataMapRequest dataMap = PutDataMapRequest.create("/count");
+        DataMap map = dataMap.getDataMap();
+        map.putLong(COLUMN_TASKID, values.getAsLong(COLUMN_TASKID));
+        map.putString(COLUMN_TITLE, values.getAsString(COLUMN_TITLE));
+        map.putLong(COLUMN_DATE_TIME, values.getAsLong(COLUMN_DATE_TIME));
+        map.putString(COLUMN_NOTES, values.getAsString(COLUMN_NOTES));
+        PutDataRequest request = dataMap.asPutDataRequest();
+        Wearable.DataApi.putDataItem(googleApiClient, request);
+
+
         // you can't insert and specify a row id, so remove it if present
         values.remove(TaskProvider.COLUMN_TASKID);
         long id = db.insertOrThrow(TaskProvider.DATABASE_TABLE, null,
@@ -181,6 +216,21 @@ public class TaskProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown Uri: " + uri);
         }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        // TODO
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        // TODO
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // TODO
     }
 
     /**
