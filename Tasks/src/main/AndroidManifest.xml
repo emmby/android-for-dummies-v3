@@ -10,9 +10,9 @@
     <!-- Declare the various permissions that our app needs to run.
          When users download our app from the Play store, the store
          will notify users of the permissions we request here. -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <!-- Declare the application.  We'll allow backups since we have
          nothing sensitive to hide.  We'll also set our app's Theme
@@ -30,6 +30,11 @@
         android:icon="@drawable/ic_launcher"
         tools:ignore="MissingApplicationIcon">
 
+        <!-- required for android wearable syncing -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
         <!-- Declare our main activity.  Set its intent filter to
              match android.intent.action.MAIN and
              android.intent.category.LAUNCHER, which means that users
@@ -41,38 +46,40 @@
              path relative to your app's package id.
              -->
         <activity
-            android:name=".activity.LaunchActivity" >
+            android:name=".activity.LaunchActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <!-- The Task List Activity for phones -->
-        <activity android:name=".activity.TaskListActivity" />
+        <activity android:name=".activity.TaskListActivity"/>
 
         <!-- The Task Edit Activity for phones.
              We set documentLaunchMode to always to make every task
              we edit show up as a separate entry in the phone's Recent
              Apps list.  If we didn't do this, Recent Apps would only
              show the most recent task that the user edited. -->
-        <activity android:name=".activity.TaskEditActivity"
-                  android:theme="@style/TasksAppTheme.NoActionBar"
-                  android:documentLaunchMode="always" />
+        <activity
+            android:name=".activity.TaskEditActivity"
+            android:theme="@style/TasksAppTheme.NoActionBar"
+            android:documentLaunchMode="always"/>
 
         <!-- The Task + Edit Activity used for tablets -->
-        <activity android:name=".activity.TaskListAndEditorActivity" />
+        <activity android:name=".activity.TaskListAndEditorActivity"/>
 
         <!-- The Preferences activity for customizing apps settings -->
-        <activity android:name=".activity.PreferencesActivity" />
+        <activity android:name=".activity.PreferencesActivity"/>
 
 
         <!-- Our OnAlarmReceiver, which is triggered whenever one of
              our reminder alarms fires.  We don't need other apps to be
              able to call it, so as a security measure let's set
              export to false. -->
-        <receiver android:name=".receiver.OnAlarmReceiver"
-                  android:exported="false"/>
+        <receiver
+            android:name=".receiver.OnAlarmReceiver"
+            android:exported="false"/>
 
         <!-- Our OnBootReceiver, which is triggered whenever the phone
              boots up (android.intent.action.BOOT_COMPLETED). Again,
@@ -82,7 +89,7 @@
             android:name=".receiver.OnBootReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
@@ -96,7 +103,7 @@
         <provider
             android:name=".provider.TaskProvider"
             android:authorities="com.dummies.tasks.provider.TaskProvider"
-            android:exported="false" />
+            android:exported="false"/>
 
     </application>
 
