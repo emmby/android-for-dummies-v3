@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditFinished;
 
@@ -25,6 +26,7 @@ public class TaskEditActivity extends Activity implements OnEditFinished {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.task_edit_activity);
 
         // Create a new fragment and pass along arguments (like
         // COLUMN_TASKID) from the activity to the fragment
@@ -40,10 +42,11 @@ public class TaskEditActivity extends Activity implements OnEditFinished {
         // Add the fragment if it has not already been added to the
         // FragmentManager. If you don't do this a new Fragment will be
         // added every time this method is called (such as on
-        // orientation change)
+        // orientation change).  The fragment will be attached as a
+        // child of the "container" view
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().add(
-                    android.R.id.content,
+                    R.id.container,
                     fragment,
                     fragmentTag).commit();
     }

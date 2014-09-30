@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="TasksAppTheme" parent="android:Theme.Material">
+    <!-- By default, most apps for Android L and later should use
+         some variant of android:Theme.Material.NoActionBar -->
+    <style name="TasksAppTheme"
+           parent="android:Theme.Material.NoActionBar">
 
         <!-- your app's branding color (for the app bar) -->
         <item name="android:colorPrimary">@color/primary</item>
