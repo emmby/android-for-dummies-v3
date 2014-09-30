@@ -5,6 +5,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <Toolbar
+        style="?android:actionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:title="@string/app_name"
+        android:id="@+id/toolbar"/>
+
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
