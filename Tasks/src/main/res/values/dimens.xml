@@ -9,4 +9,5 @@
 
     <!-- The elevation of our task cards -->
     <dimen name="task_card_elevation">6dp</dimen>
+    <dimen name="status_bar_height">25dp</dimen>
 </resources>

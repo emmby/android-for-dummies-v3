@@ -3,6 +3,7 @@ package com.dummies.tasks.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
@@ -27,6 +28,7 @@ public class TaskEditActivity extends Activity implements OnEditFinished {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_edit_activity);
+        setActionBar((Toolbar) findViewById(R.id.toolbar));
 
         // Create a new fragment and pass along arguments (like
         // COLUMN_TASKID) from the activity to the fragment
