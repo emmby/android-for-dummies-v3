@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
@@ -27,6 +28,8 @@ public class TaskListAndEditorActivity extends Activity
 
         // Set up the layout from an XML file
         setContentView(R.layout.task_list_and_editor_activity);
+
+        setActionBar((Toolbar) findViewById(R.id.toolbar));
     }
 
     /**

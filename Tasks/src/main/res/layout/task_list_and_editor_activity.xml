@@ -6,25 +6,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:baselineAligned="false">
 
-    <!-- Our list view, which will occupy the leftmost third (1 of 3
-         parts) of the screen.  When using layout_weight, you must
-         set your layout_width to 0. -->
-    <fragment
-        android:id="@+id/list_fragment"
-        android:name="com.dummies.tasks.fragment.TaskListFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+    <Toolbar
+        style="?android:actionBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:title="@string/app_name"
+        android:id="@+id/toolbar"/>
 
-    <!-- Our edit view, which will occupy the remaining 2 of 3 parts
-         of the screen. -->
-    <FrameLayout
-        android:id="@+id/edit_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2" />
+    <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="horizontal"
+                  android:baselineAligned="false">
+
+        <!-- Our list view, which will occupy the leftmost third (1 of 3
+             parts) of the screen.  When using layout_weight, you must
+             set your layout_width to 0. -->
+        <fragment
+            android:id="@+id/list_fragment"
+            android:name="com.dummies.tasks.fragment.TaskListFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <!-- Our edit view, which will occupy the remaining 2 of 3 parts
+             of the screen. -->
+        <FrameLayout
+            android:id="@+id/edit_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+
+    </LinearLayout>
 
 </LinearLayout>
