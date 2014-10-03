@@ -45,7 +45,7 @@ public class TaskListFragment extends Fragment implements
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View v = inflater.inflate(R.layout.task_list_fragment,
+        final View v = inflater.inflate(R.layout.fragment_task_list,
                 container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler);
         recyclerView.setAdapter(adapter);
@@ -65,7 +65,7 @@ public class TaskListFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.list_menu, menu);
+        inflater.inflate(R.menu.menu_list, menu);
     }
 
     @Override

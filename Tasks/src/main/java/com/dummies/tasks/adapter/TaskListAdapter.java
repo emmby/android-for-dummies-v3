@@ -42,7 +42,7 @@ public class TaskListAdapter
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false);
+                .inflate(R.layout.card_task, parent, false);
 
         // wrap it in a ViewHolder
         return new ViewHolder(v);

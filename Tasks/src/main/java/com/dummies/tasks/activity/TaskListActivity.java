@@ -27,7 +27,7 @@ public class TaskListActivity extends Activity implements OnEditTask {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_list_activity);
+        setContentView(R.layout.activity_task_list);
     }
 
 }

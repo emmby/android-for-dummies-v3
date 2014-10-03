@@ -10,7 +10,7 @@
 
     <!-- This FrameLayout is an "anchor" that the Fragment will be placed
          into.  It will take up the entire screen.  Unlike in
-         task_list_activity, we do not use the <fragment> tag here because
+         activity_task_list, we do not use the <fragment> tag here because
          we do not want android to auto-instantiate the fragment for us.
          Instead, we will manually instantiate it so that we can pass
          in parameters to the non-default constructor (specifically,

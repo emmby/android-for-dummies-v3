@@ -27,7 +27,7 @@ public class TaskListAndEditorActivity extends Activity
         super.onCreate(savedInstanceState);
 
         // Set up the layout from an XML file
-        setContentView(R.layout.task_list_and_editor_activity);
+        setContentView(R.layout.activity_task_list_and_editor);
 
         setActionBar((Toolbar) findViewById(R.id.toolbar));
     }

@@ -104,7 +104,7 @@ public class TaskEditFragment extends Fragment implements
 
         // Inflate the layout and set the container. The layout is the
         // view that we will return.
-        View v = inflater.inflate(R.layout.task_edit_fragment,
+        View v = inflater.inflate(R.layout.fragment_task_edit,
                 container, false);
 
         // From the layout, get a few views that we're going to work with

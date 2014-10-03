@@ -27,7 +27,7 @@ public class TaskEditActivity extends Activity implements OnEditFinished {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_edit_activity);
+        setContentView(R.layout.activity_task_edit);
         setActionBar((Toolbar) findViewById(R.id.toolbar));
 
         // Create a new fragment and pass along arguments (like
