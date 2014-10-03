@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- A view group that will hold our fragment and our toolbar.  Order
+     is important: The first item in the FrameLayout will be laid out
+     first, and the last last. This means that the views at the top
+     of the FrameLayout will be under the later views. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <!-- This FrameLayout is an "anchor" that the Fragment will be placed
+         into.  It will take up the entire screen.  Unlike in
+         task_list_activity, we do not use the <fragment> tag here because
+         we do not want android to auto-instantiate the fragment for us.
+         Instead, we will manually instantiate it so that we can pass
+         in parameters to the non-default constructor (specifically,
+         the ID of the task to be edited). -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/container"/>
 
+    <!-- Our Toolbar view, which will be placed at the top of the screen
+         and in front of our Fragment.  Most of its styling settings are
+         defined in the TasksAppTheme.NoActionBar style in our styles.xml,
+         which we apply to this activity in AndroidManifest.xml. But
+         we do need to add a little bit of buffer at the top of the
+         screen to account for the status bar, since the status bar is
+         translucent  content of the page has shifted up by a few pixels
+         to slide under the statusbar. -->
     <Toolbar
-        style="?android:actionBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/status_bar_height"
         android:layout_gravity="top"
-        android:background="@android:color/transparent"
         android:id="@+id/toolbar"/>
 
 </FrameLayout>

@@ -9,10 +9,13 @@
     android:orientation="vertical"
     android:baselineAligned="false">
 
+    <!-- The toolbar for the activity.  It won't be styled automatically,
+         so set its style to the theme's actionBarStyle. Also set it's
+         title to the app's name -->
     <Toolbar
         style="?android:actionBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
+        android:layout_height="wrap_content"
         android:title="@string/app_name"
         android:id="@+id/toolbar"/>
 
