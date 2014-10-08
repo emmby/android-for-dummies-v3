@@ -4,5 +4,19 @@
     <string name="app_name">WearableApp</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+    <string name="welcome_title">welcome title</string>
+    <string name="welcome_text">welcome text</string>
+    <string name="about_title">about title</string>
+    <string name="about_text">about text</string>
+    <string name="cards_title">cards title</string>
+    <string name="cards_text">cards text</string>
+    <string name="expansion_title">expansion title</string>
+    <string name="expansion_text">expansion text</string>
+    <string name="backgrounds_title">backgrounds title</string>
+    <string name="backgrounds_text">backgrounds text</string>
+    <string name="columns_title">columns title</string>
+    <string name="columns_text">columns text</string>
+    <string name="dismiss_title">dismiss title</string>
+    <string name="dismiss_text">dismiss text</string>
 
 </resources>
