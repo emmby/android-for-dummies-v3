@@ -1,18 +1,26 @@
 package com.dummies.wearable;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.wearable.view.GridViewPager;
-import android.view.View;
-import android.view.View.OnApplyWindowInsetsListener;
-import android.view.WindowInsets;
+import android.support.wearable.view.WearableListView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.data.FreezableUtils;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataItemBuffer;
 import com.google.android.gms.wearable.Wearable;
 
-public class MainActivity extends Activity {
+import java.util.List;
+
+public class MainActivity extends Activity
+    implements DataApi.DataListener
+{
+
     GoogleApiClient googleApiClient;
+    WearableTaskListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,31 +28,15 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         googleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Wearable.API)
-                .build();
+            .addApi(Wearable.API)
+            .build();
 
-        final Resources resources = getResources();
-        final GridViewPager pager =
-                (GridViewPager) findViewById(R.id.pager);
+        adapter = new WearableTaskListAdapter(this);
 
-        pager.setOnApplyWindowInsetsListener(
-            new OnApplyWindowInsetsListener() {
-                @Override
-                public WindowInsets onApplyWindowInsets(View v,
-                                                    WindowInsets insets) {
+        WearableListView listView =
+            (WearableListView) findViewById(R.id.list);
 
-                    pager.setPageMargins(
-                            resources.getDimensionPixelOffset(
-                                    R.dimen.page_row_margin),
-                            resources.getDimensionPixelOffset(
-                                    R.dimen.page_column_margin));
-
-                    return insets;
-                }
-            });
-
-        pager.setAdapter(
-                new TasksGridPagerAdapter(this, getFragmentManager()));
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -57,5 +49,18 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         googleApiClient.disconnect();
+    }
+
+    @Override
+    public void onDataChanged(DataEventBuffer dataEvents) {
+        Wearable.DataApi.getDataItems(googleApiClient).setResultCallback(
+            new ResultCallback<DataItemBuffer>() {
+                @Override
+                public void onResult(DataItemBuffer dataItems) {
+                    List<DataItem> items
+                        = FreezableUtils.freezeIterable(dataItems);
+                    adapter.setResults(items);
+                }
+            });
     }
 }
