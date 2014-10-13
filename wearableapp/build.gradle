@@ -6,7 +6,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.dummies.wearableapp"
+        applicationId "com.dummies.tasks"
         minSdkVersion 20
         targetSdkVersion 20
         versionCode 1
