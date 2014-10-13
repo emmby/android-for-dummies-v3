@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.example.android.support.wearable.notifications.WearableListItemLayout
+<TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center_vertical"
-    android:layout_width="match_parent"
-    android:layout_height="80dp">
-    <TextView
-        android:id="@+id/title"
-        android:gravity="center_vertical|start"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_height="match_parent"
-        android:fontFamily="sans-serif-condensed-light"
-        android:lineSpacingExtra="-4sp"
-        android:textSize="16sp"/>
-</com.example.android.support.wearable.notifications.WearableListItemLayout>
+    android:id="@+id/title"
+    android:gravity="center_vertical|start"
+    android:layout_width="wrap_content"
+    android:layout_marginEnd="16dp"
+    android:layout_height="80dp"
+    android:fontFamily="sans-serif-condensed-light"
+    android:lineSpacingExtra="-4sp"
+    android:textSize="16sp"/>
