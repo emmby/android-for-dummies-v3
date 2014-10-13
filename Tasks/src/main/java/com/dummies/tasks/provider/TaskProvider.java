@@ -165,7 +165,7 @@ public class TaskProvider extends ContentProvider implements
         PutDataMapRequest dataMap = PutDataMapRequest.create(
                 PLAY_BASE_URL + "/" + id);
         DataMap map = dataMap.getDataMap();
-        map.putLong(COLUMN_TASKID, values.getAsLong(COLUMN_TASKID));
+        map.putLong(COLUMN_TASKID, id);
         map.putString(COLUMN_TITLE, values.getAsString(COLUMN_TITLE));
         map.putLong(COLUMN_DATE_TIME, values.getAsLong(COLUMN_DATE_TIME));
         map.putString(COLUMN_NOTES, values.getAsString(COLUMN_NOTES));
