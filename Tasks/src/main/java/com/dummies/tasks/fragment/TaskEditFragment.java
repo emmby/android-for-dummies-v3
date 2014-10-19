@@ -17,7 +17,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.graphics.Palette;
-import android.support.v7.graphics.PaletteItem;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -433,12 +432,10 @@ public class TaskEditFragment extends Fragment implements
                                 .getDrawable())
                                 .getBitmap();
                         Palette palette = Palette.generate(bitmap, 32);
+                        int bgColor = palette.getLightMutedColor(0);
 
-                        PaletteItem bgColor =
-                                palette.getLightMutedColor();
-
-                        if (bgColor != null ) {
-                            rootView.setBackgroundColor(bgColor.getRgb());
+                        if( bgColor!=0 ) {
+                            rootView.setBackgroundColor(bgColor);
                         }
                     }
 
