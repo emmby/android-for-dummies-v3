@@ -3,10 +3,14 @@
 <!-- A view group that will hold our fragment and our toolbar.  Order
      is important: The first item in the FrameLayout will be laid out
      first, and the last last. This means that the views at the top
-     of the FrameLayout will be under the later views. -->
+     of the FrameLayout will be under the later views.
+     Technical stuff: this FrameLayout can be replaced with a merge tag
+     -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:ignore="MergeRootFrame">
 
     <!-- This FrameLayout is an "anchor" that the Fragment will be placed
          into.  It will take up the entire screen.  Unlike in
