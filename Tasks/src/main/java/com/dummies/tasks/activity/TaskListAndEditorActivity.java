@@ -29,6 +29,7 @@ public class TaskListAndEditorActivity extends Activity
         // Set up the layout from an XML file
         setContentView(R.layout.activity_task_list_and_editor);
 
+        // Tell Android that R.id.toolbar is our ActionBar
         setActionBar((Toolbar) findViewById(R.id.toolbar));
     }
 
