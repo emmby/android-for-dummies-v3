@@ -26,7 +26,7 @@
 
     <!-- Our Toolbar view, which will be placed at the top of the screen
          and in front of our Fragment.  Most of its styling settings are
-         defined in the TasksAppTheme.NoActionBar style in our styles.xml,
+         defined in the AppTheme.NoActionBar style in our styles.xml,
          which we apply to this activity in AndroidManifest.xml. But
          we do need to add a little bit of buffer at the top of the
          screen to account for the status bar, since the status bar is

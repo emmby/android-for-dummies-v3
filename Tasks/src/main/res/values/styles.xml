@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- By default, most apps for Android L and later should use
+    <!-- By default, most apps for Lollipop and later should use
          some variant of android:Theme.Material.NoActionBar -->
-    <style name="TasksAppTheme"
+    <style name="AppTheme"
            parent="android:Theme.Material.NoActionBar">
 
         <!-- your app's branding color (for the app bar) -->
@@ -34,17 +34,17 @@
         <!--</item>-->
     </style>
 
-    <!-- A variation of the TasksAppTheme, but with a transparent (clear)
+    <!-- A variation of the AppTheme, but with a transparent (clear)
          ActionBar. Also has a translucent (grey) status and navigation
          bar. -->
-    <style name="TasksAppTheme.NoActionBar" parent="TasksAppTheme">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:actionBarStyle">@style/NoActionBar</item>
     </style>
 
-    <!-- The NoActionBar style used by TasksAppTheme.NoActionBar -->
+    <!-- The NoActionBar style used by AppTheme.NoActionBar -->
     <style name="NoActionBar" parent="android:Theme.Material">
         <item name="android:background">@android:color/transparent</item>
     </style>
