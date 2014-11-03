@@ -64,6 +64,11 @@ public class TaskProvider extends ContentProvider {
         return matcher;
     }
 
+    public static String getImageUrlForTask(long taskId) {
+
+        return "http://lorempixel.com/600/400/cats/?fakeId=" + taskId;
+    }
+
     /**
      * This method is called when our ContentProvider is created
      */

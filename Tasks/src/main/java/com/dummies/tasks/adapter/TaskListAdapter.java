@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dummies.tasks.R;
-import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditTask;
 import com.dummies.tasks.provider.TaskProvider;
 import com.squareup.picasso.Picasso;
@@ -60,7 +59,7 @@ public class TaskListAdapter
 
         // set the thumbnail image
         Picasso.with(context)
-                .load(TaskEditFragment.getImageUrlForTask(id) )
+                .load(TaskProvider.getImageUrlForTask(id) )
                 .into(viewHolder.imageView);
 
         // Set the click action

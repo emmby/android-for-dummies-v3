@@ -407,7 +407,7 @@ public class TaskEditFragment extends Fragment implements
 
         // Set the thumbnail image
         Picasso.with(getActivity())
-                .load(getImageUrlForTask(taskId))
+                .load(TaskProvider.getImageUrlForTask(taskId))
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -452,12 +452,6 @@ public class TaskEditFragment extends Fragment implements
     @Override
     public void onLoaderReset(Loader<Cursor> arg0) {
         // nothing to reset for this fragment.
-        // TODO i don't need to close the cursor?
     }
 
-    // TODO move this somewhere else
-    public static String getImageUrlForTask(long taskId) {
-
-        return "http://lorempixel.com/600/400/cats/?fakeId=" + taskId;
-    }
 }
