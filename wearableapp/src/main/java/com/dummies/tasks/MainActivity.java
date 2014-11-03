@@ -57,6 +57,8 @@ public class MainActivity extends Activity
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
+        Log.d("MainActivity", "onDataChanged");
+        dataEvents.close();
         updateList(); // TODO it would be more efficient to only update
                       // the changed items
     }
@@ -65,6 +67,7 @@ public class MainActivity extends Activity
     public void onConnected(Bundle bundle) {
         Log.d("MainActivity", "onConnected");
         updateList();
+        Wearable.DataApi.addListener(googleApiClient, this);
     }
 
     @Override
@@ -85,9 +88,14 @@ public class MainActivity extends Activity
             new ResultCallback<DataItemBuffer>() {
                 @Override
                 public void onResult(DataItemBuffer dataItems) {
-                    List<DataItem> items
-                        = FreezableUtils.freezeIterable(dataItems);
-                    adapter.setResults(items);
+                    try {
+                        List<DataItem> items
+                            = FreezableUtils.freezeIterable(dataItems);
+                        adapter.setResults(items);
+                        Log.d("MainActivity", "adapter.setResults");
+                    } finally {
+                        dataItems.close();
+                    }
                 }
             });
     }
