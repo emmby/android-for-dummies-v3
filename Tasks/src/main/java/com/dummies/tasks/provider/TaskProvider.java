@@ -93,7 +93,7 @@ public class TaskProvider extends ContentProvider implements
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-        googleApiClient.connect(); // TODO there is no disconnect
+        googleApiClient.connect();
 
         return true;
     }
