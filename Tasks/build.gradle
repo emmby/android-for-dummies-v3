@@ -44,7 +44,7 @@ android {
         // our app (which we'll do when we upload the app to the Play
         // store)
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
