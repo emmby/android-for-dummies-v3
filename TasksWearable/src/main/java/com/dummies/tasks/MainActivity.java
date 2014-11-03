@@ -58,7 +58,7 @@ public class MainActivity extends Activity
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
         Log.d("MainActivity", "onDataChanged");
-        dataEvents.close();
+        dataEvents.release();
         updateList(); // TODO it would be more efficient to only update
                       // the changed items
     }
@@ -94,7 +94,7 @@ public class MainActivity extends Activity
                         adapter.setResults(items);
                         Log.d("MainActivity", "adapter.setResults");
                     } finally {
-                        dataItems.close();
+                        dataItems.release();
                     }
                 }
             });
