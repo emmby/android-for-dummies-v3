@@ -48,6 +48,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    productFlavors {
+        phoneTablet {}
+
+        tv {
+            applicationId = "com.dummies.tasks.tv"
+            dependencies {
+                compile 'com.android.support:leanback-v17:21.+'
+            }
+        }
+    }
 }
 
 // Libraries that our app will use

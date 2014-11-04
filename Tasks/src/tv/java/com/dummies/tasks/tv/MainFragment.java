@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.dummies.tasks.R;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
