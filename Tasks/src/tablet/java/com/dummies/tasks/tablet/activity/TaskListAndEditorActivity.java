@@ -1,4 +1,4 @@
-package com.dummies.tasks.activity;
+package com.dummies.tasks.tablet.activity;
 
 import android.app.Activity;
 import android.app.Fragment;

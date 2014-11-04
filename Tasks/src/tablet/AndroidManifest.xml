@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <supports-screens
+        android:smallScreens="false"
+        android:normalScreens="false"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:requiresSmallestWidthDp="600"
+        />
+
+    <application>
+
+        <!-- Declare our main activity.  Set its intent filter to
+             match android.intent.action.MAIN and
+             android.intent.category.LAUNCHER, which means that users
+             can launch it by clicking on the app icon in the phone's
+             home screen (aka the launcher app).
+             For android:name, you can either specify the full path to
+             the activity (com.dummies.tasks.activity.TaskListActivity),
+             or you can use a shortcut and just specify the relative
+             path relative to your app's package id.
+             -->
+        <activity android:name=".activity.TaskListAndEditorActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

@@ -4,7 +4,6 @@
      to put into our app.  Here we set our app's package identifier
      to com.dummies.tasks -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="com.dummies.tasks">
 
     <!-- Declare the various permissions that our app needs to run.
@@ -27,29 +26,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:icon="@drawable/ic_launcher"
-        tools:ignore="MissingApplicationIcon">
-
-        <!-- Declare our main activity.  Set its intent filter to
-             match android.intent.action.MAIN and
-             android.intent.category.LAUNCHER, which means that users
-             can launch it by clicking on the app icon in the phone's
-             home screen (aka the launcher app).
-             For android:name, you can either specify the full path to
-             the activity (eg com.dummies.tasks.activity.LaunchActivity),
-             or you can use a shortcut and just specify the relative
-             path relative to your app's package id.
-             -->
-        <activity
-            android:name=".activity.LaunchActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- The Task List Activity for phones -->
-        <activity android:name=".activity.TaskListActivity" />
+        android:icon="@drawable/ic_launcher" >
 
         <!-- The Task Edit Activity for phones.
              We set documentLaunchMode to always to make every task
@@ -62,7 +39,7 @@
                   android:documentLaunchMode="always" />
 
         <!-- The Task + Edit Activity used for tablets -->
-        <activity android:name=".activity.TaskListAndEditorActivity" />
+        <!--<activity android:name=".activity.TaskListAndEditorActivity" />-->
 
         <!-- The Preferences activity for customizing apps settings -->
         <activity android:name=".activity.PreferencesActivity" />
