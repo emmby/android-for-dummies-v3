@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     // Tell gradle what version of tools to use to build our app.
     compileSdkVersion 21
-    buildToolsVersion "21.0.1"
+    buildToolsVersion "21.1"
 
     // Tell gradle various things that will get written into our
     // AndroidManifest when the app is compiled.
