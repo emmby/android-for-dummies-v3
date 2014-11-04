@@ -8,6 +8,3 @@ android:
     - android-21
     - extra
 
-script:
-    - echo "Travis branch is $TRAVIS_BRANCH"
-    - ./gradlew clean assembleDebug
