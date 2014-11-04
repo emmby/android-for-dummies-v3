@@ -58,6 +58,7 @@
              show the most recent task that the user edited. -->
         <activity android:name=".activity.TaskEditActivity"
                   android:theme="@style/AppTheme.NoActionBar"
+                  android:label=""
                   android:documentLaunchMode="always" />
 
         <!-- The Task + Edit Activity used for tablets -->
