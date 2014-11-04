@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Tv</string>
+    <string name="app_name">Tasks</string>
     <string name="browse_title"><![CDATA[Videos by Your Company]]></string>
     <string name="grid_view">Grid View</string>
     <string name="send_feeback">Send Feedback</string>
