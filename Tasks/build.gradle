@@ -56,6 +56,17 @@ android {
             applicationId="com.dummies.tasks.tablet"
         }
     }
+
+    productFlavors {
+        phoneTablet {}
+
+        tv {
+            applicationId = "com.dummies.tasks.tv"
+            dependencies {
+                compile 'com.android.support:leanback-v17:21.+'
+            }
+        }
+    }
 }
 
 // Libraries that our app will use
