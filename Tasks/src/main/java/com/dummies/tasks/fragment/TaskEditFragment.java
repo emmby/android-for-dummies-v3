@@ -1,5 +1,6 @@
 package com.dummies.tasks.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Fragment;
@@ -251,6 +252,7 @@ public class TaskEditFragment extends Fragment implements
      * Called when Android wants to create the options menu for our
      * activity.  In this case, our options menu is our action bar.
      */
+    @SuppressLint("AlwaysShowAction")
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

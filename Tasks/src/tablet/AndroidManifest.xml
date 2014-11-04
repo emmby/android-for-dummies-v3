@@ -12,17 +12,11 @@
 
     <application>
 
-        <!-- Declare our main activity.  Set its intent filter to
-             match android.intent.action.MAIN and
-             android.intent.category.LAUNCHER, which means that users
-             can launch it by clicking on the app icon in the phone's
-             home screen (aka the launcher app).
-             For android:name, you can either specify the full path to
-             the activity (com.dummies.tasks.activity.TaskListActivity),
-             or you can use a shortcut and just specify the relative
-             path relative to your app's package id.
+        <!-- Declare our main activity, which will be different than the
+             main activity for phones.
              -->
-        <activity android:name=".activity.TaskListAndEditorActivity" >
+        <activity
+            android:name="com.dummies.tasks.tablet.activity.TaskListAndEditorActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

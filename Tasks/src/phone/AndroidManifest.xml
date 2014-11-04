@@ -22,7 +22,7 @@
              or you can use a shortcut and just specify the relative
              path relative to your app's package id.
              -->
-        <activity android:name=".activity.TaskListActivity" >
+        <activity android:name="com.dummies.tasks.activity.TaskListActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
