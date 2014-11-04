@@ -25,12 +25,10 @@ public class CardPresenter extends Presenter {
     static class ViewHolder extends Presenter.ViewHolder implements
             Target {
         private ImageCardView mCardView;
-        private Drawable mDefaultCardImage;
 
         public ViewHolder(View view) {
             super(view);
             mCardView = (ImageCardView) view;
-            mDefaultCardImage = mContext.getResources().getDrawable(R.drawable.movie);
         }
 
         protected void updateCardViewImage(URI uri) {
@@ -38,7 +36,6 @@ public class CardPresenter extends Presenter {
                     .load(uri.toString())
                     .resize(CARD_WIDTH, CARD_HEIGHT)
                     .centerCrop()
-                    .error(mDefaultCardImage)
                     .into(this);
         }
 
