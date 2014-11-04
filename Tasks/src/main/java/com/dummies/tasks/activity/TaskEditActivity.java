@@ -8,11 +8,14 @@ import android.widget.Toolbar;
 import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditFinished;
+import com.dummies.tasks.interfaces.ShouldUsePalette;
 
 /**
  * Our Reminder Edit Activity for Phones
  */
-public class TaskEditActivity extends Activity implements OnEditFinished {
+public class TaskEditActivity extends Activity implements
+    OnEditFinished, ShouldUsePalette
+{
 
     /**
      * Called when the user finishes editing a task.
@@ -51,5 +54,10 @@ public class TaskEditActivity extends Activity implements OnEditFinished {
                     R.id.container,
                     fragment,
                     fragmentTag).commit();
+    }
+
+    @Override
+    public boolean shouldUsePalette() {
+        return true;
     }
 }

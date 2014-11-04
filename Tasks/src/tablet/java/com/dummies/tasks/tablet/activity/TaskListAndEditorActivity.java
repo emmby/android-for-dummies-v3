@@ -9,15 +9,19 @@ import android.widget.Toolbar;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
+import com.dummies.tasks.interfaces.ShouldUsePalette;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.interfaces.OnEditTask;
 import com.dummies.tasks.provider.TaskProvider;
+
+import java.lang.Override;
 
 /**
  * Our Reminder List and Edit activity for Tablets
  */
 public class TaskListAndEditorActivity extends Activity
-        implements OnEditTask, OnEditFinished {
+        implements OnEditTask, OnEditFinished, ShouldUsePalette
+{
 
     /**
      * Called when the activity is first created.
@@ -80,4 +84,8 @@ public class TaskListAndEditorActivity extends Activity
         transaction.commit();
     }
 
+    @Override
+    public boolean shouldUsePalette() {
+        return false;
+    }
 }

@@ -1,5 +1,6 @@
 package com.dummies.tasks.fragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditFinished;
+import com.dummies.tasks.interfaces.ShouldUsePalette;
 import com.dummies.tasks.provider.TaskProvider;
 import com.dummies.tasks.util.ReminderManager;
 import com.squareup.picasso.Callback;
@@ -411,19 +413,22 @@ public class TaskEditFragment extends Fragment implements
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
+                        Activity activity = getActivity();
+
                         // Because Picasso downloads images in the
                         // background, we can't be sure that the user
                         // didn't close the activity while the image
                         // was being loaded.  If they did,
                         // we will bomb out, so check do a sanity check
                         // to be sure.
-                        if( getActivity()==null )
+                        if( activity==null )
                             return;
 
                         // Don't do this for tablets, only phones,
                         // since it doesn't really work with a split
                         // screen view.
-                        if( getResources().getBoolean(R.bool.isTablet) )
+                        if( !((ShouldUsePalette)activity)
+                            .shouldUsePalette() )
                             return;
 
                         // Set the colors of the activity based on the
