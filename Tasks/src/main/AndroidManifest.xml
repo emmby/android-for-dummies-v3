@@ -38,9 +38,6 @@
                   android:label=""
                   android:documentLaunchMode="always" />
 
-        <!-- The Task + Edit Activity used for tablets -->
-        <!--<activity android:name=".activity.TaskListAndEditorActivity" />-->
-
         <!-- The Preferences activity for customizing apps settings -->
         <activity android:name=".activity.PreferencesActivity" />
 
