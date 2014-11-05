@@ -34,7 +34,7 @@
              Apps list.  If we didn't do this, Recent Apps would only
              show the most recent task that the user edited. -->
         <activity android:name=".activity.TaskEditActivity"
-                  android:theme="@style/AppTheme.NoActionBar"
+                  android:theme="@style/AppTheme.TransparentActionBar"
                   android:label=""
                   android:documentLaunchMode="always" />
 

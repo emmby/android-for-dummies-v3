@@ -37,15 +37,16 @@
     <!-- A variation of the AppTheme, but with a transparent (clear)
          ActionBar. Also has a translucent (grey) status and navigation
          bar. -->
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
+    <style name="AppTheme.TransparentActionBar" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:actionBarStyle">@style/NoActionBar</item>
+        <item name="android:actionBarStyle">@style/TransparentActionBar</item>
     </style>
 
-    <!-- The NoActionBar style used by AppTheme.NoActionBar -->
-    <style name="NoActionBar" parent="android:Theme.Material">
+    <!-- The TransparentActionBar style used by
+         AppTheme.TransparentActionBar -->
+    <style name="TransparentActionBar" parent="android:Theme.Material">
         <item name="android:background">@android:color/transparent</item>
     </style>
 
