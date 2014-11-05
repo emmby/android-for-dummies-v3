@@ -56,6 +56,15 @@ public class TaskEditFragment extends Fragment implements
     static final String TASK_ID = "taskId";
     static final String TASK_DATE_AND_TIME = "taskDateAndTime";
 
+    public static TaskEditFragment newInstance(long id) {
+        TaskEditFragment fragment = new TaskEditFragment();
+        Bundle args = new Bundle();
+        args.putLong(TaskProvider.COLUMN_TASKID, id);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
     // Views
     View rootView;
     EditText titleText;

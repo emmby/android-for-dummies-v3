@@ -9,6 +9,7 @@ import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.interfaces.ShouldUsePalette;
+import com.dummies.tasks.provider.TaskProvider;
 
 /**
  * Our Reminder Edit Activity for Phones
@@ -33,10 +34,9 @@ public class TaskEditActivity extends Activity implements
         setContentView(R.layout.activity_task_edit);
         setActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        // Create a new fragment and pass along arguments (like
-        // COLUMN_TASKID) from the activity to the fragment
-        Fragment fragment = new TaskEditFragment();
-        fragment.setArguments(getIntent().getExtras());
+        // Create a new edit fragment for the specified task id.
+        long id = getIntent().getLongExtra(TaskProvider.COLUMN_TASKID,0L);
+        Fragment fragment = TaskEditFragment.newInstance(id);
 
         // The tag that we'll use to add the fragment to the activity.
         // This will allow us to reference this fragment from other

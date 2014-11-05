@@ -42,11 +42,8 @@ public class TaskListAndEditorActivity extends Activity
      */
     @Override
     public void editTask(long id) {
-        // Create the fragment and set the task id
-        TaskEditFragment fragment = new TaskEditFragment();
-        Bundle arguments = new Bundle();
-        arguments.putLong(TaskProvider.COLUMN_TASKID, id);
-        fragment.setArguments(arguments);
+        // Create the fragment for the given task id
+        TaskEditFragment fragment = TaskEditFragment.newInstance(id);
 
         // Add the fragment to the activity. If there's one already
         // there (eg. the user clicks on another task), replace it
