@@ -173,8 +173,6 @@ public class TaskProvider extends ContentProvider {
 
     /**
      * This method is required in order to query the supported types.
-     * It's also useful in our own query() method to determine the type
-     * of Uri received.
      */
     @Override
     public String getType(Uri uri) {
