@@ -134,8 +134,10 @@ public class TaskProvider extends ContentProvider {
      */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        // you can't insert and specify a row id, so remove it if present
-        values.remove(COLUMN_TASKID);
+        // you can't choose your own task id
+        if( values.containsKey(COLUMN_TASKID))
+            throw new UnsupportedOperationException();
+
         long id = db.insertOrThrow(DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
@@ -163,6 +165,10 @@ public class TaskProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
                       String[] ignored2) {
+        // you can't change a task id
+        if( values.containsKey(COLUMN_TASKID))
+            throw new UnsupportedOperationException();
+
         int count = db.update(DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});

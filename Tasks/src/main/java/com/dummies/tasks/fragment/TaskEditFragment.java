@@ -178,7 +178,6 @@ public class TaskEditFragment extends Fragment implements
         // ContentValues object
         String title = titleText.getText().toString();
         ContentValues values = new ContentValues();
-        values.put(TaskProvider.COLUMN_TASKID, taskId);
         values.put(TaskProvider.COLUMN_TITLE, title);
         values.put(TaskProvider.COLUMN_NOTES, notesText.getText()
                 .toString());
