@@ -193,11 +193,12 @@ public class TaskProvider extends ContentProvider {
      */
     protected static class DatabaseHelper extends SQLiteOpenHelper {
 
-        static final String DATABASE_CREATE = "create table "
-                + DATABASE_TABLE + " (" + COLUMN_TASKID
-                + " integer primary key autoincrement, " + COLUMN_TITLE
-                + " text not null, " + COLUMN_NOTES + " text not null, "
-                + COLUMN_DATE_TIME + " integer not null);";
+        static final String DATABASE_CREATE =
+            "create table " + DATABASE_TABLE + " (" +
+                COLUMN_TASKID + " integer primary key autoincrement, " +
+                COLUMN_TITLE + " text not null, " +
+                COLUMN_NOTES + " text not null, " +
+                COLUMN_DATE_TIME + " integer not null);";
 
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -224,7 +225,5 @@ public class TaskProvider extends ContentProvider {
                               int newVersion) {
             throw new UnsupportedOperationException();
         }
-
-
     }
 }
