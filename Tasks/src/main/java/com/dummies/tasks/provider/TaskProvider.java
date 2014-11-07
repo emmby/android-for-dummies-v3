@@ -89,10 +89,10 @@ public class TaskProvider extends ContentProvider {
                         String[] ignored3, String ignored4) {
 
         String[] projection = new String[]{
-                TaskProvider.COLUMN_TASKID,
-                TaskProvider.COLUMN_TITLE,
-                TaskProvider.COLUMN_NOTES,
-                TaskProvider.COLUMN_DATE_TIME};
+                COLUMN_TASKID,
+                COLUMN_TITLE,
+                COLUMN_NOTES,
+                COLUMN_DATE_TIME};
 
         // Use the UriMatcher to see what kind of query we have and
         // format the db query accordingly
@@ -101,15 +101,15 @@ public class TaskProvider extends ContentProvider {
 
             // We were asked to return a list of tasks
             case LIST_TASK:
-                c = db.query(TaskProvider.DATABASE_TABLE,
+                c = db.query(DATABASE_TABLE,
                         projection, null,
                         null, null, null, null);
                 break;
 
             // We were asked to return a specific task
             case ITEM_TASK:
-                c = db.query(TaskProvider.DATABASE_TABLE, projection,
-                        TaskProvider.COLUMN_TASKID + "=?",
+                c = db.query(DATABASE_TABLE, projection,
+                        COLUMN_TASKID + "=?",
                         new String[]{Long.toString(ContentUris.parseId
                                 (uri))},
                         null, null, null, null);
@@ -135,8 +135,8 @@ public class TaskProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         // you can't insert and specify a row id, so remove it if present
-        values.remove(TaskProvider.COLUMN_TASKID);
-        long id = db.insertOrThrow(TaskProvider.DATABASE_TABLE, null,
+        values.remove(COLUMN_TASKID);
+        long id = db.insertOrThrow(DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
@@ -148,8 +148,8 @@ public class TaskProvider extends ContentProvider {
      */
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
-        int count = db.delete(TaskProvider.DATABASE_TABLE,
-                TaskProvider.COLUMN_TASKID + "=?",
+        int count = db.delete(DATABASE_TABLE,
+                COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
@@ -163,7 +163,7 @@ public class TaskProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String ignored1,
                       String[] ignored2) {
-        int count = db.update(TaskProvider.DATABASE_TABLE, values,
+        int count = db.update(DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
         if (count > 0)
