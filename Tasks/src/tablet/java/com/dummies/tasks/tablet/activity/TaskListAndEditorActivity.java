@@ -9,12 +9,9 @@ import android.widget.Toolbar;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.fragment.TaskEditFragment;
-import com.dummies.tasks.interfaces.ShouldUsePalette;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.interfaces.OnEditTask;
-import com.dummies.tasks.provider.TaskProvider;
-
-import java.lang.Override;
+import com.dummies.tasks.interfaces.ShouldUsePalette;
 
 /**
  * Our Reminder List and Edit activity for Tablets
@@ -75,7 +72,7 @@ public class TaskListAndEditorActivity extends Activity
         // Find the edit fragment, and remove it from the activity.
         Fragment previousFragment = fm
                 .findFragmentByTag(
-                        TaskEditFragment.DEFAULT_FRAGMENT_TAG);
+                    TaskEditFragment.DEFAULT_FRAGMENT_TAG);
         transaction.remove(previousFragment);
 
         transaction.commit();
