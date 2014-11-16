@@ -13,10 +13,6 @@ import com.dummies.tasks.R;
  */
 public class PreferencesFragment extends PreferenceFragment {
 
-    // The "name" that we'll usually use to identify this fragment
-    public static final String DEFAULT_FRAGMENT_TAG =
-            "preferencesFragment";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
