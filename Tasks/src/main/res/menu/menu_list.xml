@@ -20,15 +20,9 @@
 
     <!-- The Settings menu.  The settings menu is less important to
          put front and center, so we'll configure it with
-         showAsAction=ifRoom.  If the ActionBar gets crowded, the
-         Settings menu may get moved into the overflow menu in
-         the action bar (three vertical dots on the right hand side).
-         This won't happen for our app since we only have to small
-         icons in our action bar, but it could easily happen in other
-         apps. -->
+         showAsAction=never.-->
     <item
         android:id="@+id/menu_settings"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="ifRoom"
+        android:showAsAction="never"
         android:title="@string/menu_settings" />
 </menu>
