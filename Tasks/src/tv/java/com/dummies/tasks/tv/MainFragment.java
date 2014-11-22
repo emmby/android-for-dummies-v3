@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.net.URI;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -67,7 +68,7 @@ public class MainFragment extends BrowseFragment implements Target, LoaderManage
 
         for( int i=0; i< MovieList.MOVIE_CATEGORY.length; ++i ) {
             HeaderItem header = new HeaderItem(i,
-                MovieList.MOVIE_CATEGORY[i], null);
+                (String)MovieList.MOVIE_CATEGORY[i][0], null);
             CursorObjectAdapter cursorObjectAdapter = new CursorObjectAdapter
                 (mCardPresenter);
             cursorObjectAdapter.setMapper(
@@ -144,7 +145,7 @@ public class MainFragment extends BrowseFragment implements Target, LoaderManage
             @Override
             public void onItemSelected(Object item, Row row) {
                 if (item instanceof Movie) {
-                    mBackgroundURI = ((Movie) item).getBackgroundImageURI();
+                    mBackgroundURI = ((Movie) item).getCardImageURI();
                     startBackgroundTimer();
                 }
             }
@@ -213,9 +214,18 @@ public class MainFragment extends BrowseFragment implements Target, LoaderManage
 
 
     @Override
-    public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
+        Calendar calendar = Calendar.getInstance();
+        int calendarFieldToZero = (Integer) MovieList.MOVIE_CATEGORY[id][1];
+        calendar.set(calendarFieldToZero,calendar.getActualMinimum
+                (calendarFieldToZero));
+
         return new CursorLoader(getActivity(),
-            TaskProvider.CONTENT_URI, null, null, null, null);
+            TaskProvider.CONTENT_URI,
+            null,
+            TaskProvider.COLUMN_DATE_TIME + "> ?",
+            new String[]{Long.toString(calendar.getTimeInMillis())},
+            null);
     }
 
     @Override

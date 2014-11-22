@@ -2,30 +2,15 @@ package com.dummies.tasks.tv;
 
 import com.dummies.tasks.provider.TaskProvider;
 
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class Movie implements Serializable {
-    static final long serialVersionUID = 727566175075960653L;
-    private static long count = 0;
+public class Movie {
     private long id;
     private String title;
     private String description;
-    private String bgImageUrl;
-    private String videoUrl;
-    private String studio;
-    private String category;
 
     public Movie() {
-    }
-
-    public static long getCount() {
-        return count;
-    }
-
-    public static void incCount() {
-        count++;
     }
 
     public long getId() {
@@ -52,48 +37,8 @@ public class Movie implements Serializable {
         this.description = description;
     }
 
-    public String getStudio() {
-        return studio;
-    }
-
-    public void setStudio(String studio) {
-        this.studio = studio;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getBackgroundImageUrl() {
-        return getCardImageUrl();
-    }
-
-    public void setBackgroundImageUrl(String bgImageUrl) {
-        this.bgImageUrl = bgImageUrl;
-    }
-
     public String getCardImageUrl() {
         return TaskProvider.getImageUrlForTask(id);
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public URI getBackgroundImageURI() {
-        try {
-            return new URI(getBackgroundImageUrl());
-        } catch (URISyntaxException e) {
-            return null;
-        }
     }
 
     public URI getCardImageURI() {
@@ -109,9 +54,6 @@ public class Movie implements Serializable {
         return "Movie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
-                ", backgroundImageUrl='" + bgImageUrl + '\'' +
-                ", backgroundImageURI='" + getBackgroundImageURI().toString() + '\'' +
                 '}';
     }
 }

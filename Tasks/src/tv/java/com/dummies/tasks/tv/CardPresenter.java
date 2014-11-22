@@ -9,8 +9,8 @@ import android.support.v17.leanback.widget.Presenter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import com.dummies.tasks.R;
 
+import com.dummies.tasks.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -77,7 +77,7 @@ public class CardPresenter extends Presenter {
         Log.d(TAG, "onBindViewHolder");
         if (movie.getCardImageUrl() != null) {
             ((ViewHolder) viewHolder).mCardView.setTitleText(movie.getTitle());
-            ((ViewHolder) viewHolder).mCardView.setContentText(movie.getStudio());
+            ((ViewHolder) viewHolder).mCardView.setContentText(movie.getDescription());
             ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
             ((ViewHolder) viewHolder).updateCardViewImage(movie.getCardImageURI());
         }
