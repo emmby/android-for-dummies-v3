@@ -81,7 +81,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             getResources().getColor(R.color.search_opaque));
 
         adapter = new ArrayObjectAdapter(new ListRowPresenter());
-        CardPresenter mCardPresenter = new CardPresenter();
+        CardPresenter cardPresenter = new CardPresenter();
 
         CursorMapper simpleMapper = new CursorMapper() {
             @Override
@@ -98,7 +98,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             HeaderItem header = new HeaderItem(i,
                 (String)CATEGORIES[i][0], null);
             CursorObjectAdapter cursorObjectAdapter = new CursorObjectAdapter
-                (mCardPresenter);
+                (cardPresenter);
             cursorObjectAdapter.setMapper(simpleMapper);
 
             adapter.add(new ListRow(header, cursorObjectAdapter));

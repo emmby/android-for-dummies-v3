@@ -16,11 +16,11 @@ public class CardPresenter extends Presenter {
     private static int CARD_HEIGHT = 176;
 
     static class ViewHolder extends Presenter.ViewHolder {
-        private ImageCardView mCardView;
+        ImageCardView cardView;
 
         public ViewHolder(View view) {
             super(view);
-            mCardView = (ImageCardView) view;
+            cardView = (ImageCardView) view;
         }
     }
 
@@ -53,7 +53,7 @@ public class CardPresenter extends Presenter {
         String notes = cursor.getString(notesIndex);
 
         // Update card
-        ImageCardView cardView = ((ViewHolder) viewHolder).mCardView;
+        ImageCardView cardView = ((ViewHolder) viewHolder).cardView;
         cardView.setTitleText(title);
         cardView.setContentText(notes);
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
