@@ -60,47 +60,47 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
     };
 
 
-    private ArrayObjectAdapter adapter;
+    ArrayObjectAdapter adapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setTitle(getString(R.string.browse_title)); // Badge, when set, takes precedent
+        setTitle(getString(R.string.browse_title));
 
         // over title
         setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
 
         // set fastLane (or headers) background color
-        setBrandColor(getResources().getColor(R.color.fastlane_background));
+        setBrandColor(
+            getResources().getColor(R.color.fastlane_background));
+
         // set search icon color
         setSearchAffordanceColor(
-            getResources().getColor(
-                R.color
-                    .search_opaque));
+            getResources().getColor(R.color.search_opaque));
 
-        adapter = new ArrayObjectAdapter(new
-                ListRowPresenter());
+        adapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter mCardPresenter = new CardPresenter();
 
+        CursorMapper simpleMapper = new CursorMapper() {
+            @Override
+            protected void bindColumns(Cursor cursor) {
+            }
+
+            @Override
+            protected Cursor bind(Cursor cursor) {
+                return cursor;
+            }
+        };
 
         for( int i=0; i< CATEGORIES.length; ++i ) {
             HeaderItem header = new HeaderItem(i,
                 (String)CATEGORIES[i][0], null);
             CursorObjectAdapter cursorObjectAdapter = new CursorObjectAdapter
                 (mCardPresenter);
-            cursorObjectAdapter.setMapper(
-                new CursorMapper() {
-                    @Override
-                    protected void bindColumns(Cursor cursor) {
-                    }
+            cursorObjectAdapter.setMapper(simpleMapper);
 
-                    @Override
-                    protected Cursor bind(Cursor cursor) {
-                        return cursor;
-                    }
-                });
             adapter.add(new ListRow(header, cursorObjectAdapter));
         }
 
