@@ -1,6 +1,6 @@
 package com.dummies.tasks.tv;
 
-import android.util.Log;
+import com.dummies.tasks.provider.TaskProvider;
 
 import java.io.Serializable;
 import java.net.URI;
@@ -13,7 +13,6 @@ public class Movie implements Serializable {
     private String title;
     private String description;
     private String bgImageUrl;
-    private String cardImageUrl;
     private String videoUrl;
     private String studio;
     private String category;
@@ -70,7 +69,7 @@ public class Movie implements Serializable {
     }
 
     public String getBackgroundImageUrl() {
-        return bgImageUrl;
+        return getCardImageUrl();
     }
 
     public void setBackgroundImageUrl(String bgImageUrl) {
@@ -78,11 +77,7 @@ public class Movie implements Serializable {
     }
 
     public String getCardImageUrl() {
-        return cardImageUrl;
-    }
-
-    public void setCardImageUrl(String cardImageUrl) {
-        this.cardImageUrl = cardImageUrl;
+        return TaskProvider.getImageUrlForTask(id);
     }
 
     public String getCategory() {
@@ -95,10 +90,8 @@ public class Movie implements Serializable {
 
     public URI getBackgroundImageURI() {
         try {
-            Log.d("BACK MOVIE: ", bgImageUrl);
             return new URI(getBackgroundImageUrl());
         } catch (URISyntaxException e) {
-            Log.d("URI exception: ", bgImageUrl);
             return null;
         }
     }
@@ -119,7 +112,6 @@ public class Movie implements Serializable {
                 ", videoUrl='" + videoUrl + '\'' +
                 ", backgroundImageUrl='" + bgImageUrl + '\'' +
                 ", backgroundImageURI='" + getBackgroundImageURI().toString() + '\'' +
-                ", cardImageUrl='" + cardImageUrl + '\'' +
                 '}';
     }
 }

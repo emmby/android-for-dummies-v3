@@ -1,43 +1,41 @@
 package com.dummies.tasks.tv;
 
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
+import android.support.v17.leanback.database.CursorMapper;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.CursorObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.OnItemClickedListener;
 import android.support.v17.leanback.widget.OnItemSelectedListener;
-import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.dummies.tasks.R;
 
+import com.dummies.tasks.R;
+import com.dummies.tasks.provider.TaskProvider;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.net.URI;
-import java.util.Collections;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MainFragment extends BrowseFragment implements Target {
+public class MainFragment extends BrowseFragment implements Target, LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "MainFragment";
-    private static final int NUM_ROWS = 6;
-    private static final int NUM_COLS = 15;
 
     private BackgroundManager mBackgroundManager;
     private Drawable mDefaultBackground;
@@ -45,6 +43,7 @@ public class MainFragment extends BrowseFragment implements Target {
     private Timer mBackgroundTimer;
     private final Handler mHandler = new Handler();
     private URI mBackgroundURI;
+    private ArrayObjectAdapter adapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -61,36 +60,42 @@ public class MainFragment extends BrowseFragment implements Target {
     }
 
     private void loadRows() {
-        List<Movie> list = MovieList.setupMovies();
-
-        ArrayObjectAdapter rowsAdapter = new ArrayObjectAdapter(new
+        adapter = new ArrayObjectAdapter(new
                 ListRowPresenter());
         CardPresenter mCardPresenter = new CardPresenter();
 
-        int i;
-        for (i = 0; i < NUM_ROWS; i++) {
-            if (i != 0) {
-                Collections.shuffle(list);
-            }
-            ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(mCardPresenter);
-            for (int j = 0; j < NUM_COLS; j++) {
-                listRowAdapter.add(list.get(j % 5));
-            }
-            HeaderItem header = new HeaderItem(i, MovieList.MOVIE_CATEGORY[i], null);
-            rowsAdapter.add(new ListRow(header, listRowAdapter));
+
+        for( int i=0; i< MovieList.MOVIE_CATEGORY.length; ++i ) {
+            HeaderItem header = new HeaderItem(i,
+                MovieList.MOVIE_CATEGORY[i], null);
+            CursorObjectAdapter cursorObjectAdapter = new CursorObjectAdapter
+                (mCardPresenter);
+            cursorObjectAdapter.setMapper(
+                new CursorMapper() {
+                    @Override
+                    protected void bindColumns(Cursor cursor) {
+
+                    }
+
+                    @Override
+                    protected Movie bind(Cursor cursor) {
+                        Movie m = new Movie();
+                        m.setId(cursor.getInt(0));
+                        m.setTitle(cursor.getString(1));
+                        m.setDescription(cursor.getString(2));
+                        return m;
+                    }
+                });
+            adapter.add(new ListRow(header, cursorObjectAdapter));
         }
 
-        HeaderItem gridHeader = new HeaderItem(i, "PREFERENCES", null);
+        setAdapter(adapter);
 
-        GridItemPresenter mGridPresenter = new GridItemPresenter();
-        ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
-        gridRowAdapter.add(getResources().getString(R.string.grid_view));
-        gridRowAdapter.add(getResources().getString(R.string
-                .send_feeback));
-        gridRowAdapter.add(getResources().getString(R.string.personal_settings));
-        rowsAdapter.add(new ListRow(gridHeader, gridRowAdapter));
+        LoaderManager loaderManager = getLoaderManager();
+        for( int i=0; i<MovieList.MOVIE_CATEGORY.length; ++i)
+            loaderManager.initLoader(i, null, this);
 
-        setAdapter(rowsAdapter);
+
 
     }
 
@@ -102,12 +107,11 @@ public class MainFragment extends BrowseFragment implements Target {
         mDefaultBackground = getResources().getDrawable(R.drawable.default_background);
 
         mMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics
+            (mMetrics);
     }
 
     private void setupUIElements() {
-        // setBadgeDrawable(getActivity().getResources().getDrawable(
-        // R.drawable.videos_by_google_banner));
         setTitle(getString(R.string.browse_title)); // Badge, when set, takes precedent
                                                     // over title
         setHeadersState(HEADERS_ENABLED);
@@ -116,7 +120,10 @@ public class MainFragment extends BrowseFragment implements Target {
         // set fastLane (or headers) background color
         setBrandColor(getResources().getColor(R.color.fastlane_background));
         // set search icon color
-        setSearchAffordanceColor(getResources().getColor(R.color.search_opaque));
+        setSearchAffordanceColor(
+            getResources().getColor(
+                R.color
+                    .search_opaque));
     }
 
     private void setupEventListeners() {
@@ -125,7 +132,8 @@ public class MainFragment extends BrowseFragment implements Target {
         setOnSearchClickedListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Implement your own in-app search", Toast.LENGTH_LONG)
+                Toast.makeText(getActivity(), "Implement your own " +
+                        "in-app search", Toast.LENGTH_LONG)
                         .show();
             }
         });
@@ -188,29 +196,6 @@ public class MainFragment extends BrowseFragment implements Target {
         }
     }
 
-    private class GridItemPresenter extends Presenter {
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent) {
-            TextView view = new TextView(parent.getContext());
-            view.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
-            view.setFocusable(true);
-            view.setFocusableInTouchMode(true);
-            view.setBackgroundColor(getResources().getColor(R.color.default_background));
-            view.setTextColor(Color.WHITE);
-            view.setGravity(Gravity.CENTER);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-            ((TextView) viewHolder.view).setText((String) item);
-        }
-
-        @Override
-        public void onUnbindViewHolder(ViewHolder viewHolder) {
-        }
-    }
-
     @Override
     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
         this.mBackgroundManager.setBitmap(bitmap);
@@ -227,4 +212,31 @@ public class MainFragment extends BrowseFragment implements Target {
     }
 
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
+        return new CursorLoader(getActivity(),
+            TaskProvider.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        int id = loader.getId();
+        ListRow row = (ListRow) adapter.get(id);
+        CursorObjectAdapter rowAdapter = (CursorObjectAdapter) row
+            .getAdapter();
+        rowAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // This is called when the last Cursor provided to
+        // onLoadFinished()
+        // above is about to be closed. We need to make sure we are no
+        // longer using it.
+        int id = loader.getId();
+        ListRow row = (ListRow) adapter.get(id);
+        CursorObjectAdapter rowAdapter = (CursorObjectAdapter) row
+            .getAdapter();
+        rowAdapter.swapCursor(null);
+    }
 }

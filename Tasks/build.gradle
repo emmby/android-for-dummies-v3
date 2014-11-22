@@ -50,20 +50,12 @@ android {
     }
 
     productFlavors {
-        phone {}
-
-        tablet {
-            applicationId="com.dummies.tasks.tablet"
-        }
-    }
-
-    productFlavors {
         phoneTablet {}
 
         tv {
             applicationId = "com.dummies.tasks.tv"
             dependencies {
-                compile 'com.android.support:leanback-v17:21.+'
+                compile 'com.android.support:leanback-v17:21.0.2'
             }
         }
     }

@@ -9,7 +9,7 @@
             android:theme="@style/Theme.Leanback"
             tools:replace="android:theme" >
 
-        <activity android:name=".MyActivity"
+        <activity android:name="com.dummies.tasks.tv.MyActivity"
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -78,7 +78,7 @@ public final class MovieList {
         movie.setDescription(description);
         movie.setStudio(studio);
         movie.setCategory(category);
-        movie.setCardImageUrl(cardImageUrl);
+//        movie.setCardImageUrl(cardImageUrl);
         movie.setBackgroundImageUrl(bgImageUrl);
         movie.setVideoUrl(videoUrl);
         return movie;
