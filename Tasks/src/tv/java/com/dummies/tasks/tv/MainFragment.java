@@ -12,6 +12,8 @@ import android.support.v17.leanback.widget.CursorObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.view.View;
+import android.widget.Toast;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.provider.TaskProvider;
@@ -111,6 +113,16 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             loaderManager.initLoader(i, null, this);
 
 
+        setOnSearchClickedListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // implement search here
+                    Toast.makeText(getActivity(),"Implement search",
+                        Toast.LENGTH_SHORT).show();
+                }
+            }
+        );
     }
 
 
