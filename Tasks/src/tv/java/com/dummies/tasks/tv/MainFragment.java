@@ -216,9 +216,13 @@ public class MainFragment extends BrowseFragment implements Target, LoaderManage
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
         Calendar calendar = Calendar.getInstance();
-        int calendarFieldToZero = (Integer) MovieList.MOVIE_CATEGORY[id][1];
-        calendar.set(calendarFieldToZero,calendar.getActualMinimum
-                (calendarFieldToZero));
+        int[] calendarFieldsToZero = (int[])MovieList
+            .MOVIE_CATEGORY[id][1];
+
+        for( int fieldToZero : calendarFieldsToZero )
+            calendar.set(
+                fieldToZero,
+                calendar.getActualMinimum(fieldToZero));
 
         return new CursorLoader(getActivity(),
             TaskProvider.CONTENT_URI,
