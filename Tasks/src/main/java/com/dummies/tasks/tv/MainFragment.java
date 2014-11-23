@@ -26,7 +26,6 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskEditActivity;
@@ -113,12 +112,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // implement search here
-                    Toast.makeText(
-                        getActivity(), "Implement search",
-                        Toast.LENGTH_SHORT).show();
-
-                    // But for now, repurpose it for Add Task
+                    // For now, repurpose search for an Add Task button
                     startActivity(
                         new Intent(
                             getActivity(),
