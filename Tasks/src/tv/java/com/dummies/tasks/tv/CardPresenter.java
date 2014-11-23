@@ -17,6 +17,7 @@ public class CardPresenter extends Presenter {
 
     static class ViewHolder extends Presenter.ViewHolder {
         ImageCardView cardView;
+        long id = -1;
 
         public ViewHolder(View view) {
             super(view);
@@ -53,7 +54,9 @@ public class CardPresenter extends Presenter {
         String notes = cursor.getString(notesIndex);
 
         // Update card
-        ImageCardView cardView = ((ViewHolder) viewHolder).cardView;
+        ViewHolder vh = (ViewHolder) viewHolder;
+        vh.id=id;
+        ImageCardView cardView = vh.cardView;
         cardView.setTitleText(title);
         cardView.setContentText(notes);
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);

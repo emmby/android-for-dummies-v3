@@ -2,6 +2,7 @@ package com.dummies.tasks.tv;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,10 +13,15 @@ import android.support.v17.leanback.widget.CursorObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.OnItemViewClickedListener;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.Row;
+import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 import android.widget.Toast;
 
 import com.dummies.tasks.R;
+import com.dummies.tasks.activity.TaskEditActivity;
 import com.dummies.tasks.provider.TaskProvider;
 
 import java.util.Calendar;
@@ -123,6 +129,20 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                 }
             }
         );
+
+        setOnItemViewClickedListener(
+            new OnItemViewClickedListener() {
+                @Override
+                public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+                    startActivity(new Intent(getActivity(),
+                            TaskEditActivity.class)
+                            .putExtra(TaskProvider.COLUMN_TASKID,
+                                ((CardPresenter.ViewHolder)itemViewHolder).id));
+                }
+            }
+        );
+
+//        startActivity(new Intent(getActivity(), TaskEditActivity.class));
     }
 
 
