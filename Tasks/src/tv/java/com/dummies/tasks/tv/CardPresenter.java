@@ -31,7 +31,7 @@ public class CardPresenter extends Presenter {
         ImageCardView cardView = new ImageCardView(context);
         cardView.setFocusable(true);
         cardView.setFocusableInTouchMode(true);
-        cardView.setBackgroundResource(R.color.primary);
+        cardView.setBackgroundResource(R.color.window_background);
         return new ViewHolder(cardView);
     }
 
