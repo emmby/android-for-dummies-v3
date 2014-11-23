@@ -17,7 +17,6 @@ public class CardPresenter extends Presenter {
 
     static class ViewHolder extends Presenter.ViewHolder {
         ImageCardView cardView;
-        long id = -1;
 
         public ViewHolder(View view) {
             super(view);
@@ -54,7 +53,6 @@ public class CardPresenter extends Presenter {
 
         // Update card
         ViewHolder vh = (ViewHolder) viewHolder;
-        vh.id=id;
         ImageCardView cardView = vh.cardView;
         cardView.setTitleText(title);
         cardView.setContentText(notes);
