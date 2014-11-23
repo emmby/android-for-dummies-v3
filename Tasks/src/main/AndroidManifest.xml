@@ -41,6 +41,16 @@
         <activity android:name=".activity.PreferencesActivity" />
 
 
+        <activity android:name=".tv.BrowseActivity"
+                  android:theme="@style/Theme.Leanback"
+                  android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name ="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <!-- Our OnAlarmReceiver, which is triggered whenever one of
              our reminder alarms fires.  We don't need other apps to be
              able to call it, so as a security measure let's set

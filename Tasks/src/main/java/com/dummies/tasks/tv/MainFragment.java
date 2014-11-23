@@ -84,7 +84,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             = BackgroundManager.getInstance(getActivity());
         backgroundManager.attach(getActivity().getWindow());
 
-        setTitle(getString(R.string.browse_title));
+        setTitle(getString(R.string.app_name));
 
         // set fastLane (or headers) background color
         setBrandColor(getResources().getColor(R.color.primary));
