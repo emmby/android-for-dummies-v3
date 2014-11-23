@@ -5,16 +5,22 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.database.CursorMapper;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.CursorObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
+import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
+import android.support.v17.leanback.widget.OnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
@@ -73,6 +79,10 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        final BackgroundManager backgroundManager
+            = BackgroundManager.getInstance(getActivity());
+        backgroundManager.attach(getActivity().getWindow());
+
         setTitle(getString(R.string.browse_title));
 
         // over title
@@ -105,6 +115,27 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                     // implement search here
                     Toast.makeText(getActivity(),"Implement search",
                         Toast.LENGTH_SHORT).show();
+                }
+            }
+        );
+
+        setOnItemViewSelectedListener(
+            new OnItemViewSelectedListener() {
+                @Override
+                public void onItemSelected(Presenter.ViewHolder
+                                               itemViewHolder,
+                                           Object item,
+                                           RowPresenter.ViewHolder
+                                               rowViewHolder, Row row)
+                {
+                    if( itemViewHolder==null )
+                        return;
+
+                    ImageCardView cardView =
+                        ((CardPresenter.ViewHolder)itemViewHolder).cardView;
+                    Drawable d = cardView.getMainImage();
+                    Bitmap b = ((BitmapDrawable)d).getBitmap();
+                    backgroundManager.setBitmap(b);
                 }
             }
         );
