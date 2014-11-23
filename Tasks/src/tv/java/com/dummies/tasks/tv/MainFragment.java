@@ -111,6 +111,10 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                     // implement search here
                     Toast.makeText(getActivity(),"Implement search",
                         Toast.LENGTH_SHORT).show();
+
+                    // But for now, repurpose it for Add Task
+                    startActivity(new Intent(getActivity(),
+                            TaskEditActivity.class));
                 }
             }
         );
@@ -171,7 +175,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             loaderManager.initLoader(i, null, this);
 
 
-//        startActivity(new Intent(getActivity(), TaskEditActivity.class));
     }
 
 
