@@ -146,13 +146,14 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             new OnItemViewClickedListener() {
                 @Override
                 public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+                    Cursor cursor = (Cursor) item;
+                    long id = cursor.getLong(cursor.getColumnIndex
+                            (TaskProvider.COLUMN_TASKID));
                     startActivity(
                         new Intent(
                             getActivity(),
                             TaskEditActivity.class)
-                            .putExtra(
-                                TaskProvider.COLUMN_TASKID,
-                                ((CardPresenter.ViewHolder) itemViewHolder).id));
+                            .putExtra(TaskProvider.COLUMN_TASKID, id));
                 }
             }
         );
