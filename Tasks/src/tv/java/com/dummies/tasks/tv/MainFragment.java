@@ -87,7 +87,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
 
         // over title
         setHeadersState(HEADERS_ENABLED);
-        setHeadersTransitionOnBackEnabled(true);
 
         // set fastLane (or headers) background color
         setBrandColor(getResources().getColor(R.color.primary));
