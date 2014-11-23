@@ -36,6 +36,14 @@ import java.util.Calendar;
 
 public class MainFragment extends BrowseFragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final Object[] CATEGORIES[] = {
+        new Object[]{ "All",new int[]{
+            Calendar.YEAR,
+            Calendar.DAY_OF_YEAR,
+            Calendar.HOUR_OF_DAY,
+            Calendar.MINUTE,
+            Calendar.SECOND
+        }
+        },
         new Object[]{ "Today", new int[]{
             Calendar.HOUR_OF_DAY,
             Calendar.MINUTE,
@@ -64,14 +72,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             Calendar.SECOND
         }
         },
-        new Object[]{ "All",new int[]{
-            Calendar.YEAR,
-            Calendar.DAY_OF_YEAR,
-            Calendar.HOUR_OF_DAY,
-            Calendar.MINUTE,
-            Calendar.SECOND
-        }
-        }
     };
 
 
