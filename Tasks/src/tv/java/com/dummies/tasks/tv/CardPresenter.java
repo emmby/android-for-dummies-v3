@@ -32,7 +32,7 @@ public class CardPresenter extends Presenter {
         cardView.setFocusable(true);
         cardView.setFocusableInTouchMode(true);
         cardView.setBackgroundColor(
-            context.getResources().getColor(R.color.fastlane_background));
+            context.getResources().getColor(R.color.primary));
         return new ViewHolder(cardView);
     }
 

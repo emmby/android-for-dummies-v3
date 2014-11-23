@@ -82,11 +82,11 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
 
         // set fastLane (or headers) background color
         setBrandColor(
-            getResources().getColor(R.color.fastlane_background));
+            getResources().getColor(R.color.primary));
 
         // set search icon color
         setSearchAffordanceColor(
-            getResources().getColor(R.color.search_opaque));
+            getResources().getColor(R.color.accent));
 
         adapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
