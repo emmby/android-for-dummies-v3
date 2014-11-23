@@ -25,6 +25,7 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dummies.tasks.R;
@@ -104,16 +105,23 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             }
         };
 
+        // HACK
+        ((ImageView)getActivity().findViewById(android.support.v17.leanback
+                .R.id.icon)).setImageResource(android.R.drawable.ic_input_add);
+
         setOnSearchClickedListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // implement search here
-                    Toast.makeText(getActivity(),"Implement search",
+                    Toast.makeText(
+                        getActivity(), "Implement search",
                         Toast.LENGTH_SHORT).show();
 
                     // But for now, repurpose it for Add Task
-                    startActivity(new Intent(getActivity(),
+                    startActivity(
+                        new Intent(
+                            getActivity(),
                             TaskEditActivity.class));
                 }
             }
