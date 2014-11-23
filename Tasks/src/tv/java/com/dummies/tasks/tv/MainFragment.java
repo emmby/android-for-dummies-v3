@@ -13,6 +13,7 @@ import android.support.v17.leanback.widget.CursorObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
@@ -68,8 +69,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
     };
 
 
-    ArrayObjectAdapter adapter;
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -86,7 +85,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         // set search icon color
         setSearchAffordanceColor(getResources().getColor(R.color.accent));
 
-        adapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
 
         CursorMapper simpleMapper = new CursorMapper() {
@@ -99,6 +97,8 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                 return cursor;
             }
         };
+
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(new ListRowPresenter());
 
         for( int i=0; i< CATEGORIES.length; ++i ) {
             HeaderItem header = new HeaderItem(i,
@@ -132,10 +132,13 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             new OnItemViewClickedListener() {
                 @Override
                 public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                    startActivity(new Intent(getActivity(),
+                    startActivity(
+                        new Intent(
+                            getActivity(),
                             TaskEditActivity.class)
-                            .putExtra(TaskProvider.COLUMN_TASKID,
-                                ((CardPresenter.ViewHolder)itemViewHolder).id));
+                            .putExtra(
+                                TaskProvider.COLUMN_TASKID,
+                                ((CardPresenter.ViewHolder) itemViewHolder).id));
                 }
             }
         );
@@ -165,6 +168,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         int id = loader.getId();
+        ObjectAdapter adapter = getAdapter();
         ListRow row = (ListRow) adapter.get(id);
         CursorObjectAdapter rowAdapter = (CursorObjectAdapter) row
             .getAdapter();
@@ -178,6 +182,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         // above is about to be closed. We need to make sure we are no
         // longer using it.
         int id = loader.getId();
+        ObjectAdapter adapter = getAdapter();
         ListRow row = (ListRow) adapter.get(id);
         CursorObjectAdapter rowAdapter = (CursorObjectAdapter) row
             .getAdapter();
