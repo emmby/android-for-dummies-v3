@@ -98,25 +98,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             }
         };
 
-        ArrayObjectAdapter adapter = new ArrayObjectAdapter(new ListRowPresenter());
-
-        for( int i=0; i< CATEGORIES.length; ++i ) {
-            HeaderItem header = new HeaderItem(i,
-                (String)CATEGORIES[i][0], null);
-            CursorObjectAdapter cursorObjectAdapter = new CursorObjectAdapter
-                (cardPresenter);
-            cursorObjectAdapter.setMapper(simpleMapper);
-
-            adapter.add(new ListRow(header, cursorObjectAdapter));
-        }
-
-        setAdapter(adapter);
-
-        LoaderManager loaderManager = getLoaderManager();
-        for( int i=0; i<CATEGORIES.length; ++i)
-            loaderManager.initLoader(i, null, this);
-
-
         setOnSearchClickedListener(
             new View.OnClickListener() {
                 @Override
@@ -142,6 +123,26 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                 }
             }
         );
+
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(new ListRowPresenter());
+
+        for( int i=0; i< CATEGORIES.length; ++i ) {
+            HeaderItem header = new HeaderItem(i,
+                (String)CATEGORIES[i][0], null);
+            CursorObjectAdapter cursorObjectAdapter = new CursorObjectAdapter
+                (cardPresenter);
+            cursorObjectAdapter.setMapper(simpleMapper);
+
+            adapter.add(new ListRow(header, cursorObjectAdapter));
+        }
+
+        setAdapter(adapter);
+
+
+        LoaderManager loaderManager = getLoaderManager();
+        for( int i=0; i<CATEGORIES.length; ++i)
+            loaderManager.initLoader(i, null, this);
+
 
 //        startActivity(new Intent(getActivity(), TaskEditActivity.class));
     }
