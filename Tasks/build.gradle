@@ -49,6 +49,13 @@ android {
         }
     }
 
+    productFlavors {
+        phone {}
+
+        tablet {
+            applicationId="com.dummies.tasks.tablet"
+}
+    }
 }
 
 // Libraries that our app will use
