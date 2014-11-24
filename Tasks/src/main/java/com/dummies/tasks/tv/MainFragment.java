@@ -91,33 +91,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
 
         CardPresenter cardPresenter = new CardPresenter();
 
-        CursorMapper simpleMapper = new CursorMapper() {
-            @Override
-            protected void bindColumns(Cursor cursor) {
-            }
-
-            @Override
-            protected Task bind(Cursor cursor) {
-                // Get the column indices for the fields we want
-                int idIndex =
-                    cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_TASKID);
-                int titleIndex =
-                    cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_TITLE);
-                int notesIndex =
-                    cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_NOTES);
-
-                // Get the values of the fields
-                long id = cursor.getLong(idIndex);
-                String title = cursor.getString(titleIndex);
-                String notes = cursor.getString(notesIndex);
-
-                Task t = new Task();
-                t.id=id;
-                t.title=title;
-                t.notes=notes;
-                return t;
-            }
-        };
+        CursorMapper simpleMapper = new CursorToTaskMapper();
 
         setOnSearchClickedListener(
             new View.OnClickListener() {
@@ -135,19 +109,20 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         setOnItemViewSelectedListener(
             new OnItemViewSelectedListener() {
                 @Override
-                public void onItemSelected(Presenter.ViewHolder
-                                               itemViewHolder,
-                                           Object item,
-                                           RowPresenter.ViewHolder
-                                               rowViewHolder, Row row)
-                {
-                    if( itemViewHolder==null )
+                public void onItemSelected(
+                    Presenter.ViewHolder
+                        itemViewHolder,
+                    Object item,
+                    RowPresenter.ViewHolder
+                        rowViewHolder, Row row) {
+                    if (itemViewHolder == null)
                         return;
 
                     ImageCardView cardView =
-                        ((CardPresenter.ViewHolder)itemViewHolder).cardView;
+                        ((CardPresenter.ViewHolder) itemViewHolder)
+                            .cardView;
                     Drawable d = cardView.getMainImage();
-                    Bitmap b = ((BitmapDrawable)d).getBitmap();
+                    Bitmap b = ((BitmapDrawable) d).getBitmap();
                     backgroundManager.setBitmap(b);
                 }
             }
@@ -156,8 +131,12 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         setOnItemViewClickedListener(
             new OnItemViewClickedListener() {
                 @Override
-                public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                    long id = ((Task)item).id;
+                public void onItemClicked(Presenter.ViewHolder
+                                              itemViewHolder,
+                                          Object item,
+                                          RowPresenter.ViewHolder
+                                              rowViewHolder, Row row) {
+                    long id = ((Task) item).id;
                     startActivity(
                         new Intent(
                             getActivity(),
@@ -231,4 +210,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             .getAdapter();
         rowAdapter.swapCursor(null);
     }
+
 }
+
