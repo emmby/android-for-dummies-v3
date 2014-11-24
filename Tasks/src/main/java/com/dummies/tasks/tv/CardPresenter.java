@@ -1,7 +1,6 @@
 package com.dummies.tasks.tv;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.view.View;
@@ -36,32 +35,18 @@ public class CardPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
-        Cursor cursor = (Cursor) item;
-
-        // Get the column indices for the fields we want
-        int idIndex =
-            cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_TASKID);
-        int titleIndex =
-            cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_TITLE);
-        int notesIndex =
-            cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_NOTES);
-
-        // Get the values of the fields
-        long id = cursor.getLong(idIndex);
-        String title = cursor.getString(titleIndex);
-        String notes = cursor.getString(notesIndex);
+        Task task = (Task)item;
 
         // Update card
         ViewHolder vh = (ViewHolder) viewHolder;
         ImageCardView cardView = vh.cardView;
-        cardView.setTitleText(title);
-        cardView.setContentText(notes);
+        cardView.setTitleText(task.title);
+        cardView.setContentText(task.notes);
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-
 
         Context context= cardView.getContext();
         Picasso.with(context)
-                .load(TaskProvider.getImageUrlForTask(id))
+                .load(TaskProvider.getImageUrlForTask(task.id))
                 .resize(CARD_WIDTH, CARD_HEIGHT)
                 .centerCrop()
                 .into(cardView.getMainImageView());

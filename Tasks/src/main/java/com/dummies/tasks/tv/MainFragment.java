@@ -25,7 +25,6 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskEditActivity;
@@ -66,7 +65,6 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         },
         new Object[]{ "This Year",new int[]{
             Calendar.DAY_OF_YEAR,
-            Calendar.DAY_OF_MONTH,
             Calendar.HOUR_OF_DAY,
             Calendar.MINUTE,
             Calendar.SECOND
@@ -99,20 +97,33 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             }
 
             @Override
-            protected Cursor bind(Cursor cursor) {
-                return cursor;
+            protected Task bind(Cursor cursor) {
+                // Get the column indices for the fields we want
+                int idIndex =
+                    cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_TASKID);
+                int titleIndex =
+                    cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_TITLE);
+                int notesIndex =
+                    cursor.getColumnIndexOrThrow(TaskProvider.COLUMN_NOTES);
+
+                // Get the values of the fields
+                long id = cursor.getLong(idIndex);
+                String title = cursor.getString(titleIndex);
+                String notes = cursor.getString(notesIndex);
+
+                Task t = new Task();
+                t.id=id;
+                t.title=title;
+                t.notes=notes;
+                return t;
             }
         };
-
-        // HACK
-        ((ImageView)getActivity().findViewById(android.support.v17.leanback
-                .R.id.icon)).setImageResource(android.R.drawable.ic_input_add);
 
         setOnSearchClickedListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // For now, repurpose search for an Add Task button
+                    // For now, repurpose search as an Add Task button
                     startActivity(
                         new Intent(
                             getActivity(),
@@ -146,9 +157,7 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
             new OnItemViewClickedListener() {
                 @Override
                 public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
-                    Cursor cursor = (Cursor) item;
-                    long id = cursor.getLong(cursor.getColumnIndex
-                            (TaskProvider.COLUMN_TASKID));
+                    long id = ((Task)item).id;
                     startActivity(
                         new Intent(
                             getActivity(),
