@@ -82,15 +82,6 @@ public class TaskEditFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // If we're restoring state from a previous activity, restore the
-        // previous date as well
-        if (savedInstanceState != null) {
-            taskId = savedInstanceState.getLong(TASK_ID);
-            taskDateAndTime =
-                    (Calendar) savedInstanceState.getSerializable
-                            (TASK_DATE_AND_TIME);
-        }
-
         // If we didn't have a previous date, use "now"
         if (taskDateAndTime == null) {
             taskDateAndTime = Calendar.getInstance();
@@ -100,6 +91,15 @@ public class TaskEditFragment extends Fragment implements
         Bundle arguments = getArguments();
         if (arguments != null) {
             taskId = arguments.getLong(TaskProvider.COLUMN_TASKID, 0L);
+        }
+
+        // If we're restoring state from a previous activity, restore the
+        // previous date as well
+        if (savedInstanceState != null) {
+            taskId = savedInstanceState.getLong(TASK_ID);
+            taskDateAndTime =
+                (Calendar) savedInstanceState.getSerializable
+                    (TASK_DATE_AND_TIME);
         }
     }
 
