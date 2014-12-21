@@ -52,6 +52,8 @@ public class TaskEditFragment extends Fragment implements
     public static final String DEFAULT_FRAGMENT_TAG =
             "taskEditFragment";
 
+    static final int MENU_SAVE = 1;
+
     // Constants for saving instance state
     static final String TASK_ID = "taskId";
     static final String TASK_DATE_AND_TIME = "taskDateAndTime";
@@ -268,7 +270,7 @@ public class TaskEditFragment extends Fragment implements
         // Create a menu item named "Save" and give it an id of 1.
         // If you have multiple menu items, it's a good practice to
         // create static final ints to name them.
-        menu.add(0, 1, 0, R.string.confirm)
+        menu.add(0, MENU_SAVE, 0, R.string.confirm)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
@@ -276,7 +278,7 @@ public class TaskEditFragment extends Fragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             // The Save button was pressed
-            case 1:
+            case MENU_SAVE:
                 save();
 
                 // Tell our enclosing activity that we are done so that
