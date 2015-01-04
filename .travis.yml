@@ -8,8 +8,8 @@ android:
     - android-21
     - extra
 
-script:
+# script:
     # default target is "build connectedCheck" but that breaks on travis
     # because there is no emulator
     # http://docs.travis-ci.com/user/languages/android/
-    - ./gradlew build assemble
+    # - ./gradlew build assemble
