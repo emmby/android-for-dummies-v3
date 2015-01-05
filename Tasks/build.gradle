@@ -50,8 +50,12 @@ android {
     }
 
     productFlavors {
-        phone {}
-        tablet {}
+        phone {
+            buildConfigField 'boolean', 'SHOULD_USE_PALETTE', 'true'
+        }
+        tablet {
+            buildConfigField 'boolean', 'SHOULD_USE_PALETTE', 'false'
+        }
     }
 }
 

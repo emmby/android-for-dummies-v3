@@ -32,9 +32,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.dummies.tasks.BuildConfig;
 import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditFinished;
-import com.dummies.tasks.interfaces.ShouldUsePalette;
 import com.dummies.tasks.provider.TaskProvider;
 import com.dummies.tasks.util.ReminderManager;
 import com.squareup.picasso.Callback;
@@ -439,8 +439,7 @@ public class TaskEditFragment extends Fragment implements
                         // Don't do this for tablets, only phones,
                         // since it doesn't really work with a split
                         // screen view.
-                        if( !((ShouldUsePalette)activity)
-                            .shouldUsePalette() )
+                        if( !BuildConfig.SHOULD_USE_PALETTE )
                             return;
 
                         // Set the colors of the activity based on the
