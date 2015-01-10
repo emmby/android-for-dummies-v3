@@ -56,8 +56,4 @@ public class CardPresenter extends Presenter {
     public void onUnbindViewHolder(Presenter.ViewHolder viewHolder) {
     }
 
-    @Override
-    public void onViewAttachedToWindow(Presenter.ViewHolder viewHolder) {
-    }
-
 }
