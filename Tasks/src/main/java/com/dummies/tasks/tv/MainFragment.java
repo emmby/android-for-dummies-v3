@@ -122,8 +122,10 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
                         ((CardPresenter.ViewHolder) itemViewHolder)
                             .cardView;
                     Drawable d = cardView.getMainImage();
-                    Bitmap b = ((BitmapDrawable) d).getBitmap();
-                    backgroundManager.setBitmap(b);
+                    if(d!=null) {
+                        Bitmap b = ((BitmapDrawable) d).getBitmap();
+                        backgroundManager.setBitmap(b);
+                    }
                 }
             }
         );
