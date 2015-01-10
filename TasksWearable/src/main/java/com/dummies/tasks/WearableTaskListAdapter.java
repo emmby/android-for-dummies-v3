@@ -23,7 +23,7 @@ public class WearableTaskListAdapter
 {
 
     // This must match the name used in the phone app
-    static final java.lang.String COLUMN_TITLE = "title";
+    static final String COLUMN_TITLE = "title";
 
     // The current list of dataItems
     List<DataItem> dataItems;
