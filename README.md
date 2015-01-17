@@ -17,6 +17,10 @@ This code is automatically checked out and built on a continuous
 integration server named travis-ci.  To see the latest build results,
 visit https://travis-ci.org/emmby/android-for-dummies-v3
 
+The Tasks app is published to Google Play.  You can download it from
+the Google Play Store here:
+https://play.google.com/store/apps/details?id=com.dummies.tasks
+
 They keystore for uploading these apps to the play store is stored in a
 private git repository hosted at
 https://bitbucket.org/emmby/android-for-dummies-v3-keystore.  You won't
