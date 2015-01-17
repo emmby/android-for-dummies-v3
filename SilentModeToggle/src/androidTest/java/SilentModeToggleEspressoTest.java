@@ -18,7 +18,9 @@ import static android.support.test.espresso.matcher.ViewMatchers
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
-public class SilentModeToggleEspressoTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class SilentModeToggleEspressoTest 
+    extends ActivityInstrumentationTestCase2<MainActivity> 
+{
 
     public SilentModeToggleEspressoTest() {
         super(MainActivity.class);
@@ -27,6 +29,10 @@ public class SilentModeToggleEspressoTest extends ActivityInstrumentationTestCas
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        
+        // Get the Activity under test, starting it if necessary.
+        // This must be done before you can run any testcases
+        // that use the activity.
         getActivity();
     }
 
