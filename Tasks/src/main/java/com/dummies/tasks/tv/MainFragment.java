@@ -24,7 +24,6 @@ import android.support.v17.leanback.widget.OnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
-import android.view.View;
 
 import com.dummies.tasks.R;
 import com.dummies.tasks.activity.TaskEditActivity;
@@ -86,25 +85,9 @@ public class MainFragment extends BrowseFragment implements LoaderManager.Loader
         // set fastLane (or headers) background color
         setBrandColor(getResources().getColor(R.color.primary));
 
-        // set search icon color
-        setSearchAffordanceColor(getResources().getColor(R.color.accent));
-
         CardPresenter cardPresenter = new CardPresenter();
 
         CursorMapper simpleMapper = new CursorToTaskMapper();
-
-        setOnSearchClickedListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // For now, repurpose search as an Add Task button
-                    startActivity(
-                        new Intent(
-                            getActivity(),
-                            TaskEditActivity.class));
-                }
-            }
-        );
 
         setOnItemViewSelectedListener(
             new OnItemViewSelectedListener() {
