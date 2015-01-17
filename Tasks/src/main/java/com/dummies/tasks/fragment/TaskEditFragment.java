@@ -423,6 +423,8 @@ public class TaskEditFragment extends Fragment implements
         Picasso.with(getActivity())
                 .load(TaskProvider.getImageUrlForTask(taskId))
                 .into(imageView, new Callback() {
+                    @SuppressWarnings({"PointlessBooleanExpression",
+                        "ConstantConditions"})
                     @Override
                     public void onSuccess() {
                         Activity activity = getActivity();
