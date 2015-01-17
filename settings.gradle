@@ -1,2 +1,2 @@
 // The list of apps in this directory that we want to build.
-include ':Tasks', ':SilentModeToggle', ':TasksWearable', 'HelloAndroid'
+include ':Tasks', ':SilentModeToggle', ':TasksWearable', ':HelloAndroid'

@@ -111,8 +111,8 @@ public class TaskProvider extends ContentProvider implements
      * for the information, and then return it in a Cursor.
      */
     @Override
-    public Cursor query(Uri uri, String[] ignored1, String ignored2,
-                        String[] ignored3, String ignored4) {
+    public Cursor query(Uri uri, String[] ignored1, String selection,
+                        String[] selectionArgs, String sortOrder) {
 
         String[] projection = new String[]{
                 COLUMN_TASKID,
@@ -128,8 +128,8 @@ public class TaskProvider extends ContentProvider implements
             // We were asked to return a list of tasks
             case LIST_TASK:
                 c = db.query(DATABASE_TABLE,
-                        projection, null,
-                        null, null, null, null);
+                        projection, selection,
+                        selectionArgs, null, null, sortOrder);
                 break;
 
             // We were asked to return a specific task

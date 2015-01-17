@@ -6,6 +6,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.dummies.tasks">
 
+    <!-- For Android TV -->
+    <uses-feature android:name="android.hardware.touchscreen"
+                  android:required="false" />
+
     <!-- Declare the various permissions that our app needs to run.
          When users download our app from the Play store, the store
          will notify users of the permissions we request here. -->
@@ -44,6 +48,16 @@
 
         <!-- The Preferences activity for customizing apps settings -->
         <activity android:name=".activity.PreferencesActivity"/>
+
+
+        <activity android:name=".tv.BrowseActivity"
+                  android:theme="@style/Theme.Leanback"
+                  android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name ="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
         <!-- Our OnAlarmReceiver, which is triggered whenever one of
