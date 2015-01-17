@@ -13,6 +13,10 @@ visit https://github.com/emmby/android-for-dummies-v3 for the latest
 updates on GitHub.  There, you'll be able to see the latest code and
 contribute pull requests.
 
+This code is automatically checked out and built on a continuous
+integration server named travis-ci.  To see the latest build results,
+visit https://travis-ci.org/emmby/android-for-dummies-v3
+
 They keystore for uploading these apps to the play store is stored in a
 private git repository hosted at
 https://bitbucket.org/emmby/android-for-dummies-v3-keystore.  You won't
