@@ -11,6 +11,7 @@
 # Generated files
 bin/
 gen/
+manifest-merger-*.txt
 
 # Gradle files
 .gradle/
