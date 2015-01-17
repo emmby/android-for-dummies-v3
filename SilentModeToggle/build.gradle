@@ -37,6 +37,10 @@ android {
         // think of as "the version" of our app.  It can be things like
         // 1.0, 2.0, 2.0.1, 3.0-alpha-1, 4.0 (build 1023), etc.
         versionName "1.0"
+
+        // The test runner to use when running the testcases.
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -48,8 +52,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    // To fix a bug in espresso-2.0
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
 }
 
 // Libraries that our app will use
 dependencies {
+    
+    // Test dependencies
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
 }
