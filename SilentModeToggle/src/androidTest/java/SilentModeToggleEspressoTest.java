@@ -9,7 +9,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.support.test.espresso.IdlingPolicies;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import com.dummies.silentmodetoggle.MainActivity;
 import com.dummies.silentmodetoggle.R;
@@ -25,8 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers
     .isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-@LargeTest
-public class SilentModeToggleEspressoTest 
+public class SilentModeToggleEspressoTest
     extends ActivityInstrumentationTestCase2<MainActivity> 
 {
     static {
