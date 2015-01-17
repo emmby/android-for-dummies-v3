@@ -69,4 +69,9 @@ dependencies {
 
     // Picasso is a library from Square that makes downloading images easy
     compile 'com.squareup.picasso:picasso:2.4.0'
+
+    // For wearables
+    compile 'com.google.android.gms:play-services-wearable:6.5.87'
+
+    wearApp project(':TasksWearable')
 }

@@ -27,6 +27,11 @@
         android:theme="@style/AppTheme"
         android:icon="@drawable/ic_launcher" >
 
+        <!-- required for android wearable syncing -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
         <!-- The Task Edit Activity for phones.
              We set documentLaunchMode to always to make every task
              we edit show up as a separate entry in the phone's Recent
@@ -38,15 +43,16 @@
                   android:documentLaunchMode="always" />
 
         <!-- The Preferences activity for customizing apps settings -->
-        <activity android:name=".activity.PreferencesActivity" />
+        <activity android:name=".activity.PreferencesActivity"/>
 
 
         <!-- Our OnAlarmReceiver, which is triggered whenever one of
              our reminder alarms fires.  We don't need other apps to be
              able to call it, so as a security measure let's set
              export to false. -->
-        <receiver android:name=".receiver.OnAlarmReceiver"
-                  android:exported="false"/>
+        <receiver
+            android:name=".receiver.OnAlarmReceiver"
+            android:exported="false"/>
 
         <!-- Our OnBootReceiver, which is triggered whenever the phone
              boots up (android.intent.action.BOOT_COMPLETED). Again,
@@ -56,7 +62,7 @@
             android:name=".receiver.OnBootReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
@@ -70,7 +76,7 @@
         <provider
             android:name=".provider.TaskProvider"
             android:authorities="com.dummies.tasks.provider.TaskProvider"
-            android:exported="false" />
+            android:exported="false"/>
 
     </application>
 

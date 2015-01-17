@@ -10,12 +10,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.Bundle;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 
 /**
  * A Content Provider that knows how to read and write tasks from our
  * tasks database.
  */
-public class TaskProvider extends ContentProvider {
+public class TaskProvider extends ContentProvider implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient
+        .OnConnectionFailedListener {
     // Content Provider Uri and Authority
     public static final String AUTHORITY = "com.dummies" +
             ".tasks.provider.TaskProvider";
@@ -42,6 +52,9 @@ public class TaskProvider extends ContentProvider {
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "tasks";
 
+    // Google Play Constants
+    private static final String PLAY_BASE_URL = "/" + DATABASE_TABLE;
+
     // UriMatcher stuff
     private static final int LIST_TASK = 0;
     private static final int ITEM_TASK = 1;
@@ -50,6 +63,9 @@ public class TaskProvider extends ContentProvider {
 
     // The database
     SQLiteDatabase db;
+
+    // The Google Play api client, used for Android Wearable syncing
+    GoogleApiClient googleApiClient;
 
     /**
      * Builds up a UriMatcher for search suggestion and shortcut refresh
@@ -76,8 +92,18 @@ public class TaskProvider extends ContentProvider {
     public boolean onCreate() {
         // Grab a connection to our database
         db = new DatabaseHelper(getContext()).getWritableDatabase();
+
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        googleApiClient.connect();
+
         return true;
     }
+
+
 
     /**
      * This method is called when someone wants to read something from
@@ -141,6 +167,19 @@ public class TaskProvider extends ContentProvider {
         long id = db.insertOrThrow(DATABASE_TABLE, null,
                 values);
         getContext().getContentResolver().notifyChange(uri, null);
+
+        // Save to google Play for wearable support
+        PutDataMapRequest dataMap = PutDataMapRequest.create(
+                PLAY_BASE_URL + "/" + id);
+        DataMap map = dataMap.getDataMap();
+        map.putLong(COLUMN_TASKID, id);
+        map.putString(COLUMN_TITLE, values.getAsString(COLUMN_TITLE));
+        map.putLong(COLUMN_DATE_TIME, values.getAsLong(COLUMN_DATE_TIME));
+        map.putString(COLUMN_NOTES, values.getAsString(COLUMN_NOTES));
+        PutDataRequest request = dataMap.asPutDataRequest();
+        Wearable.DataApi.putDataItem(googleApiClient, request);
+
+
         return ContentUris.withAppendedId(uri, id);
     }
 
@@ -150,6 +189,8 @@ public class TaskProvider extends ContentProvider {
      */
     @Override
     public int delete(Uri uri, String ignored1, String[] ignored2) {
+        // TODO delete from google play
+
         int count = db.delete(DATABASE_TABLE,
                 COLUMN_TASKID + "=?",
                 new String[]{Long.toString(ContentUris.parseId(uri))});
@@ -169,11 +210,25 @@ public class TaskProvider extends ContentProvider {
         if( values.containsKey(COLUMN_TASKID))
             throw new UnsupportedOperationException();
 
+        long id = ContentUris.parseId(uri);
         int count = db.update(DATABASE_TABLE, values,
                 COLUMN_TASKID + "=?",
-                new String[]{Long.toString(ContentUris.parseId(uri))});
+                new String[]{Long.toString(id)});
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
+
+        // Update to google Play for wearable support
+        PutDataMapRequest dataMap = PutDataMapRequest.create(
+                PLAY_BASE_URL + "/" + id);
+        DataMap map = dataMap.getDataMap();
+        map.putLong(COLUMN_TASKID, values.getAsLong(COLUMN_TASKID));
+        map.putString(COLUMN_TITLE, values.getAsString(COLUMN_TITLE));
+        map.putLong(COLUMN_DATE_TIME, values.getAsLong(COLUMN_DATE_TIME));
+        map.putString(COLUMN_NOTES, values.getAsString(COLUMN_NOTES));
+        PutDataRequest request = dataMap.asPutDataRequest();
+        Wearable.DataApi.putDataItem(googleApiClient, request);
+
+
         return count;
     }
 
@@ -190,6 +245,21 @@ public class TaskProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Unknown Uri: " + uri);
         }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        // TODO
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        // TODO
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // TODO
     }
 
     /**
