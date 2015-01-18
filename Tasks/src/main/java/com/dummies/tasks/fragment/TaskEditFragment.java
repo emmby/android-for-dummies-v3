@@ -157,20 +157,6 @@ public class TaskEditFragment extends Fragment implements
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        FusedLocationApi.removeLocationUpdates(googleApiClient, this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if( googleApiClient.isConnected() )
-            FusedLocationApi.requestLocationUpdates(googleApiClient,
-                locationRequest,this);
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
