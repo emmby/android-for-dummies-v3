@@ -7,14 +7,11 @@
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
-import android.support.test.espresso.IdlingPolicies;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.dummies.silentmodetoggle.MainActivity;
 import com.dummies.silentmodetoggle.R;
 import com.dummies.silentmodetoggle.util.RingerHelper;
-
-import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -27,12 +24,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class SilentModeToggleEspressoTest
     extends ActivityInstrumentationTestCase2<MainActivity> 
 {
-    static {
-        // The Travis ARM emulator is sloooooooow
-        IdlingPolicies.setIdlingResourceTimeout(1, TimeUnit.MINUTES);
-        IdlingPolicies.setMasterPolicyTimeout(1, TimeUnit.MINUTES);
-    }
-    
     AudioManager audioManager;
 
     public SilentModeToggleEspressoTest() {
@@ -71,7 +62,7 @@ public class SilentModeToggleEspressoTest
         // When the phone_icon view is available,
         // click it one more time.
         onView(withId(R.id.phone_icon)).perform(click());
-        
+
         // Then assert that the phone is now in silent mode.
         assertTrue(RingerHelper.isPhoneSilent(audioManager));
     }

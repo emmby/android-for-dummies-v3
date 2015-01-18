@@ -7,13 +7,10 @@ android:
     - build-tools-21.1.2
     - android-21
     - extra
-    - sys-img-armeabi-v7a-android-21
 
 
-# Emulator Management: Create, Start and Wait
-# http://docs.travis-ci.com/user/languages/android/
-before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+script:
+    # default target is "build connectedCheck" but that breaks on travis
+    # because emulator is not well supported yet.
+    # http://docs.travis-ci.com/user/languages/android/
+    - ./gradlew build assemble
