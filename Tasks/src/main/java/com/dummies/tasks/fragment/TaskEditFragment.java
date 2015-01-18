@@ -535,7 +535,7 @@ public class TaskEditFragment extends Fragment implements
 
     @Override
     public void onConnectionSuspended(int cause) {
-        // The connection has been interrupted.
+        // The Google Play connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
         //
@@ -552,6 +552,8 @@ public class TaskEditFragment extends Fragment implements
 
     @Override
     public void onLocationChanged(final Location location) {
+        // Ask google for the address of the location.
+        // This may take awhile, so do it in an AsyncTask.
         new AsyncTask<Void,Void,Address>() {
             @Override
             protected Address doInBackground(Void[] params) {
