@@ -586,9 +586,11 @@ public class TaskEditFragment extends Fragment implements
             // Performed on the UI thread
             @Override
             protected void onPostExecute(Address address) {
-                String s = address.getThoroughfare();
-                if( s!=null )
-                    locationText.setText(s);
+                if(address!=null) {
+                    String s = address.getThoroughfare();
+                    if (s != null)
+                        locationText.setText(s);
+                }
             }
         }.execute();
     }
