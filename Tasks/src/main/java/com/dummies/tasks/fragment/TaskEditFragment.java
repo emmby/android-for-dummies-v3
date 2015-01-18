@@ -15,7 +15,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.graphics.Palette;
@@ -37,16 +41,33 @@ import com.dummies.tasks.R;
 import com.dummies.tasks.interfaces.OnEditFinished;
 import com.dummies.tasks.provider.TaskProvider;
 import com.dummies.tasks.util.ReminderManager;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import static com.google.android.gms.common.api.GoogleApiClient
+    .ConnectionCallbacks;
+import static com.google.android.gms.common.api.GoogleApiClient
+    .OnConnectionFailedListener;
+import static com.google.android.gms.location.LocationServices
+    .FusedLocationApi;
 
 public class TaskEditFragment extends Fragment implements
         OnDateSetListener, OnTimeSetListener,
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        ConnectionCallbacks, OnConnectionFailedListener,
+        LocationListener
+{
 
     // The "name" that we'll usually use to identify this fragment
     public static final String DEFAULT_FRAGMENT_TAG =
@@ -80,9 +101,27 @@ public class TaskEditFragment extends Fragment implements
     long taskId;
     Calendar taskDateAndTime;
 
+    // The Google API client, for location services
+    GoogleApiClient googleApiClient;
+
+    // The LocationRequest defines how often we need location updates
+    LocationRequest locationRequest = new LocationRequest()
+        .setInterval(30000)
+        .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+    Geocoder geocoder;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        googleApiClient = new GoogleApiClient.Builder(getActivity())
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .addApi(LocationServices.API)
+            .build();
+        
+        geocoder = new Geocoder(getActivity());
 
         // If we didn't have a previous date, use "now"
         if (taskDateAndTime == null) {
@@ -99,10 +138,35 @@ public class TaskEditFragment extends Fragment implements
         // previous date as well
         if (savedInstanceState != null) {
             taskId = savedInstanceState.getLong(TASK_ID);
-            taskDateAndTime =
-                (Calendar) savedInstanceState.getSerializable
-                    (TASK_DATE_AND_TIME);
+            taskDateAndTime = (Calendar)
+                savedInstanceState.getSerializable(TASK_DATE_AND_TIME);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        googleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        googleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if( googleApiClient.isConnected() )
+            FusedLocationApi.requestLocationUpdates(googleApiClient,
+                locationRequest,this);
     }
 
     @Override
@@ -376,7 +440,7 @@ public class TaskEditFragment extends Fragment implements
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Compute the URI for the task we want to load
         Uri taskUri = ContentUris.withAppendedId(
-                TaskProvider.CONTENT_URI, taskId);
+            TaskProvider.CONTENT_URI, taskId);
 
         // Create a cursor loader
         return new CursorLoader(getActivity(),
@@ -472,4 +536,59 @@ public class TaskEditFragment extends Fragment implements
         // nothing to reset for this fragment.
     }
 
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        // Connected to Google Play services!
+
+        FusedLocationApi.requestLocationUpdates(googleApiClient,
+            locationRequest, this);
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // The connection has been interrupted.
+        // Disable any UI components that depend on Google APIs
+        // until onConnected() is called.
+        //
+        // This example doesn't need to do anything here.
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // This callback is important for handling errors that
+        // may occur while attempting to connect with Google.
+        //
+        // This example doesn't need to do anything here.
+    }
+
+    @Override
+    public void onLocationChanged(final Location location) {
+        new AsyncTask<Void,Void,Address>() {
+            @Override
+            protected Address doInBackground(Void[] params) {
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(
+                        location.getLatitude(),
+                        location.getLongitude(), 1);
+                    
+                    if( addresses!=null && addresses.size()>0 )
+                        return addresses.get(0);
+                    
+                } catch (IOException e) {
+                    // ignored
+                }
+                return null;
+            }
+
+            // Performed on the UI thread
+            @Override
+            protected void onPostExecute(Address address) {
+                String s = address.getThoroughfare();
+                if( s!=null )
+                    Toast.makeText(getActivity(), s,Toast.LENGTH_LONG)
+                        .show();
+            }
+        }.execute();
+    }
 }

@@ -15,6 +15,8 @@
          will notify users of the permissions we request here. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <!-- Declare the application.  We'll allow backups since we have
          nothing sensitive to hide.  We'll also set our app's Theme
