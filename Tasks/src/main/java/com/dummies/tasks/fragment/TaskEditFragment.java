@@ -95,6 +95,7 @@ public class TaskEditFragment extends Fragment implements
     ImageView imageView;
     TextView dateButton;
     TextView timeButton;
+    TextView locationText;
 
     // Some information about this task that we'll store here until we
     // save it to the database
@@ -190,6 +191,7 @@ public class TaskEditFragment extends Fragment implements
         notesText = (EditText) v.findViewById(R.id.notes);
         dateButton = (TextView) v.findViewById(R.id.task_date);
         timeButton = (TextView) v.findViewById(R.id.task_time);
+        locationText = (TextView) v.findViewById(R.id.task_location);
         imageView = (ImageView) v.findViewById(R.id.image);
 
         // Tell the date and time buttons what to do when we click on
@@ -586,8 +588,7 @@ public class TaskEditFragment extends Fragment implements
             protected void onPostExecute(Address address) {
                 String s = address.getThoroughfare();
                 if( s!=null )
-                    Toast.makeText(getActivity(), s,Toast.LENGTH_LONG)
-                        .show();
+                    locationText.setText(s);
             }
         }.execute();
     }

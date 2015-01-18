@@ -66,6 +66,17 @@
             android:layout_toStartOf="@id/task_time"
             android:layout_alignBottom="@id/task_time"/>
 
+        <!-- The task's location.  This is below the date/time -->
+        <TextView
+            style="@android:style/TextAppearance.Medium"
+            android:id="@+id/task_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_alignEnd="@id/task_time"
+            android:layout_below="@id/task_time"
+            />
+
         <!-- Allows the user to edit the task's notes.
              We'll place this below the title.  We'll also give it
              a minimum of 5 lines of height to accommodate longer
@@ -78,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/title"
             android:layout_marginEnd="@dimen/gutter"
-            android:layout_below="@id/task_time"
+            android:layout_below="@id/task_location"
             android:gravity="top"
             android:hint="@string/notes"
             android:minLines="5" />
