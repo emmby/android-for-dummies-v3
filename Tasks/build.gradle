@@ -75,6 +75,9 @@ dependencies {
 
     // For tv
     compile 'com.android.support:leanback-v17:21.0.3'
+    
+    // For location
+    compile 'com.google.android.gms:play-services-location:6.5.87'
 
     wearApp project(':TasksWear')
 }
