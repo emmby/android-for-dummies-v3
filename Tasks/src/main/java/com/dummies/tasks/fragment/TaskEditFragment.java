@@ -269,8 +269,9 @@ public class TaskEditFragment extends Fragment implements
                 Toast.LENGTH_SHORT).show();
 
         // Create a reminder for this task
-        ReminderManager.setReminder( getActivity(),
-                taskId, title, taskDateAndTime);
+        ReminderManager.setReminder(
+            getActivity(),
+            taskId, title, taskDateAndTime);
     }
 
     /**
@@ -547,7 +548,15 @@ public class TaskEditFragment extends Fragment implements
         // This callback is important for handling errors that
         // may occur while attempting to connect with Google.
         //
-        // This example doesn't need to do anything here.
+        // If your app won't work properly without location 
+        // updates, then it's important to handle connection errors
+        // properly.  For more information about how to do that, see
+        // https://developer.android.com/google/auth/api-client.html
+        // for more information about handling errors when connecting
+        // to Google.
+        //
+        // Location information is optional for this app, so connection
+        // errors can be safely ignored here.
     }
 
     @Override
