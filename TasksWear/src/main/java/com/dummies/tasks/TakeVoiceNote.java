@@ -97,7 +97,7 @@ public class TakeVoiceNote extends Activity
                     DataMap map = dataMap.getDataMap();
                     map.putLong(COLUMN_TASKID, id);
                     map.putString(COLUMN_TITLE, voiceNote);
-//                    map.putLong(COLUMN_DATE_TIME, values.getAsLong(COLUMN_DATE_TIME));
+                    map.putLong(COLUMN_DATE_TIME, System.currentTimeMillis());
                     map.putString(COLUMN_NOTES, "Voice note");
                     PutDataRequest request = dataMap.asPutDataRequest();
                     Wearable.DataApi.putDataItem(googleApiClient, request);
