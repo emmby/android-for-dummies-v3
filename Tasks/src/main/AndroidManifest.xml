@@ -61,6 +61,12 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".service.AddTaskWearableListenerService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
 
         <!-- Our OnAlarmReceiver, which is triggered whenever one of
              our reminder alarms fires.  We don't need other apps to be

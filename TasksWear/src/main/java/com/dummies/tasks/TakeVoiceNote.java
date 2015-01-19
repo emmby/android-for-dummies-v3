@@ -7,30 +7,19 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.data.FreezableUtils;
-import com.google.android.gms.wearable.DataItem;
-import com.google.android.gms.wearable.DataItemBuffer;
-import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
-import com.google.android.gms.wearable.PutDataMapRequest;
-import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
 
-import java.util.List;
+import java.nio.charset.Charset;
+
+import static com.google.android.gms.wearable.NodeApi
+    .GetConnectedNodesResult;
 
 public class TakeVoiceNote extends Activity
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
-    public static final String COLUMN_TASKID = "_id";
-    public static final String COLUMN_DATE_TIME = "task_date_time";
-    public static final String COLUMN_NOTES = "notes";
-    public static final String COLUMN_TITLE = "title";
-
-    // Google Play Constants
-    private static final String PLAY_BASE_URL = "/tasks";
-
+    private static final String PATH_ADD_TASK = "/addTask";
 
     GoogleApiClient googleApiClient;
 
@@ -43,8 +32,6 @@ public class TakeVoiceNote extends Activity
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
             .build();
-
-
     }
 
     @Override
@@ -69,47 +56,35 @@ public class TakeVoiceNote extends Activity
         Log.d("TakeVoiceActivity", "onConnected");
         
         // The speech recognition text is passed in via the intent
-        final String voiceNote = getIntent().getStringExtra(
+        String voiceNote = getIntent().getStringExtra(
             Intent.EXTRA_TEXT);
-        
-        PendingResult<DataItemBuffer> result =
-            Wearable.DataApi.getDataItems(googleApiClient);
-        
-        result.setResultCallback(
-            new ResultCallback<DataItemBuffer>() {
-                @Override
-                public void onResult(DataItemBuffer existingTasks) {
-                    List<DataItem> items
-                        = FreezableUtils.freezeIterable(existingTasks);
 
-                    // Get the highest ID currently in the DB
-                    DataItem item = items.get(items.size() - 1);
-                    DataMap previousMap
-                        = DataMapItem.fromDataItem(item).getDataMap();
-                    long highestPreviousId 
-                        = previousMap.getLong(COLUMN_TASKID);
+        final byte[] voiceNoteBytes =
+            voiceNote.getBytes(Charset.forName("utf-8"));
 
-                    // Create a new task with an ID that's one higher
-                    // than the previous highest ID.
-                    long id = highestPreviousId + 1;
-                    PutDataMapRequest dataMap = PutDataMapRequest.create(
-                        PLAY_BASE_URL + "/" + id);
-                    DataMap map = dataMap.getDataMap();
-                    map.putLong(COLUMN_TASKID, id);
-                    map.putString(COLUMN_TITLE, voiceNote);
-                    map.putLong(COLUMN_DATE_TIME, System.currentTimeMillis());
-                    map.putString(COLUMN_NOTES, "Voice note");
-                    PutDataRequest request = dataMap.asPutDataRequest();
-                    Wearable.DataApi.putDataItem(googleApiClient, request);
 
-                    // Show the new task to the user
-                    startActivity( new Intent(TakeVoiceNote.this,
-                            MainActivity.class));
-                    finish();
+        Wearable.NodeApi.getConnectedNodes(googleApiClient)
+            .setResultCallback(
+                new ResultCallback<GetConnectedNodesResult>() {
+                    @Override
+                    public void onResult(GetConnectedNodesResult nodes) {
+                        for (Node node : nodes.getNodes()) {
+                            
+                            // Send the phone a message requesting that
+                            // it add the task to the database
+                            Wearable.MessageApi.sendMessage(
+                                googleApiClient,
+                                node.getId(),
+                                PATH_ADD_TASK,
+                                voiceNoteBytes
+                                );
+                            
+                        }
+                        
+                        finish();
+                    }
                 }
-            }
-        );
-
+            );
     }
 
     @Override
