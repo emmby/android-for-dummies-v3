@@ -53,7 +53,7 @@ public class TakeVoiceNote extends Activity
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("TakeVoiceActivity", "onConnected");
+        Log.d("TakeVoiceNote", "onConnected");
         
         // The speech recognition text is passed in via the intent
         String voiceNote = getIntent().getStringExtra(
@@ -91,14 +91,14 @@ public class TakeVoiceNote extends Activity
     public void onConnectionSuspended(int i) {
         // Just log a message.  We don't have to do anything at all,
         // but a log message can help us debug any issues.
-        Log.d("TakeVoiceActivity", "onConnectionSuspended");
+        Log.d("TakeVoiceNote", "onConnectionSuspended");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // Just log a message.  We don't have to do anything at all,
         // but a log message can help us debug any issues.
-        Log.d("TakeVoiceActivity", "onConnectionFailed");
+        Log.d("TakeVoiceNote", "onConnectionFailed");
     }
 
 }
