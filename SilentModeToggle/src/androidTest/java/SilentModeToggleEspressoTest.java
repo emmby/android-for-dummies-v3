@@ -57,7 +57,7 @@ public class SilentModeToggleEspressoTest
             onView(withId(R.id.phone_icon)).perform(click());
 
         // Sanity check that we're not in silent mode
-        assertTrue(!RingerHelper.isPhoneSilent(audioManager));
+        assertFalse(RingerHelper.isPhoneSilent(audioManager));
 
         // When the phone_icon view is available,
         // click it one more time.
