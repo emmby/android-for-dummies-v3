@@ -42,6 +42,9 @@ public class SilentModeToggleEspressoTest
         // Retrieve an AudioManager from the activity
         audioManager = (AudioManager) 
             activity.getSystemService(Context.AUDIO_SERVICE);
+
+        // Make sure the ringer mode is reset to normal
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
     }
 
     public void testPhoneIconIsDisplayed() {
@@ -51,16 +54,7 @@ public class SilentModeToggleEspressoTest
     }
     
     public void testCanToggleIcon() {
-        // When the phone_icon view is available,
-        // click it until the phone is no longer silent
-        while( RingerHelper.isPhoneSilent(audioManager) )
-            onView(withId(R.id.phone_icon)).perform(click());
-
-        // Sanity check that we're not in silent mode
-        assertFalse(RingerHelper.isPhoneSilent(audioManager));
-
-        // When the phone_icon view is available,
-        // click it one more time.
+        // When the phone_icon view is available, click it
         onView(withId(R.id.phone_icon)).perform(click());
 
         // Then assert that the phone is now in silent mode.
