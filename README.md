@@ -1,6 +1,9 @@
 Android App Development for Dummies, v3
 ===============================================
 
+![Book cover](/https://raw.githubusercontent.com/emmby/android-for-dummies-v3/master/book-cover.png)
+
+
 [![Build Status on Travis:](https://travis-ci.org/emmby/android-for-dummies-v3.svg?branch=master)](https://travis-ci.org/emmby/android-for-dummies-v3)
 
 This is the sourcecode repository for Android Application Development for
