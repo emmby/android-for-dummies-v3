@@ -127,10 +127,6 @@ public class MainActivity extends Activity
     }
 
     private void updateList() {
-        // TODO is getDataItems pulling from a local store,
-        // or resyncing across the network?  If going across network,
-        // may need to rethink this
-
         // Retrieve the complete list of dataitems using DataApi
         // .getDataItems.  Because this may involve a network sync and
         // may take some time, get the results back in a ResultCallback
