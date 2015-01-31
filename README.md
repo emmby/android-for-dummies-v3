@@ -1,7 +1,7 @@
 Android App Development for Dummies, v3
 ===============================================
 
-![Book cover](/https://raw.githubusercontent.com/emmby/android-for-dummies-v3/master/book-cover.png)
+![Book cover](https://raw.githubusercontent.com/emmby/android-for-dummies-v3/master/assets/book-cover.png)
 
 
 [![Build Status on Travis:](https://travis-ci.org/emmby/android-for-dummies-v3.svg?branch=master)](https://travis-ci.org/emmby/android-for-dummies-v3)
