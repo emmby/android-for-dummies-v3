@@ -6,7 +6,7 @@ Android App Development for Dummies, v3
 This is the sourcecode repository for Android Application Development for
 Dummies, v3.
 
-The book's website is available here:  XXX
+The book's website is available here: http://www.dummies.com/go/androidappdevfd3e
 
 If you downloaded this sourcecode from the book's website, you should
 visit https://github.com/emmby/android-for-dummies-v3 for the latest
@@ -15,14 +15,13 @@ contribute pull requests.
 
 This code is automatically checked out and built on a continuous
 integration server named travis-ci.  To see the latest build results,
-visit https://travis-ci.org/emmby/android-for-dummies-v3
+visit https://travis-ci.org/emmby/android-for-dummies-v3.  To see the 
+travis configuration file for this project, open .travis.yml.
 
-The Tasks app is published to Google Play.  You can download it from
-the Google Play Store here:
-https://play.google.com/store/apps/details?id=com.dummies.tasks
+The Tasks app from the book has been published to [Google Play](https://play.google.com/store/apps/details?id=com.dummies.tasks).
 
-They keystore for uploading these apps to the play store is stored in a
-private git repository hosted at
+As a final note, the keystore for uploading these apps to the play store
+is stored in a private git repository hosted at
 https://bitbucket.org/emmby/android-for-dummies-v3-keystore.  You won't
- need access to this file to build your app.  It's only for maintainers
-  of the official com.dummies.* apps on the Google Play store.
+need access to this file to build your app.  It's only for maintainers
+of the official com.dummies.* apps on the Google Play store.
