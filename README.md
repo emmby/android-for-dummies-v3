@@ -6,12 +6,13 @@ Android App Development for Dummies, v3
 
 [![Build Status on Travis:](https://travis-ci.org/emmby/android-for-dummies-v3.svg?branch=master)](https://travis-ci.org/emmby/android-for-dummies-v3)
 
-This is the sourcecode repository for Android Application Development for
-Dummies, v3.
+This is the sourcecode repository for [Android Application Development for
+Dummies, 3rd edition](http://www.amazon.com/Android-Development-Dummies-Michael-Burton/dp/1119017920).
 
-The book's website is available here: http://www.dummies.com/go/androidappdevfd3e
+The book's website, featuring additional content such as web articles 
+and source code, is available here: http://www.dummies.com/go/androidappdevfd3e
 
-If you downloaded this sourcecode from the book's website, you should
+If you downloaded this source code from the book's website, you should
 visit https://github.com/emmby/android-for-dummies-v3 for the latest
 updates on GitHub.  There, you'll be able to see the latest code and
 contribute pull requests.
