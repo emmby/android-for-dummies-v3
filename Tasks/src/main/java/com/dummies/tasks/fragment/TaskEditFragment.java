@@ -101,6 +101,7 @@ public class TaskEditFragment extends Fragment implements
     // save it to the database
     long taskId;
     Calendar taskDateAndTime;
+    ShowTimePickerClickListener showTimePickerClickListener = new ShowTimePickerClickListener();
 
     // The Google API client, for location services
     GoogleApiClient googleApiClient;
@@ -182,18 +183,9 @@ public class TaskEditFragment extends Fragment implements
 
         // Tell the date and time buttons what to do when we click on
         // them.
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
-        timeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
+        //Should be a shared listener class / instance
+        dateButton.setOnClickListener(showTimePickerClickListener);
+        timeButton.setOnClickListener(showTimePickerClickListener);
 
         if (taskId == 0) {
             // This is a new task - add defaults from preferences if set.
@@ -590,5 +582,13 @@ public class TaskEditFragment extends Fragment implements
                 }
             }
         }.execute();
+    }
+    
+    private class ShowTimePickerClickListener implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        }
     }
 }
